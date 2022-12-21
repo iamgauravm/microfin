@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2><strong>Dashboard Page </strong></h2>  <a asp-action="logout" asp-controller="account">Logout</a><br /><br />
+            Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value
+        </div>
+    </div>
+    
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <label for="txtsrcdairynumber">Dairy Number: </label>
+            <input type="text" id="txtsrcdairynumber" value="" placeholder="Enter Dairy Number"/>
+            <input type="button" value="Search" onclick=""/>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-12">
+            <h4>Search Result <small>(COUNT: 1)</small></h4>
+            <table class="table table-bordered">
+                <thead>
+                    <th>Dairy #</th>
+                    <th>Customer Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Loan Amount</th>
+                    <th>Total Amount</th>
+                    <th>Balance Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <td><a href="#">#0123</a></td>
+                    <td>Customer Name</td>
+                    <td>Start Date</td>
+                    <td>End Date</td>
+                    <td>Loan Amount</td>
+                    <td>Total Amount</td>
+                    <td>Balance Amount</td>
+                    <td>Status</td>
+                    <td>+</td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
