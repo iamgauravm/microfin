@@ -7,3 +7,5 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 appsettings.Development.json
+.idea/config/applicationhost.config
+.idea/**
