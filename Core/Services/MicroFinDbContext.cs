@@ -29,4 +29,7 @@ public class MicroFinDbContext: DbContext, IMicroFinDbContext
     public virtual DbSet<Contact> Contacts { get; set; }
     public virtual DbSet<Dairy> Dairies { get; set; }
     public virtual DbSet<DairyInstallment> DairyInstallments { get; set; }
+    public virtual DbSet<DairyReference> DairyReferences { get; set; }
+    public virtual DbSet<Expense> Expenses { get; set; }
+    public virtual DbSet<Agent> Agents { get; set; }
 }

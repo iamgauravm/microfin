@@ -4,6 +4,7 @@ using MicroFIN.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroFIN.Core.Migrations
 {
     [DbContext(typeof(MicroFinDbContext))]
-    partial class MicroFinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226115643_addexpense_agent_table")]
+    partial class addexpenseagenttable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,6 +34,7 @@ namespace MicroFIN.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -64,6 +68,7 @@ namespace MicroFIN.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactType")
@@ -106,18 +111,21 @@ namespace MicroFIN.Core.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BusinessName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CreatedBy")
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FatherName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -138,6 +146,7 @@ namespace MicroFIN.Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -160,7 +169,7 @@ namespace MicroFIN.Core.Migrations
                     b.Property<int>("AgentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedOn")
@@ -172,10 +181,10 @@ namespace MicroFIN.Core.Migrations
                     b.Property<int>("DailyNumber")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("HasAgent")
+                    b.Property<bool>("HasAgent")
                         .HasColumnType("bit");
 
                     b.Property<int>("Installment")
@@ -372,7 +381,7 @@ namespace MicroFIN.Core.Migrations
                             Id = 1,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2022, 12, 26, 19, 12, 49, 464, DateTimeKind.Local).AddTicks(4175),
+                            ModifiedOn = new DateTime(2022, 12, 26, 17, 26, 42, 927, DateTimeKind.Local).AddTicks(8169),
                             Name = "System Admin",
                             Password = "sysadmin",
                             Role = "sysadmin",
@@ -383,7 +392,7 @@ namespace MicroFIN.Core.Migrations
                             Id = 2,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2022, 12, 26, 19, 12, 49, 464, DateTimeKind.Local).AddTicks(4187),
+                            ModifiedOn = new DateTime(2022, 12, 26, 17, 26, 42, 927, DateTimeKind.Local).AddTicks(8182),
                             Name = "Admin",
                             Password = "admin",
                             Role = "admin",
@@ -394,7 +403,7 @@ namespace MicroFIN.Core.Migrations
                             Id = 3,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2022, 12, 26, 19, 12, 49, 464, DateTimeKind.Local).AddTicks(4188),
+                            ModifiedOn = new DateTime(2022, 12, 26, 17, 26, 42, 927, DateTimeKind.Local).AddTicks(8184),
                             Name = "User",
                             Password = "user",
                             Role = "user",
@@ -417,7 +426,9 @@ namespace MicroFIN.Core.Migrations
                 {
                     b.HasOne("MicroFIN.Core.Entities.User", "CreateByUser")
                         .WithMany()
-                        .HasForeignKey("CreatedBy");
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MicroFIN.Core.Entities.User", "ModifyByUser")
                         .WithMany()

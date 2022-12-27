@@ -6,13 +6,289 @@
     <div class="row">
         <div class="col-md-12">
             <h2><strong>Dairy Page </strong></h2><br /><br />
-            Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value
-            <a asp-action="logout" asp-controller="account">
-                Logout
-            </a>
-            <br />
-            <br />
-            <h4>Admin role user can only access this page!!</h4>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-responsive" id="tblstDairies">
+                <thead>
+                <tr>
+                    <th rowspan="2">Dairy#</th>
+                    <th rowspan="2">Customer</th>
+                    <th rowspan="2">StartDate</th>
+                    <th rowspan="2">EndDate</th>
+                    <th rowspan="2">Installment</th>
+                    <th colspan="3">Total</th>
+                    <th rowspan="2">Status</th>
+                </tr>
+                <tr><th>Loan</th><th>Total</th><th>Balance</th></tr>
+                </thead>
+                <tbody >
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+     <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive" id="tableOrderDetail">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">Dairy#</th>
+                        <th rowspan="2">Customer</th>
+                        <th rowspan="2">StartDate</th>
+                        <th rowspan="2">EndDate</th>
+                        <th rowspan="2">Installment</th>
+                        <th colspan="3">Total</th>
+                        <th rowspan="2">Status</th>
+                    </tr>
+                    <tr><th>Loan</th><th>Total</th><th>Balance</th></tr>
+                    </thead>
+                    <tbody >
+                    </tbody>
+                </table>
+            </div>
+        </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var _dairies = [];
+        var _dairy = {};
+        var _currentDairyId = 0;
+        $( document ).ready(function() {
+            _currentDairyId = 0;
+            bindDairies();
+            // bindDairy(6);
+            bindDairyByNumber(2);
+            // createAgent();
+            // createCustomer();
+            // createDairy();
+        });
+        
+        bindDairies = ()=>{
+            $.ajax({
+                type: 'GET',
+                url: "/dairy/getall",
+                success: function (res) {
+                   console.log(res)
+                   if(res.success)
+                   {
+                       _dairies = res.data;
+                       for(let i = 0; i < _dairies.length; i++) {
+                           $("#tblstDairies tbody").append(
+                               '<tr><td>'+_dairies[i].dailyNumber+'</td>' +
+                               '<td>'+_dairies[i].customer.name+' - '+_dairies[i].customer.mobile+'</td>'+
+                               '<td>'+moment(_dairies[i].startDate).format('DD/MM/YYYY')+'</td>'+
+                               '<td>'+moment(_dairies[i].endDate).format('DD/MM/YYYY')+'</td>'+
+                               '<td>'+_dairies[i].installment+'</td>'+
+                               '<td>'+_dairies[i].loanAmount+'</td>'+
+                               '<td>'+_dairies[i].totalAmount+'</td>'+
+                               '<td>'+_dairies[i].totalBalanceAmount+'</td>'+
+                               '<td>'+_dairies[i].isCompleted+'</td></tr>');
+                           if (_dairies[i].dairyInstallments?.length>0){
+                               $("#tblstDairies tbody").append(
+                                  '<tr><td></td>' +
+                                  '<td colspan="5">Installments</td></td></tr>');
+                               var _ints = "<tr><td></td><td colspan='5'><table class='table table-responsive table-bordered'>"+
+                               "<tr><th>#</th><th>Date</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Closed</th></tr>";
+                               for(let j = 0; j< _dairies[i].dairyInstallments.length; j++) {
+                                  _ints += '<tr><td>'+_dairies[i].dairyInstallments[j].installmentNumber+'</td>' +
+                                  '<td>'+moment(_dairies[i].dairyInstallments[j].installmentDate).format('DD/MM/YYYY')+'</td>'+
+                                  '<td>'+_dairies[i].dairyInstallments[j].installmentAmount+'</td>'+
+                                  '<td>'+_dairies[i].dairyInstallments[j].paidAmount+'</td>'+
+                                  '<td>'+_dairies[i].dairyInstallments[j].balanceAmount+'</td>'+
+                                  '<td>'+_dairies[i].dairyInstallments[j].isClosed+'</td></tr>';                                 
+                              }
+                              $("#tblstDairies tbody").append(_ints+"</table></td></td></tr>");
+                           }
+                       }
+                   }
+                }
+            });
+        };
+        bindDairy = (id)=>{
+                    $.ajax({
+                        type: 'GET',
+                        url: "/dairy/get/"+id,
+                        success: function (res) {
+                           console.log(res)
+                           if(res.success)
+                           {
+                               _dairy = res.data;                              
+                                   $("#tableOrderDetail tbody").append(
+                                       '<tr><td>'+_dairy.dailyNumber+'</td>' +
+                                       '<td>'+_dairy.customer.name+' - '+_dairy.customer.mobile+'</td>'+
+                                       '<td>'+moment(_dairy.startDate).format('DD/MM/YYYY')+'</td>'+
+                                       '<td>'+moment(_dairy.endDate).format('DD/MM/YYYY')+'</td>'+
+                                       '<td>'+_dairy.installment+'</td>'+
+                                       '<td>'+_dairy.loanAmount+'</td>'+
+                                       '<td>'+_dairy.totalAmount+'</td>'+
+                                       '<td>'+_dairy.totalBalanceAmount+'</td>'+
+                                       '<td>'+_dairy.isCompleted+'</td></tr>');
+                                   if (_dairy.dairyInstallments?.length>0){
+                                       _ints = "";
+                                      
+                                       
+                                       _ints +='<tr><td colspan="9"><div class="row"><div class="col-3">';
+                                       _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
+                                                                                       
+                                       for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
+                                          if (j == 30 || j == 60 || j == 90){
+                                              _ints +='</table>';
+                                              _ints +='</div>';
+                                              _ints +='<div class="col-3">';
+                                              _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
+                                                                                     
+                                          }
+                                         _ints += '<tr><td>'+_dairy.dairyInstallments[j].installmentNumber+'</td>' +
+                                         '<td>'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD/MM/YYYY')+'</td>'+
+                                         
+                                         '<td>'+_dairy.dairyInstallments[j].installmentAmount+'</td>'+
+                                         // '<td>'+_dairy.dairyInstallments[j].paidAmount+'</td>'+
+                                         // '<td>'+_dairy.dairyInstallments[j].balanceAmount+'</td>'+
+                                         '<td>'+_dairy.dairyInstallments[j].isClosed+'</td></tr>';
+                                          
+                                       }
+                                        _ints +='</table>';
+                                        _ints +='</div>';
+                                        _ints +='</div>';
+                                       $("#tableOrderDetail tbody").append(_ints+"</td></tr>");
+                                       
+                                       
+                                       // $("#tableOrderDetail tbody").append('</table>');
+                                       // $("#tableOrderDetail tbody").append('</div>');
+                                       //$("#tableOrderDetail tbody").append('</div>');
+                                       
+                                      //  $("#tableOrderDetail tbody").append(
+                                      //     '<tr><td></td>' +
+                                      //     '<td colspan="5">Installments</td></td></tr>');
+                                      //  var _ints = "<tr><td></td><td colspan='5'><table class='table table-responsive table-bordered'>"+
+                                      //  "<tr><th>#</th><th>Date</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Closed</th></tr>";
+                                      // 
+                                      // 
+                                      // 
+                                      //  for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
+                                      //      // if (j ==0 || j == 29 || j == 59 || j == 89){
+                                      //      //     _ints+="";
+                                      //      //     }
+                                      //     _ints += '<tr><td>'+_dairy.dairyInstallments[j].installmentNumber+'</td>' +
+                                      //     '<td>'+_dairy.dairyInstallments[j].installmentDate+'</td>'+
+                                      //     '<td>'+_dairy.dairyInstallments[j].installmentAmount+'</td>'+
+                                      //     '<td>'+_dairy.dairyInstallments[j].paidAmount+'</td>'+
+                                      //     '<td>'+_dairy.dairyInstallments[j].balanceAmount+'</td>'+
+                                      //     '<td>'+_dairy.dairyInstallments[j].isClosed+'</td></tr>';                                 
+                                      // }
+                                      // $("#tableOrderDetail tbody").append(_ints+"</table></td></td></tr>");
+                                   }
+                           }
+                        }
+                    });
+                };
+        bindDairyByNumber = (numb)=>{
+                            $.ajax({
+                                type: 'GET',
+                                url: "/dairy/getbynumber/"+numb,
+                                success: function (res) {
+                                   console.log(res)
+                                   if(res.success)
+                                   {
+                                       _dairy = res.data;                              
+                                           $("#tableOrderDetail tbody").append(
+                                               '<tr><td>'+_dairy.dailyNumber+'</td>' +
+                                               '<td>'+_dairy.customer.name+' - '+_dairy.customer.mobile+'</td>'+
+                                               '<td>'+moment(_dairy.startDate).format('DD/MM/YYYY')+'</td>'+
+                                               '<td>'+moment(_dairy.endDate).format('DD/MM/YYYY')+'</td>'+
+                                               '<td>'+_dairy.installment+'</td>'+
+                                               '<td>'+_dairy.loanAmount+'</td>'+
+                                               '<td>'+_dairy.totalAmount+'</td>'+
+                                               '<td>'+_dairy.totalBalanceAmount+'</td>'+
+                                               '<td>'+_dairy.isCompleted+'</td></tr>');
+                                           if (_dairy.dairyInstallments?.length>0){
+                                               _ints = "";
+                                              
+                                               
+                                               _ints +='<tr><td colspan="9"><div class="row"><div class=" col-sm-12 col-md-3">';
+                                               _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
+                                                                                               
+                                               for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
+                                                  if (j == 30 || j == 60 || j == 90){
+                                                      _ints +='</table>';
+                                                      _ints +='</div>';
+                                                      _ints +='<div class=" col-sm-12 col-md-3">';
+                                                      _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
+                                                                                             
+                                                  }
+                                                 _ints += '<tr><td>'+_dairy.dairyInstallments[j].installmentNumber+'</td>' +
+                                                 '<td>'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD/MM/YYYY')+'</td>'+
+                                                 '<td>'+_dairy.dairyInstallments[j].installmentAmount+'</td>'+
+                                                 // '<td>'+_dairy.dairyInstallments[j].paidAmount+'</td>'+
+                                                 // '<td>'+_dairy.dairyInstallments[j].balanceAmount+'</td>'+
+                                                 '<td>'+_dairy.dairyInstallments[j].isClosed+'</td></tr>';
+                                                  
+                                               }
+                                                _ints +='</table>';
+                                                _ints +='</div>';
+                                                _ints +='</div>';
+                                               $("#tableOrderDetail tbody").append(_ints+"</td></tr>");
+                                               
+                                           }
+                                   }
+                                }
+                            });
+                        };
+                
+        createDairy = ()=>{
+            $.ajax({
+                type: 'POST',
+                url: "/dairy/createOrUpdate",
+                data:{
+                    id: _currentDairyId,
+                    dailyNumber: 1,
+                    customerId:1,
+                    agentId: 1,
+                    startDate:"2022-12-26",
+                    loanAmount: 50000,
+                    installment: 120
+                },
+                success: function (res) {
+                   console.log(res)
+                                     
+                }
+            });
+        }
+        createCustomer= ()=>{
+            $.ajax({
+                type: 'POST',
+                url: "/customer/createOrUpdate",
+                data:{
+                    id: _currentDairyId,
+                    name: "gaurav",
+                    Mobile:"9876543210",
+                    Address: "-"
+                },
+                success: function (res) {
+                   console.log(res.data);
+                }
+            });
+        }
+        createAgent= ()=>{
+                    $.ajax({
+                        type: 'POST',
+                        url: "/agent/createOrUpdate",
+                        data:{
+                            id: 0,
+                            name: "Mukesh",
+                            Mobile:"9876543211",
+                            Address: "-"
+                        },
+                        success: function (res) {
+                           console.log(res.data);
+                        }
+                    });
+                }
+      
+    </script>
+}
+

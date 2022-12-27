@@ -58,3 +58,17 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/* custom */
+.form-control:focus {
+  box-shadow: 0 0 0 0rem white, 0 0 0 0.05rem #041124 !important;
+}
+.bg-p{
+  background-color: #CBEDD5;
+}
+.bg-past-dt{
+  background-color: #e8e8e8;  
+}

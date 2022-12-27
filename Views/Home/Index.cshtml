@@ -2,52 +2,162 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2><strong>Dashboard Page </strong></h2>  <a asp-action="logout" asp-controller="account">Logout</a><br /><br />
-            Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value
-        </div>
-    </div>
-    
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-5">
-            <label for="txtsrcdairynumber">Dairy Number: </label>
-            <input type="text" id="txtsrcdairynumber" value="" placeholder="Enter Dairy Number"/>
-            <input type="button" value="Search" onclick=""/>
-        </div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="col-12">
-            <h4>Search Result <small>(COUNT: 1)</small></h4>
-            <table class="table table-bordered">
-                <thead>
-                    <th>Dairy #</th>
-                    <th>Customer Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Loan Amount</th>
-                    <th>Total Amount</th>
-                    <th>Balance Amount</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </thead>
-                <tbody>
-                    <td><a href="#">#0123</a></td>
-                    <td>Customer Name</td>
-                    <td>Start Date</td>
-                    <td>End Date</td>
-                    <td>Loan Amount</td>
-                    <td>Total Amount</td>
-                    <td>Balance Amount</td>
-                    <td>Status</td>
-                    <td>+</td>
-                </tbody>
-            </table>
-        </div>
-    </div>
+@* <div class="container"> *@
+@*     <div class="row"> *@
+@*         <div class="col-md-12"> *@
+@*             <h2><strong>Dashboard </strong></h2>  <a asp-action="logout" asp-controller="account">Logout</a><br /><br /> *@
+@*             Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value *@
+@*         </div> *@
+@*     </div> *@
+@*      *@
+@* </div> *@
 
+
+<div class="container-fluid bg-p border-1 border-primary rounded py-3">
+    @* <div class="row"><div class="col-12 p-2"><h2>Dashboard</h2></div></div> *@
+    <form class="row align-items-center ">
+        <div class="col-auto">
+            <label for="inputPassword6" class="col-form-label"><strong>Dairy#</strong></label>
+        </div>
+        <div class="col-auto">
+            <input class="form-control"  type="text" id="txtdairynumber" value="" placeholder="Enter Dairy Number">
+        </div>
+        <div class="col-auto">
+            <input class="btn btn-primary" type="button" value="Search" onclick="onClickSearch(event)"/>
+        </div>
+    </form>
+    <hr />
+    <div class="row">
+        <div class="col-12" id="divDairyDetail">
+            @* <h4>#1</h4> *@
+            @* <table class="table table-borderless"> *@
+            @*     <tr> *@
+            @*         <td style="width: 110px">Name : </td> *@
+            @*         <td colspan="3">Gaurav Malviya S/o R K Malviya [9876543210]</td> *@
+            @*     </tr> *@
+            @*     <tr> *@
+            @*         <td>Start : </td> *@
+            @*         <td>01-01-2022</td> *@
+            @*         <td>End : </td> *@
+            @*         <td>01-01-2022</td> *@
+            @*     </tr> *@
+            @*     <tr> *@
+            @*         <td>Loan Amt : </td> *@
+            @*         <td>50,000</td> *@
+            @*         <td>Total Amt : </td> *@
+            @*         <td>50,000</td> *@
+            @*     </tr> *@
+            @*     <tr> *@
+            @*         <td>Balance Amt : </td> *@
+            @*         <td>50,000</td> *@
+            @*         <td>Status : </td> *@
+            @*         <td>Due</td> *@
+            @*     </tr> *@
+            @* </table> *@
+            @* <h5>Installments</h5> *@
+            @* <table class="table table-bordered border-secondary bg-white"> *@
+            @*     <tr> *@
+            @*         <th class="text-center">#</th> *@
+            @*         <th class="text-center">Date</th> *@
+            @*         <th class="text-center">Amount</th> *@
+            @*         <th class="text-center">Status</th> *@
+            @*     </tr> *@
+            @*     <tr> *@
+            @*         <td class="text-center">1</td> *@
+            @*         <td class="text-center">01-01-2022</td> *@
+            @*         <td class="text-end">500</td> *@
+            @*         <td class="text-center"></td> *@
+            @*     </tr> *@
+            @* </table> *@
+        </div>
+    </div>
+   
 </div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            
+        });
+        onClickSearch =(e)=> {
+            if ($('#txtdairynumber').val()!='')
+                bindDairyByNumber($('#txtdairynumber').val());
+            else
+                swal({
+                  title: "Please enter dairy number!",
+                  icon: "warning",
+                });                
+        }
+        bindDairyByNumber = (numb)=>{
+            $.ajax({
+            type: 'GET',
+            url: "/dairy/getbynumber/"+numb,
+            success: function (res) {
+                $('#divDairyDetail').html('');
+                if(res.success)
+                {
+                    _dairy = res.data;
+                    var _innerBody="";
+                    _innerBody += '<h4>#'+_dairy.dailyNumber+'</h4>';
+                    _innerBody += '<table class="table table-borderless">';
+                    _innerBody += '    <tr>';
+                    _innerBody += '        <td style="width: 110px">Name : </td>';
+                    _innerBody += '        <td colspan="3">'+_dairy.customer.name+' S/o '+_dairy.customer.fatherName+' ['+_dairy.customer.mobile+']</td>';
+                    _innerBody += '    </tr>';
+                    _innerBody += '    <tr>';
+                    _innerBody += '        <td>Start : </td>';
+                    _innerBody += '        <td>'+moment(_dairy.startDate).format('DD-MM-YYYY')+'</td>';
+                    _innerBody += '        <td>End : </td>';
+                    _innerBody += '        <td>'+moment(_dairy.endDate).format('DD-MM-YYYY')+'</td>';
+                    _innerBody += '    </tr>';
+                    _innerBody += '    <tr>';
+                    _innerBody += '        <td>Loan : </td>';
+                    _innerBody += '        <td>'+_dairy.loanAmount+'</td>';
+                    _innerBody += '        <td>Total : </td>';
+                    _innerBody += '        <td>'+_dairy.totalAmount+'</td>';
+                    _innerBody += '    </tr>';
+                    _innerBody += '    <tr>';
+                    _innerBody += '        <td>Balance : </td>';
+                    _innerBody += '        <td>'+_dairy.totalBalanceAmount+'</td>';
+                    _innerBody += '        <td>Status : </td>';
+                    _innerBody += '        <td>'+_dairy.isCompleted+'</td>';
+                    _innerBody += '    </tr>';
+                    _innerBody += '</table>';                   
+                   
+                   if (_dairy.dairyInstallments?.length>0){
+                       _innerBody += '<h5>Installments</h5>';
+                       _innerBody += '<table class="table table-bordered border-secondary bg-white">';
+                       _innerBody += '    <tr>';
+                       _innerBody += '        <th class="text-center">#</th>';
+                       _innerBody += '        <th class="text-center">Date</th>';
+                       _innerBody += '        <th class="text-center">Amount</th>';
+                       _innerBody += '        <th class="text-center">Balance</th>';
+                       _innerBody += '        <th class="text-center">Status</th>';
+                       _innerBody += '    </tr>';
+                       
+                       
+                       for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
+                           var _className ="";
+                           
+                           if (moment().add(5, 'days').format('DD-MM-YYYY')==moment(_dairy.dairyInstallments[j].installmentDate).format('DD-MM-YYYY')){
+                                _className = 'bg-info';
+                           }else if (moment().add(5, 'days')>moment(_dairy.dairyInstallments[j].installmentDate)){
+                                _className = 'bg-past-dt';
+                           }
+                          _innerBody += '    <tr class="'+_className+'">';
+                           _innerBody += '        <td class="text-center">'+_dairy.dairyInstallments[j].installmentNumber+'</td>';
+                           _innerBody += '        <td class="text-center">'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD-MM-YYYY')+'</td>';
+                           _innerBody += '        <td class="text-end">'+_dairy.dairyInstallments[j].installmentAmount+'</td>';
+                           _innerBody += '        <td class="text-end">'+_dairy.dairyInstallments[j].balanceAmount+'</td>';
+                           _innerBody += '        <td class="text-center">'+_dairy.dairyInstallments[j].isClosed+'</td>';
+                           _innerBody += '    </tr>';
+                         }
+                       _innerBody += '</table>';
+                   }
+                   $('#divDairyDetail').html(_innerBody);
+                }
+            }
+            });
+        };
+    </script>
+}
