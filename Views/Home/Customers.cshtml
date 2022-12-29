@@ -16,3 +16,38 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            
+        });
+        onClickSearch =(e)=> {
+            if ($('#txtdairynumber').val()!='')
+                bindDairyByNumber($('#txtdairynumber').val());
+            else
+                swal({
+                  title: "Please enter dairy number!",
+                  icon: "warning",
+                });                
+        }      
+        
+        createCustomer= ()=>{
+                    $.ajax({
+                        type: 'POST',
+                        url: "/customer/createOrUpdate",
+                        data:{
+                            id: _currentDairyId,
+                            name: "gaurav",
+                            Mobile:"9876543210",
+                            Address: "-"
+                        },
+                        success: function (res) {
+                           console.log(res.data);
+                        }
+                    });
+                }
+    </script>
+}

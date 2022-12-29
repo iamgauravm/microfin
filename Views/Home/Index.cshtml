@@ -13,20 +13,23 @@
 @* </div> *@
 
 
-<div class="container-fluid bg-p border-1 border-primary rounded py-3">
+<div class="container-fluid bg-p border-1 border-primary rounded py-2">
     @* <div class="row"><div class="col-12 p-2"><h2>Dashboard</h2></div></div> *@
+    
     <form class="row align-items-center ">
         <div class="col-auto">
-            <label for="inputPassword6" class="col-form-label"><strong>Dairy#</strong></label>
+            <label for="inputPassword6" class="form-control-sm col-form-label"><strong>Dairy#</strong></label>
         </div>
         <div class="col-auto">
-            <input class="form-control"  type="text" id="txtdairynumber" value="" placeholder="Enter Dairy Number">
+            <input class="form-control form-control-sm"  type="text" id="txtsearchdairynumber" value="" placeholder="Enter Dairy Number">
         </div>
         <div class="col-auto">
-            <input class="btn btn-primary" type="button" value="Search" onclick="onClickSearch(event)"/>
+            <input class="btn btn-sm btn-primary" type="button" value="Search" onclick="onClickSearch(event)"/>&nbsp;&nbsp;
+            <input class="btn btn-sm btn-primary" type="button" value="+ Dairy" onclick="onClickCreateDairy(event)"/>
         </div>
     </form>
-    <hr />
+    <hr class="my-2"/>
+   
     <div class="row">
         <div class="col-12" id="divDairyDetail">
             @* <h4>#1</h4> *@
@@ -73,15 +76,298 @@
     </div>
    
 </div>
+
+<!-- Create Dairy Modal -->
+<div class="modal fade" id="createDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h5 class="modal-title" id="staticBackdropLabel">Create Dairy</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-body">
+            <div class="form row">
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Choose Agent</label>
+                    <select class="form-select form-select-sm" id="ddlagents">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Choose Customer</label>
+                    <select class="form-select form-select-sm" id="ddlcustomers" onchange="onChangeCustomer(this)">
+                        <option value="0">New Customer</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div class="row" id="divnewcustomerdetail">
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Customer Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" id="txtcustomername"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Father Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" id="txtcustomerfathername"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" id="txtcustomermobile"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Business name</label>
+                    <input class="form-control form-control-sm" id="txtcustomerbusinessname"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Address</label>
+                    <input class="form-control form-control-sm" id="txtcustomeraddress"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Remarks</label>
+                    <input class="form-control form-control-sm" id="txtcustomerremarks"/>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+               
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" type="number" id="txtdairynumber"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" type="number" id="txtdairyloanamount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" type="date" id="txtdairystartdate"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" type="number" id="txtdairyinstallment"/>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered" id="tbrefdairies">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 100px">Dairy#</th>
+                            <th class="text-center" style="width: 100px">Balance</th>
+                            <th class="text-center" style="width: 120px">Loan</th>
+                            <th class="text-center" style="width: 40px"></th>
+                        </tr>
+                        <tr>
+                            <td class="text-center">
+                                <select class="form-select form-select-sm" id="ddlrefdairies">
+                                    <option value="0">Cash</option>
+                                </select>
+                            </td>
+                            <td class="text-center"><input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefdairypaidamount" value="0"/></td>
+                            <td class="text-center">
+                                <input class="form-control form-control-sm text-end" type="number" id="txtrefdairyloanamount" value="0"/>
+                            </td>
+                            <td class="text-center">
+                                <a onclick="onClickAddRowRefDairy()" href="javascript:void(0);" class="btn btn-sm btn-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @* <tr> *@
+                        @*     <td class="text-center"> *@
+                        @*         #1 *@
+                        @*     </td> *@
+                        @*     <td class="text-center" style="width: 100px">-</td> *@
+                        @*     <td class="text-center" style="width: 120px"> *@
+                        @*         4000 *@
+                        @*     </td> *@
+                        @*     <td class="text-center" style="width: 40px"> *@
+                        @*         <a onclick="()=>{}" href="javascript:void(0);" class="text-danger"> *@
+                        @*             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"> *@
+                        @*                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/> *@
+                        @*             </svg> *@
+                        @*         </a> *@
+                        @*     </td> *@
+                        @* </tr> *@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      <div class="modal-footer py-1">
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDairySave()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @section Scripts
 {
     <script type="text/javascript">
+        var createDairyModel = new bootstrap.Modal(document.getElementById('createDairyModel'), {backdrop: 'static',keyboard: false});
+        var _dairiesHadbalance = [];
+        var _agents = [];
+        var _customers = [];
+        var _refDairies = [];
         $( document ).ready(function() {
+            // onClickCreateDairy();
             
         });
+        
+        initialedCreateDairy = () =>{
+            
+            _dairiesHadbalance = [];
+            _agents = [];
+            _customers = [];
+            _refDairies = [];
+                    
+                    
+            // get customers
+            $('#ddlcustomers').html('');
+            _customers.push({customerId: 1, customerName: 'Gaurav Malviya',customerFatherName: 'R K Malviya' });
+            $('#ddlcustomers').append("<option value='0'>New Customer</option>")
+            for(let i = 0; i < _customers.length; i++) {
+                $('#ddlcustomers').append("<option value='"+_customers[i].customerId+"'>"+_customers[i].customerName+' S/o '+_customers[i].customerFatherName+"</option>")
+            }
+            // get ref dairies
+            _dairiesHadbalance.push({dairyNumber: 1, paidAmount:5000 });
+            _dairiesHadbalance.push({dairyNumber: 2, paidAmount:4500 });
+            _dairiesHadbalance.push({dairyNumber: 3, paidAmount:6500 });
+            _dairiesHadbalance.push({dairyNumber: 4, paidAmount:3500 });
+             $('#ddlrefdairies').html('');
+             $('#ddlrefdairies').append("<option value='0'>Cash</option>")
+            for(let i = 0; i < _dairiesHadbalance.length; i++) {
+                $('#ddlrefdairies').append("<option value='"+_dairiesHadbalance[i].dairyNumber+"'>"+_dairiesHadbalance[i].dairyNumber+"</option>")
+            } 
+            // get agents
+            _agents.push({agentId: 1, agentName: 'Mukesh Vishvakarma' });
+            _agents.push({agentId: 2, agentName: 'Agent 001' });
+            $('#ddlagents').html('');
+            for(let i = 0; i < _agents.length; i++) {
+                $('#ddlagents').append("<option value='"+_agents[i].agentId+"'>"+_agents[i].agentName+"</option>")
+            } 
+            
+            // initialied  values
+            $('#ddlcustomers').val(0);
+            $('#txtcustomername').val('');
+            $('#txtcustomerfathername').val('');
+            $('#txtcustomermobile').val('');
+            $('#txtcustomerbusinessname').val('');
+            $('#txtcustomerremarks').val('');
+            $('#txtdairynumber').val('');
+            $('#txtdairystartdate').val('')
+            $('#txtdairyloanamount').val(0)
+            $('#txtdairyinstallment').val(120);   
+            $('#tbrefdairies tbody').html('');
+            $('#txtcustomeraddress').val('')
+            
+            
+        }
+        
+        onClickCreateDairy = ()=>{      
+            initialedCreateDairy();            
+            createDairyModel.show();
+        }
+        
+        onClickCreateDairySave =() => { 
+            
+            if (parseInt($('#ddlcustomers').val())==0 && ($('#txtcustomername').val()=='' || $('#txtcustomermobile').val()=='' || $('#txtcustomerfathername').val()=='')){
+                swal({ title: "Please enter required fields", icon: "warning",});
+                return;          
+            }
+            if ($('#txtdairynumber').val()=='' || $('#txtdairystartdate').val()=='' || $('#txtdairyloanamount').val()=='' || $('#txtdairyinstallment').val()=='' ){
+               swal({ title: "Please enter required fields!", icon: "warning",});
+               return;
+            }
+            
+            var payload = {
+                agentId: $('#ddlagents').val(),
+                customerId: $('#ddlcustomers').val(),
+                customerName: $('#txtcustomername').val(),
+                customerFatherName: $('#txtcustomerfathername').val(),
+                customerMobile: $('#txtcustomermobile').val(),
+                customerBusinessName: $('#txtcustomerbusinessname').val(),
+                customerRemarks: $('#txtcustomerremarks').val(),
+                customerAddress: $('#txtcustomeraddress').val(),
+                
+                dairyNumber: $('#txtdairynumber').val(),
+                dairyStartDate: $('#txtdairystartdate').val(),
+                loanAmount: $('#txtdairyloanamount').val(),
+                installment: $('#txtdairyinstallment').val(),
+                
+                refDairies: _refDairies
+            };
+            $.ajax({
+                            type: 'POST',
+                            url: "/dairy/create",
+                            data:payload,
+                            success: function (res) {
+                               console.log(res)
+                                                 
+                            }
+                        });
+            console.log(payload);
+            initialedCreateDairy();
+        }
+        
+ 
+        onClickAddRowRefDairy = () => {        
+            
+            var dairyNumber = $('#ddlrefdairies').val();
+            var loanAmt = $('#txtrefdairyloanamount').val();
+            var paidAmt = $('#txtrefdairypaidamount').val();
+            
+            
+            if (parseInt(loanAmt)>0){
+                if (parseInt(paidAmt)<parseInt(loanAmt) && dairyNumber>0){
+                    swal({ title: "Please enter less or equel available amount !", icon: "warning",});
+                    return;
+                }
+                
+                var _strRow = '';
+                _strRow += '<tr><td class="text-center">'+(dairyNumber>0?'#'+dairyNumber:'Cash')+'</td>'
+                _strRow += '<td class="text-center" style="width: 100px">'+paidAmt+'</td>'
+                _strRow += '<td class="text-center" style="width: 120px">'+loanAmt+'</td>'
+                _strRow += '<td class="text-center" style="width: 40px">'
+                _strRow += '<a onclick="onClickremoveRowRefDairy('+dairyNumber+',this)" href="javascript:void(0);" class="text-danger">'
+                _strRow += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">'
+                _strRow += '<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>'
+                _strRow += '</svg></a></td></tr>'
+                
+                $('#tbrefdairies tbody').append(_strRow);
+                
+                _refDairies.push({dailyNumber: dairyNumber, loanAmount: loanAmt, paidAmount:paidAmt});
+                
+                $('#ddlrefdairies').val(0);
+                $('#txtrefdairyloanamount').val('');
+                $('#txtrefdairypaidamount').val('');
+            }
+        }
+        
+        onClickremoveRowRefDairy = (id,e) => {
+            _refDairies = _refDairies.filter(function( obj ) {return parseInt(obj.dairyNumber) !== id;});            
+            $(e).closest('tr').remove();            
+        }
+        
+        onChangeCustomer = (e) => {
+            var _selectedId = $('#ddlcustomers').val();
+                    
+            if (parseInt(_selectedId)>0){
+                $('#divnewcustomerdetail').hide();
+            }else{
+                $('#divnewcustomerdetail').show();
+            }
+        }
+        
         onClickSearch =(e)=> {
-            if ($('#txtdairynumber').val()!='')
-                bindDairyByNumber($('#txtdairynumber').val());
+            if ($('#txtsearchdairynumber').val()!='')
+                bindDairyByNumber($('#txtsearchdairynumber').val());
             else
                 swal({
                   title: "Please enter dairy number!",

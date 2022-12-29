@@ -133,4 +133,121 @@ public class DairyController : ControllerBase
         await _context.SaveChangesAsync();
         return new ResponseObject<bool>(true);
     }
+    
+    
+    
+    [HttpPost("create")]
+    public async Task<ResponseObject<bool>> Create(DairyCreateRequest model)
+    {
+        var dairy = await _context.Dairies.FirstOrDefaultAsync(x => x.DailyNumber == model.DailyNumber && x.IsActive == true);
+        if (dairy == null)
+        {
+            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == model.CustomerId && x.IsActive == true);
+            if (customer == null)
+            {
+                customer = new Customer
+                {
+                    Address = model.CustomerAddress ?? "",
+                    Mobile = model.CustomerMobile,
+                    Name = model.CustomerName,
+                    BusinessName = model.CustomerBusinessName,
+                    FatherName = model.CustomerFatherName,
+                    CreatedBy = 2,
+                    CreatedOn = DateTime.Now,
+                    ModifiedBy = 2,
+                    ModifiedOn = DateTime.Now,
+                    IsActive = true,
+                    Phone = model.CustomerMobile
+                };
+                _context.Customers.Add(customer);
+                _context.SaveChangesAsync();
+            }
+            
+            dairy = new Dairy();
+
+            dairy.Installment = model.Installment;
+            dairy.AgentId = model.AgentId;
+            dairy.DailyNumber = model.DailyNumber;
+            dairy.LoanAmount = model.LoanAmount;
+            dairy.CustomerId = customer.Id;
+            
+            if (dairy.AgentId > 1)
+            {
+                dairy.HasAgent = true;
+                dairy.Installment = 117;
+                dairy.TotalAmount = dairy.LoanAmount + (dairy.LoanAmount * 17 / 100);
+            }
+            else
+            {
+                dairy.HasAgent = true;
+                dairy.Installment = 120;
+                dairy.TotalAmount = dairy.LoanAmount + (dairy.LoanAmount * 20 / 100);
+            }
+
+            dairy.TotalBalanceAmount = dairy.TotalAmount;
+            dairy.IsActive = true;
+            dairy.IsCompleted = false;
+            dairy.CreatedBy = 2;
+            dairy.CreatedOn = DateTime.Now;
+            dairy.ModifiedBy = 2;
+            dairy.ModifiedOn = DateTime.Now;
+            var lastDairy = await _context.Dairies.OrderByDescending(x=>x.Id).FirstOrDefaultAsync();
+            dairy.DailyNumber = (lastDairy==null?1:(lastDairy.DailyNumber+1));
+            dairy.StartDate = model.DairyStartDate.AddDays(1);
+            dairy.EndDate = model.DairyStartDate.AddDays(1+model.Installment);
+            
+            _context.Dairies.Add(dairy);
+            await _context.SaveChangesAsync();
+
+            var _InstallmentAmount = dairy.LoanAmount / 100;
+            
+            for (int i = 1; i <= model.Installment;i++ )
+            {
+                _context.DairyInstallments.Add(new DairyInstallment 
+                    {
+                        DairyId = dairy.Id, 
+                        InstallmentAmount = _InstallmentAmount,
+                        BalanceAmount = _InstallmentAmount,
+                        InstallmentDate = dairy.StartDate.AddDays(i),
+                        InstallmentNumber = i,
+                        IsClosed = false,
+                        PaidAmount = 0,
+                        ModifiedBy = 2,
+                        ModifiedOn = DateTime.Now,
+                        Id = 0
+                    });
+            }
+
+            if (model.RefDairies != null)
+            {
+                foreach (var item in model.RefDairies)
+                {
+                    _context.DairyReferences.Add(new DairyReference
+                    {
+                        Amount = item.LoanAmount,
+                        DairyId = dairy.Id,
+                        FromDairyId = 1,
+                        CreatedBy = 2,
+                        CreatedOn = DateTime.Now,
+                        ModifiedBy = 2,
+                        ModifiedOn = DateTime.Now,
+
+                    });
+                }
+            }
+        }
+        
+        await _context.SaveChangesAsync();
+        return new ResponseObject<bool>(true);
+    }
+    
+    [HttpGet("get")]
+    public async Task<ResponseObject<IEnumerable<Dairy>>> GetAllDropDwon()
+    {
+        var res = await _context.Dairies
+            .Include("Customer")
+            // .Include("DairyInstallments")
+            .ToListAsync(); 
+        return new ResponseObject<IEnumerable<Dairy>>(res);
+    }
 }
