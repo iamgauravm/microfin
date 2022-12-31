@@ -250,4 +250,44 @@ public class DairyController : ControllerBase
             .ToListAsync(); 
         return new ResponseObject<IEnumerable<Dairy>>(res);
     }
+ 
+ 
+    
+    [HttpGet("customers")]
+    public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetCustomers()
+    {
+        var res = await _context.Customers.Select(x=>new DropDownViewModel
+            {
+                Id = x.Id,
+                Name = $"{x.Name} S/o {x.FatherName}"
+            })
+            .ToListAsync<DropDownViewModel>(); 
+        return new ResponseObject<IEnumerable<DropDownViewModel>>(res);
+    }
+    [HttpGet("agents")]
+    public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetAgents()
+    {
+        var res = await _context.Agents.Select(x=>new DropDownViewModel
+            {
+                Id = x.Id,
+                Name = $"{x.Name} [{x.Mobile}]"
+            })
+            .ToListAsync<DropDownViewModel>(); 
+        return new ResponseObject<IEnumerable<DropDownViewModel>>(res);
+    }
+    
+    [HttpGet("refdairies")]
+    public async Task<ResponseObject<IEnumerable<RefDairyViewModel>>> GetReferenceDairies()
+    {
+        var res = await _context.Dairies.Select(x=>new RefDairyViewModel
+            {
+                Id = x.Id,
+                DairyNumber = $"{x.DailyNumber}",
+                PaidAmount = x.TotalAmount
+            })
+            .ToListAsync<RefDairyViewModel>(); 
+        return new ResponseObject<IEnumerable<RefDairyViewModel>>(res);
+    }
+    
+    
 }

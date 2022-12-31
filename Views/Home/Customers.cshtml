@@ -4,26 +4,101 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h2><strong>Customers Page </strong></h2><br /><br />
-            Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value
-            <a asp-action="logout" asp-controller="account">
-                Logout
-            </a>
-            <br />
-            <br />
-            <h4>Admin role user can only access this page!!</h4>
+        <div class="col-6">
+            <h2>Customers</h2>
+        </div>
+        <div class="col-6 text-end pt-2">
+            <input class="btn btn-sm btn-primary" type="button" value="+ Customer" onclick="onClickCreateCustomer(event)"/>
         </div>
     </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped" style="width:100%" id="tblstCustomers">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Business</th>
+                    <th>Address</th>
+                    <th>Dairies</th>
+                </tr>
+                </thead>
+                <tbody >
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Create Dairy Modal -->
+<div class="modal fade" id="manageCustomerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h5 class="modal-title" id="staticBackdropLabel">Manage Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Customer Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" id="txtcustomername"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Father Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" id="txtcustomerfathername"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
+                    <input class="form-control form-control-sm" id="txtcustomermobile"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Business name</label>
+                    <input class="form-control form-control-sm" id="txtcustomerbusinessname"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Address</label>
+                    <input class="form-control form-control-sm" id="txtcustomeraddress"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label form-control-sm">Remarks</label>
+                    @* <input class="form-control form-control-sm" id="txtcustomerremarks"/> *@
+                    <textarea  class="form-control form-control-sm" id="txtcustomerremarks"></textarea>
+                </div>
+            </div>
+            <hr/>
+            
+        </div>
+      <div class="modal-footer py-1">
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="onClickCustomerSave()">Save</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
 @section Scripts
 {
     <script type="text/javascript">
+        var createCustomerModel = new bootstrap.Modal(document.getElementById('manageCustomerModel'), {backdrop: 'static',keyboard: false});
+        var _customer = {
+            id: 0,
+            name: '',
+            fatherName: '',
+            business: '',
+            address: '',
+            mobile:'',
+            remarks:'',
+            dairies:''            
+        };
         $( document ).ready(function() {
-            
+            initialedCustomer();
+            getAllCustomers();
         });
+        
         onClickSearch =(e)=> {
             if ($('#txtdairynumber').val()!='')
                 bindDairyByNumber($('#txtdairynumber').val());
@@ -32,22 +107,100 @@
                   title: "Please enter dairy number!",
                   icon: "warning",
                 });                
-        }      
+        }     
         
-        createCustomer= ()=>{
-                    $.ajax({
-                        type: 'POST',
-                        url: "/customer/createOrUpdate",
-                        data:{
-                            id: _currentDairyId,
-                            name: "gaurav",
-                            Mobile:"9876543210",
-                            Address: "-"
-                        },
-                        success: function (res) {
-                           console.log(res.data);
-                        }
-                    });
+        
+        getAllCustomers = () =>{
+            $.ajax({
+                type: 'GET',
+                url: "/customer/getall",                
+                success: function (res) {
+                   console.log(res.data);
+                  if ( $.fn.DataTable.isDataTable('#tblstCustomers') ) {
+                    $('#tblstCustomers').DataTable().destroy();
+                  }
+                   var table = $('#tblstCustomers').DataTable(
+                       {
+                           data: res.data,
+                           columnDefs: [
+                               {render: function (data, type, row) { return row.id;},defaultContent: "-",targets: 0},
+                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getCustomerDetail('+row.id+')">'+row.name+' S/o '+row.fatherName+'</a>'},defaultContent: "-",targets: 1},
+                               {render: function (data, type, row) { return row.mobile;},defaultContent: "-",targets: 2},
+                               {render: function (data, type, row) { return row.business;},defaultContent: "-",targets: 3},
+                               {render: function (data, type, row) { return row.address;},defaultContent: "-",targets: 4},
+                               {render: function (data, type, row) { return row.dairies;},defaultContent: "-",targets: 5},
+                           ],
+                           responsive: true,
+                           lengthChange: false,
+                           pageLength: 25,
+                           buttons: [ { extend: 'pdf',split: ['excel'],}]
+                       });
+                   table.buttons().container().appendTo('#tblstCustomers_wrapper .col-md-6:eq(0)' );
+                   
                 }
+            });
+        }
+        initialedCustomer = () =>{
+            _customer = {id: 0,name: '',fatherName: '',business: '',address: '',mobile:'',remarks:''};
+            // initialied  values
+            $('#txtcustomername').val(_customer.name);
+            $('#txtcustomerfathername').val(_customer.fatherName);
+            $('#txtcustomermobile').val(_customer.mobile);
+            $('#txtcustomerbusinessname').val(_customer.business);
+            $('#txtcustomeraddress').val(_customer.address)
+            $('#txtcustomerremarks').val(_customer.remarks);
+        }
+        getCustomerDetail = (id) =>{
+            _customer = {id: 0,name: '',fatherName: '',business: '',address: '',mobile:'',remarks:''};
+            $.ajax({
+                type: 'GET',
+                url: "/customer/get/"+id,
+                success: function (res) {
+                    _customer = res.data;
+                    // initialied  values
+                    $('#txtcustomername').val(_customer.name);
+                    $('#txtcustomerfathername').val(_customer.fatherName);
+                    $('#txtcustomermobile').val(_customer.mobile);
+                    $('#txtcustomerbusinessname').val(_customer.business);
+                    $('#txtcustomeraddress').val(_customer.address)
+                    $('#txtcustomerremarks').val(_customer.remarks);
+                    
+                   
+                    createCustomerModel.show();
+                }
+            });
+        }
+        onClickCreateCustomer = ()=>{  
+            initialedCustomer();
+            createCustomerModel.show();
+        }           
+        onClickCustomerSave =() => { 
+            if ($('#txtcustomername').val()=='' || $('#txtcustomerfathername').val()=='' || $('#txtcustomermobile').val()=='' || $('#txtcustomeraddress').val()==''){
+                swal({ title: "Please enter required fields", icon: "warning",});
+                return;
+            }
+            
+            var payload = {
+                id: _customer.id,
+                name: $('#txtcustomername').val(),
+                fatherName: $('#txtcustomerfathername').val(),
+                business: $('#txtcustomerbusinessname').val(),
+                address: $('#txtcustomeraddress').val(),
+                mobile:$('#txtcustomermobile').val(),
+                remarks:$('#txtcustomerremarks').val()
+            };
+            $.ajax({
+            type: 'POST',
+            url: "/customer/createOrUpdate",
+            data:payload,
+            success: function (res) {
+                console.log(res);
+                initialedCustomer();
+                getAllCustomers();
+                createCustomerModel.hide();
+            }
+            });
+        }      
+      
     </script>
 }

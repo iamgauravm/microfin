@@ -76,3 +76,13 @@ body {
 .bg-past-dt{
   background-color: #e8e8e8;  
 }
+
+/* custom datatable*/
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+  padding:0;  
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+  background-color: transparent;
+  background:none;
+  border-color: transparent;
+}

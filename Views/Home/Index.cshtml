@@ -2,20 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-@* <div class="container"> *@
-@*     <div class="row"> *@
-@*         <div class="col-md-12"> *@
-@*             <h2><strong>Dashboard </strong></h2>  <a asp-action="logout" asp-controller="account">Logout</a><br /><br /> *@
-@*             Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value *@
-@*         </div> *@
-@*     </div> *@
-@*      *@
-@* </div> *@
-
 
 <div class="container-fluid bg-p border-1 border-primary rounded py-2">
-    @* <div class="row"><div class="col-12 p-2"><h2>Dashboard</h2></div></div> *@
-    
     <form class="row align-items-center ">
         <div class="col-auto">
             <label for="inputPassword6" class="form-control-sm col-form-label"><strong>Dairy#</strong></label>
@@ -24,12 +12,11 @@
             <input class="form-control form-control-sm"  type="text" id="txtsearchdairynumber" value="" placeholder="Enter Dairy Number">
         </div>
         <div class="col-auto">
-            <input class="btn btn-sm btn-primary" type="button" value="Search" onclick="onClickSearch(event)"/>&nbsp;&nbsp;
+            <input class="btn btn-sm btn-primary" type="button" value="Search" onclick="onClickSearch(th)"/>&nbsp;&nbsp;
             <input class="btn btn-sm btn-primary" type="button" value="+ Dairy" onclick="onClickCreateDairy(event)"/>
         </div>
     </form>
     <hr class="my-2"/>
-   
     <div class="row">
         <div class="col-12" id="divDairyDetail">
             @* <h4>#1</h4> *@
@@ -74,7 +61,6 @@
             @* </table> *@
         </div>
     </div>
-   
 </div>
 
 <!-- Create Dairy Modal -->
@@ -159,7 +145,7 @@
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <select class="form-select form-select-sm" id="ddlrefdairies">
+                                <select class="form-select form-select-sm" id="ddlrefdairies" onchange="onChangeRefDairies(this)">
                                     <option value="0">Cash</option>
                                 </select>
                             </td>
@@ -178,22 +164,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @* <tr> *@
-                        @*     <td class="text-center"> *@
-                        @*         #1 *@
-                        @*     </td> *@
-                        @*     <td class="text-center" style="width: 100px">-</td> *@
-                        @*     <td class="text-center" style="width: 120px"> *@
-                        @*         4000 *@
-                        @*     </td> *@
-                        @*     <td class="text-center" style="width: 40px"> *@
-                        @*         <a onclick="()=>{}" href="javascript:void(0);" class="text-danger"> *@
-                        @*             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"> *@
-                        @*                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/> *@
-                        @*             </svg> *@
-                        @*         </a> *@
-                        @*     </td> *@
-                        @* </tr> *@
                         </tbody>
                     </table>
                 </div>
@@ -229,29 +199,11 @@
                     
                     
             // get customers
-            $('#ddlcustomers').html('');
-            _customers.push({customerId: 1, customerName: 'Gaurav Malviya',customerFatherName: 'R K Malviya' });
-            $('#ddlcustomers').append("<option value='0'>New Customer</option>")
-            for(let i = 0; i < _customers.length; i++) {
-                $('#ddlcustomers').append("<option value='"+_customers[i].customerId+"'>"+_customers[i].customerName+' S/o '+_customers[i].customerFatherName+"</option>")
-            }
+            bindCustomers();
             // get ref dairies
-            _dairiesHadbalance.push({dairyNumber: 1, paidAmount:5000 });
-            _dairiesHadbalance.push({dairyNumber: 2, paidAmount:4500 });
-            _dairiesHadbalance.push({dairyNumber: 3, paidAmount:6500 });
-            _dairiesHadbalance.push({dairyNumber: 4, paidAmount:3500 });
-             $('#ddlrefdairies').html('');
-             $('#ddlrefdairies').append("<option value='0'>Cash</option>")
-            for(let i = 0; i < _dairiesHadbalance.length; i++) {
-                $('#ddlrefdairies').append("<option value='"+_dairiesHadbalance[i].dairyNumber+"'>"+_dairiesHadbalance[i].dairyNumber+"</option>")
-            } 
+            bindHasDairyPaidAmount();
             // get agents
-            _agents.push({agentId: 1, agentName: 'Mukesh Vishvakarma' });
-            _agents.push({agentId: 2, agentName: 'Agent 001' });
-            $('#ddlagents').html('');
-            for(let i = 0; i < _agents.length; i++) {
-                $('#ddlagents').append("<option value='"+_agents[i].agentId+"'>"+_agents[i].agentName+"</option>")
-            } 
+            bindAgents();
             
             // initialied  values
             $('#ddlcustomers').val(0);
@@ -266,15 +218,12 @@
             $('#txtdairyinstallment').val(120);   
             $('#tbrefdairies tbody').html('');
             $('#txtcustomeraddress').val('')
-            
-            
         }
         
         onClickCreateDairy = ()=>{      
             initialedCreateDairy();            
             createDairyModel.show();
-        }
-        
+        }        
         onClickCreateDairySave =() => { 
             
             if (parseInt($('#ddlcustomers').val())==0 && ($('#txtcustomername').val()=='' || $('#txtcustomermobile').val()=='' || $('#txtcustomerfathername').val()=='')){
@@ -315,8 +264,6 @@
             console.log(payload);
             initialedCreateDairy();
         }
-        
- 
         onClickAddRowRefDairy = () => {        
             
             var dairyNumber = $('#ddlrefdairies').val();
@@ -348,13 +295,11 @@
                 $('#txtrefdairyloanamount').val('');
                 $('#txtrefdairypaidamount').val('');
             }
-        }
-        
+        }        
         onClickremoveRowRefDairy = (id,e) => {
             _refDairies = _refDairies.filter(function( obj ) {return parseInt(obj.dairyNumber) !== id;});            
             $(e).closest('tr').remove();            
-        }
-        
+        }        
         onChangeCustomer = (e) => {
             var _selectedId = $('#ddlcustomers').val();
                     
@@ -363,8 +308,15 @@
             }else{
                 $('#divnewcustomerdetail').show();
             }
-        }
-        
+        }        
+        onChangeRefDairies = (e) => {           
+           $('#txtrefdairypaidamount').val(0);
+            _dairiesHadbalance.map((val) => {                
+                if (val.dairyNumber==parseInt($('#ddlrefdairies').val())){
+                    $('#txtrefdairypaidamount').val(val.paidAmount);
+                }
+            });
+        }        
         onClickSearch =(e)=> {
             if ($('#txtsearchdairynumber').val()!='')
                 bindDairyByNumber($('#txtsearchdairynumber').val());
@@ -441,6 +393,72 @@
                        _innerBody += '</table>';
                    }
                    $('#divDairyDetail').html(_innerBody);
+                }
+            }
+            });
+        };        
+        bindCustomers = ()=>{
+            $.ajax({
+            type: 'GET',
+            url: "/dairy/customers",
+            success: function (res) {
+                $('#divDairyDetail').html('');
+                if(res.success)
+                {
+                    _customers = [];
+                    $('#ddlcustomers').html('');
+                    $('#ddlcustomers').append("<option value='0'>New Customer</option>")
+                    for(let i = 0; i < res.data.length; i++) {
+                      _customers.push({customerId:res.data[i].id, customerName: res.data[i].name});
+                       $('#ddlcustomers').append("<option value='"+res.data[i].id+"'>"+res.data[i].name+"</option>")
+                    }                     
+                }
+            }
+            });
+        };
+        bindAgents = ()=>{
+            $.ajax({
+            type: 'GET',
+            url: "/dairy/agents",
+            success: function (res) {
+                $('#divDairyDetail').html('');
+                if(res.success)
+                {
+                    _agents = [];
+                    $('#ddlagents').html('');                            
+                    for(let i = 0; i < res.data.length; i++) {
+                      _agents.push({agentId:res.data[i].id, agentName: res.data[i].name});
+                      $('#ddlagents').append("<option value='"+res.data[i].id+"'>"+res.data[i].name+"</option>")
+                    }                     
+                }
+            }
+            });
+        };
+        bindHasDairyPaidAmount = ()=>{
+            $.ajax({
+            type: 'GET',
+            url: "/dairy/refdairies",
+            success: function (res) {
+                $('#divDairyDetail').html('');
+                if(res.success)
+                {
+                    _dairiesHadbalance = [];
+                    // _dairiesHadbalance.push({dairyNumber: 1, paidAmount:5000 });
+                    // _dairiesHadbalance.push({dairyNumber: 2, paidAmount:4500 });
+                    // _dairiesHadbalance.push({dairyNumber: 3, paidAmount:6500 });
+                    // _dairiesHadbalance.push({dairyNumber: 4, paidAmount:3500 });
+                    //  $('#ddlrefdairies').html('');
+                    //  
+                    // for(let i = 0; i < _dairiesHadbalance.length; i++) {
+                    //     $('#ddlrefdairies').append("<option value='"+_dairiesHadbalance[i].dairyNumber+"'>"+_dairiesHadbalance[i].dairyNumber+"</option>")
+                    // } 
+                    
+                    $('#ddlrefdairies').html('');
+                    $('#ddlrefdairies').append("<option value='0'>Cash</option>")
+                    for(let i = 0; i < res.data.length; i++) {
+                      _dairiesHadbalance.push({dairyNumber:res.data[i].id,dairyNumber:res.data[i].dairyNumber, paidAmount: res.data[i].paidAmount});
+                      $('#ddlrefdairies').append("<option value='"+res.data[i].dairyNumber+"'>"+res.data[i].dairyNumber+"</option>")
+                    }                     
                 }
             }
             });
