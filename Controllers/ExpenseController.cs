@@ -1,12 +1,7 @@
-﻿using System.Diagnostics;
-using System.Security.Claims;
-using MicroFIN.Core.Contracts;
+﻿using MicroFIN.Core.Contracts;
 using MicroFIN.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace MicroFIN.Controllers;
@@ -23,33 +18,67 @@ public class ExpenseController : ControllerBase
     }
 
     [HttpGet("getall")]
-    public async Task<ResponseObject<IEnumerable<Expense>>> GetAll()
+    public async Task<ResponseObject<IEnumerable<ExpenseViewModel>>> GetAll()
     {
-        return new ResponseObject<IEnumerable<Expense>>(await _context.Expenses.ToListAsync());
+        return new ResponseObject<IEnumerable<ExpenseViewModel>>(await _context.Expenses
+            .Where(f=>f.IsActive==true)
+            .Select(x=>new ExpenseViewModel
+                {
+                    Amount = x.Amount,
+                    Description = x.Description,
+                    Id = x.Id,
+                    ExpenseDate = x.ExpenseDate
+                }).ToListAsync());
     }
     [HttpGet("get/{id}")]
-    public async Task<ResponseObject<Expense>> Get(int id)
+    public async Task<ResponseObject<ExpenseViewModel?>> Get(int id)
     {
-        return new ResponseObject<Expense>(await _context.Expenses.FirstOrDefaultAsync(x=>x.Id==id && x.IsActive==true));
+        return new ResponseObject<ExpenseViewModel?>(await _context.Expenses.Select(x=>new ExpenseViewModel
+        {
+            Amount = x.Amount,
+            Description = x.Description,
+            Id = x.Id,
+            ExpenseDate = x.ExpenseDate
+        }).FirstOrDefaultAsync(x=>x.Id==id));
     }
     [HttpPost("createOrUpdate")]
-    public async Task<ResponseObject<bool>> CreateOrUpdate(Expense model)
+    public async Task<ResponseObject<bool>> CreateOrUpdate(ExpenseViewModel model)
     {
-        var expense = await _context.Expenses.FirstOrDefaultAsync(x => x.Id == model.Id && x.IsActive == true);
-        if (expense == null)
+        try
         {
-            _context.Expenses.Add(model);
-        }
-        else
-        {
-            expense.Amount = model.Amount;
-            expense.Description = model.Description;
-            expense.ExpenseDate = model.ExpenseDate;
-            
-            // customer.IsActive = model.IsActive;
+            var expense = await _context.Expenses.FirstOrDefaultAsync(x => x.Id == model.Id && x.IsActive == true);
+            if (expense == null)
+            {
+                expense = new Expense
+                {
+                    Amount = model.Amount,
+                    Description = model.Description,
+                    Id = 0,
+                    CreatedBy = 2,
+                    CreatedOn = DateTime.Now,
+                    ExpenseDate = model.ExpenseDate,
+                    IsActive = true,
+                    ModifiedBy = 2,
+                    ModifiedOn = DateTime.Now
+                };
+                _context.Expenses.Add(expense);
+            }
+            else
+            {
+                expense.Amount = model.Amount;
+                expense.Description = model.Description;
+                expense.ExpenseDate = model.ExpenseDate;
+                expense.ModifiedBy = 2;
+                expense.ModifiedOn = DateTime.Now;
+                await _context.SaveChangesAsync();
+            }
             await _context.SaveChangesAsync();
         }
-        await _context.SaveChangesAsync();
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return new ResponseObject<bool>(false);
+        }
         return new ResponseObject<bool>(true);
     }
     

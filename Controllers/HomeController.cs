@@ -62,6 +62,11 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult Expences()
+    {
+        return View();
+    }
+    
     public IActionResult Dairy()
     {
         return View();
