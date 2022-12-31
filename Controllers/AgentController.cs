@@ -23,15 +23,37 @@ public class AgentController : ControllerBase
     }
 
     [HttpGet("getall")]
-    public async Task<ResponseObject<IEnumerable<Agent>>> GetAll()
+    public async Task<ResponseObject<IEnumerable<AgentViewRequest>>> GetAll()
     {
-        return new ResponseObject<IEnumerable<Agent>>(await _context.Agents.ToListAsync());
+        return new ResponseObject<IEnumerable<AgentViewRequest>>(await _context.Agents
+            .Where(f=>f.IsActive==true)
+            .Select(x=>new AgentViewRequest
+            {
+                Address = x.Address??"-",
+                Id = x.Id,
+                Installments = x.DefaultInstallments??117,
+                Mobile = x.Mobile??"",
+                Name = x.Name,
+                Dairies = string.Join(",", _context.Dairies.Where(d => d.AgentId==x.Id).Select(f=>f.DailyNumber.ToString()).ToList<string>())
+            })
+           
+            .ToListAsync());
     }
     
     [HttpGet("get/{id}")]
-    public async Task<ResponseObject<Agent>> Get(int id)
+    public async Task<ResponseObject<AgentViewRequest?>> Get(int id)
     {
-        return new ResponseObject<Agent>(await _context.Agents.FirstOrDefaultAsync(x=>x.Id==id && x.IsActive==true));
+        return new ResponseObject<AgentViewRequest?>(
+            await _context.Agents
+                .Select(x=>new AgentViewRequest
+                {
+                    Address = x.Address??"-",
+                    Id = x.Id,
+                    Installments = x.DefaultInstallments??117,
+                    Mobile = x.Mobile??"",
+                    Name = x.Name,
+                    Dairies = string.Join(",", _context.Dairies.Where(d => d.AgentId==x.Id).Select(f=>f.DailyNumber.ToString()).ToList<string>())
+                }).FirstOrDefaultAsync<AgentViewRequest>(x=>x.Id==id));
     }
     
     [HttpPost("createOrUpdate")]
@@ -45,6 +67,7 @@ public class AgentController : ControllerBase
                 Address = model.Address,
                 Mobile = model.Mobile,
                 Name = model.Name,
+                DefaultInstallments = model.Installments??117,
                 IsActive = true,
                 ModifiedBy = 2,
                 ModifiedOn = DateTime.Now,
@@ -57,7 +80,7 @@ public class AgentController : ControllerBase
             agent.Name = model.Name;
             agent.Mobile = model.Mobile;
             agent.Address = model.Address;
-           
+            // agent.DefaultInstallments = model.Installments ?? 120;
         }
         await _context.SaveChangesAsync();
         return new ResponseObject<bool>(true);

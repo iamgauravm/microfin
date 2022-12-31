@@ -58,6 +58,10 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult Agents()
+    {
+        return View();
+    }
     public IActionResult Dairy()
     {
         return View();
