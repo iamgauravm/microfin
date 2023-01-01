@@ -224,27 +224,30 @@ public class DairyController : ControllerBase
                         Id = 0
                     });
             }
+            await _context.SaveChangesAsync();
 
             if (model.RefDairies != null)
             {
                 foreach (var item in model.RefDairies)
                 {
-                    _context.DairyReferences.Add(new DairyReference
-                    {
-                        Amount = item.LoanAmount,
-                        DairyId = dairy.Id,
-                        FromDairyId = 1,
-                        CreatedBy = 2,
-                        CreatedOn = DateTime.Now,
-                        ModifiedBy = 2,
-                        ModifiedOn = DateTime.Now,
+                    var dr = await _context.Dairies.FirstOrDefaultAsync(p => p.DairyNumber == item.DairyNumber);
+                    if(dr!=null){
+                        _context.DairyReferences.Add(new DairyReference
+                        {
+                            Amount = item.LoanAmount,
+                            DairyId = dairy.Id,
+                            FromDairyId = dr.Id,
+                            CreatedBy = 2,
+                            CreatedOn = DateTime.Now,
+                            ModifiedBy = 2,
+                            ModifiedOn = DateTime.Now,
 
-                    });
+                        });
+                        await _context.SaveChangesAsync();
+                    }
                 }
             }
         }
-        
-        await _context.SaveChangesAsync();
         return new ResponseObject<bool>(true);
     }
     

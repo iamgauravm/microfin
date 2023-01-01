@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 namespace MicroFIN.Controllers;
 
 [Authorize]
-public class HomeController : Controller
+public class AdminController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<AdminController> _logger;
     private readonly IMicroFinDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger,IMicroFinDbContext context)
+    public AdminController(ILogger<AdminController> logger,IMicroFinDbContext context)
     {
         _logger = logger;
         _context = context;
@@ -35,19 +35,7 @@ public class HomeController : Controller
 
     }
 
-    public IActionResult About()
-    {
-        ViewData["Message"] = "Your application description page.";
-
-        return View();
-    }
-
-    public IActionResult Contact()
-    {
-        ViewData["Message"] = "Your contact page.";
-
-        return View();
-    }
+   
 
     public IActionResult Privacy()
     {

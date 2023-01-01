@@ -45,7 +45,7 @@ public class AccountController : Controller
             
             var principal = new ClaimsPrincipal(identity);
             var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Admin");
         }
         return View();
     }

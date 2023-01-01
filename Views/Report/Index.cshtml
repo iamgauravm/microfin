@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Report Page";
+}
+
+
+<div class="container-fluid bg-p border-1 border-primary rounded py-2" id="divReportMenu">
+    <h3>Reports</h3>
+    <ul>
+        <li><a href="javascript:void(0);" onclick="showReport('IncomeExpenses')">Income/Expenses</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('BalanceSheet')">Balance Sheet</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('Expenses')">Expenses</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('DairiesDue')">Due Dairies</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('DairiesClosed')">Closed Dairies</a></li>
+    </ul>
+</div>
+
+<div id="divReportDetail" style="display: none;">
+    <input type='button' id='btn mb-4' value='Back' onclick='showReportMenu();'>
+    <input type='button' id='btn mb-4' value='Print' onclick='printDiv();'>
+    <div id='DivIdToPrint' class="w-100">
+        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divIncomeExpenses">
+            <h6>Income/Expenses</h6>
+        </div>
+        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divBalanceSheet">
+            <h6>Balance Sheet</h6>
+        </div>
+        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divExpenses">
+            <div class="row">
+                <div class="col-6">
+                    <h6>Expenses</h6>
+                </div>
+                <div class="col-6 text-end pt-2">
+
+                </div>
+            </div>
+            <hr class="m-1"/>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-striped" style="width:100%" id="tblstExpenses">
+                        <thead>
+                        <tr>
+                            <th style="width: 150px">Date</th>
+                            <th>Description</th>
+                            <th style="width: 150px">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divDairiesDue">
+            <h6>Dairies Due</h6>
+        </div>
+        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divDairiesClosed">
+            <h6>Dairies Closed</h6>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        
+        $( document ).ready(function() {
+            $('.div-reports').hide();
+        });
+        showReportMenu=()=>{
+            $('#divReportDetail').hide();
+            $('#divReportMenu').show();
+        }
+        showReport = (type) => {
+            $('.div-reports').hide();
+            $('#divReportDetail').show();
+            $('#divReportMenu').hide();
+            $('#div'+type).show();
+            
+            
+            switch (type) {
+                case 'IncomeExpenses':
+                    // alert('IncomeExpenses');
+                    break;
+                case 'BalanceSheet':
+                    // alert('BalanceSheet');
+                    break;
+                case 'Expenses':
+                    // alert('Expenses');
+                    break;
+                case 'DairiesDue':
+                    // alert('DairiesDue');
+                    break;
+                case 'DairiesClosed':
+                    // alert('DairiesClosed');
+                    break;
+            }
+        }
+        
+        function printDiv() 
+        {    
+            $('#DivIdToPrint').printThis();    
+        }
+            
+    </script>
+}

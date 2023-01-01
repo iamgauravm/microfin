@@ -25,7 +25,6 @@ public class MicroFinDbContext: DbContext, IMicroFinDbContext
         modelBuilder.Entity<Agent>().HasData(
             new Agent {Id = 1,Name = "Manoj Vishwakarma",Address = "",Mobile = "7974165346",DefaultInstallments = 120,IsActive = true,ModifiedBy = 1, ModifiedOn = DateTime.Now}
         );
-        
 
     }
 
