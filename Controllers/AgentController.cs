@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
-using MicroFIN.Core.Contracts;
+using MicroFIN.Core;
 using MicroFIN.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
@@ -34,7 +34,7 @@ public class AgentController : ControllerBase
                 Installments = x.DefaultInstallments??117,
                 Mobile = x.Mobile??"",
                 Name = x.Name,
-                Dairies = string.Join(",", _context.Dairies.Where(d => d.AgentId==x.Id).Select(f=>f.DailyNumber.ToString()).ToList<string>())
+                Dairies = string.Join(",", _context.Dairies.Where(d => d.AgentId==x.Id).Select(f=>f.DairyNumber.ToString()).ToList<string>())
             })
            
             .ToListAsync());
@@ -52,7 +52,7 @@ public class AgentController : ControllerBase
                     Installments = x.DefaultInstallments??117,
                     Mobile = x.Mobile??"",
                     Name = x.Name,
-                    Dairies = string.Join(",", _context.Dairies.Where(d => d.AgentId==x.Id).Select(f=>f.DailyNumber.ToString()).ToList<string>())
+                    Dairies = string.Join(",", _context.Dairies.Where(d => d.AgentId==x.Id).Select(f=>f.DairyNumber.ToString()).ToList<string>())
                 }).FirstOrDefaultAsync<AgentViewRequest>(x=>x.Id==id));
     }
     

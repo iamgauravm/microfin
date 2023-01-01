@@ -5,7 +5,7 @@ namespace MicroFIN.Core.Entities;
 public class Dairy
 {
     public int Id { get; set; }
-    public int DailyNumber { get; set; }
+    public int DairyNumber { get; set; }
     public int CustomerId { get; set; }
     public int? AgentId { get; set; }
     public bool? HasAgent { get; set; }

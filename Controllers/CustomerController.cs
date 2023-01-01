@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
-using MicroFIN.Core.Contracts;
+using MicroFIN.Core;
 using MicroFIN.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
@@ -34,7 +34,7 @@ public class CustomerController : ControllerBase
             Name = x.Name,
             Remarks = x.Remarks,
             FatherName = x.FatherName,
-            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DailyNumber.ToString()).ToList<string>())
+            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DairyNumber.ToString()).ToList<string>())
         }).ToListAsync<CustomerViewRequest>());
     }
     [HttpGet("get/{id}")]
@@ -49,7 +49,7 @@ public class CustomerController : ControllerBase
             Name = x.Name,
             Remarks = x.Remarks,
             FatherName = x.FatherName,
-            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DailyNumber.ToString()).ToList<string>())
+            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DairyNumber.ToString()).ToList<string>())
         }).FirstOrDefaultAsync(x=>x.Id==id));
     }
     [HttpPost("createOrUpdate")]

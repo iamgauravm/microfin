@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
-using MicroFIN.Core.Contracts;
+using MicroFIN.Core;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
 using Microsoft.AspNetCore.Authentication;

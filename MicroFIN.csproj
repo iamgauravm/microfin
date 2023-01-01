@@ -21,4 +21,10 @@
       <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Core\Contracts" />
+      <Folder Include="Core\Migrations" />
+      <Folder Include="Core\Services" />
+    </ItemGroup>
+
 </Project>

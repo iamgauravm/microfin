@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
-using MicroFIN.Core.Contracts;
 using MicroFIN.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MicroFIN.Core.Services;
+namespace MicroFIN.Core;
 
 public class MicroFinDbContext: DbContext, IMicroFinDbContext
 {
@@ -22,6 +21,12 @@ public class MicroFinDbContext: DbContext, IMicroFinDbContext
             new User {Id = 2,Name = "Admin",Username = "admin",Password = "admin",Role = "admin",IsActice = true,ModifiedBy = 1, ModifiedOn = DateTime.Now},
             new User {Id = 3,Name = "User",Username = "user",Password = "user",Role = "user",IsActice = true,ModifiedBy = 1, ModifiedOn = DateTime.Now}
         );
+        
+        modelBuilder.Entity<Agent>().HasData(
+            new Agent {Id = 1,Name = "Manoj Vishwakarma",Address = "",Mobile = "7974165346",DefaultInstallments = 120,IsActive = true,ModifiedBy = 1, ModifiedOn = DateTime.Now}
+        );
+        
+
     }
 
     public virtual DbSet<User> Users { get; set; }

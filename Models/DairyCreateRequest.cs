@@ -10,7 +10,7 @@ public class DairyCreateRequest
     public string CustomerBusinessName { get; set; }
     public string CustomerAddress { get; set; }
     public string CustomerRemarks { get; set; }
-    public int DailyNumber { get; set; }
+    public int DairyNumber { get; set; }
     public DateTime DairyStartDate { get; set; }
     public double LoanAmount { get; set; }
     public int Installment { get; set; }
@@ -20,7 +20,7 @@ public class DairyCreateRequest
 public record ReferenceDairyViewModel 
 {
     // public int Id { get; set; }
-    public int DailyNumber { get; set; }
+    public int DairyNumber { get; set; }
     public double PaidAmount { get; set; }
     public double LoanAmount { get; set; }
 }

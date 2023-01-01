@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using MicroFIN.Core.Contracts;
+using MicroFIN.Core;
 using MicroFIN.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;

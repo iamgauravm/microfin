@@ -1,4 +1,4 @@
-﻿using MicroFIN.Core.Contracts;
+﻿using MicroFIN.Core;
 using MicroFIN.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;

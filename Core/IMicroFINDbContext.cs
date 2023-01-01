@@ -1,7 +1,7 @@
 ﻿using MicroFIN.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MicroFIN.Core.Contracts;
+namespace MicroFIN.Core;
 
 public interface IMicroFinDbContext
 {

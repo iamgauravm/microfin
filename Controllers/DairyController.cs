@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
-using MicroFIN.Core.Contracts;
+using MicroFIN.Core;
 using MicroFIN.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
@@ -32,6 +32,13 @@ public class DairyController : ControllerBase
         return new ResponseObject<IEnumerable<Dairy>>(res);
     }
     
+    [HttpGet("getdairynumber")]
+    public async Task<ResponseObject<int>> GetDairyNumber()
+    {
+        var lastDairy = await _context.Dairies.OrderByDescending(x=>x.Id).FirstOrDefaultAsync();
+        return new ResponseObject<int>(lastDairy?.DairyNumber??0);
+    }
+    
     [HttpGet("get/{id}")]
     public async Task<ResponseObject<Dairy>> Get(int id)
     {
@@ -49,7 +56,7 @@ public class DairyController : ControllerBase
             await _context.Dairies
                 .Include("Customer")
                 .Include("DairyInstallments")
-                .FirstOrDefaultAsync(x=>x.DailyNumber==number && x.IsActive==true));
+                .FirstOrDefaultAsync(x=>x.DairyNumber==number && x.IsActive==true));
     }
     
     
@@ -80,7 +87,7 @@ public class DairyController : ControllerBase
             model.ModifiedBy = 2;
             model.ModifiedOn = DateTime.Now;
             //var lst = _context.Dairies.LastOrDefault();
-            model.DailyNumber = 1;// (lst==null?1:(lst.DailyNumber+1));
+            model.DairyNumber = 1;// (lst==null?1:(lst.DairyNumber+1));
             model.StartDate = model.StartDate.AddDays(1);
             model.EndDate = model.StartDate.AddDays(model.Installment);
             _context.Dairies.Add(model);
@@ -139,7 +146,7 @@ public class DairyController : ControllerBase
     [HttpPost("create")]
     public async Task<ResponseObject<bool>> Create(DairyCreateRequest model)
     {
-        var dairy = await _context.Dairies.FirstOrDefaultAsync(x => x.DailyNumber == model.DailyNumber && x.IsActive == true);
+        var dairy = await _context.Dairies.FirstOrDefaultAsync(x => x.DairyNumber == model.DairyNumber && x.IsActive == true);
         if (dairy == null)
         {
             var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == model.CustomerId && x.IsActive == true);
@@ -167,7 +174,7 @@ public class DairyController : ControllerBase
 
             dairy.Installment = model.Installment;
             dairy.AgentId = model.AgentId;
-            dairy.DailyNumber = model.DailyNumber;
+            dairy.DairyNumber = model.DairyNumber;
             dairy.LoanAmount = model.LoanAmount;
             dairy.CustomerId = customer.Id;
             
@@ -192,7 +199,7 @@ public class DairyController : ControllerBase
             dairy.ModifiedBy = 2;
             dairy.ModifiedOn = DateTime.Now;
             var lastDairy = await _context.Dairies.OrderByDescending(x=>x.Id).FirstOrDefaultAsync();
-            dairy.DailyNumber = (lastDairy==null?1:(lastDairy.DailyNumber+1));
+            dairy.DairyNumber = (lastDairy==null?1:(lastDairy.DairyNumber+1));
             dairy.StartDate = model.DairyStartDate.AddDays(1);
             dairy.EndDate = model.DairyStartDate.AddDays(1+model.Installment);
             
@@ -282,8 +289,8 @@ public class DairyController : ControllerBase
         var res = await _context.Dairies.Select(x=>new RefDairyViewModel
             {
                 Id = x.Id,
-                DairyNumber = $"{x.DailyNumber}",
-                PaidAmount = x.TotalAmount
+                DairyNumber = $"{x.DairyNumber}",
+                PaidAmount = x.TotalAmount - x.TotalBalanceAmount
             })
             .ToListAsync<RefDairyViewModel>(); 
         return new ResponseObject<IEnumerable<RefDairyViewModel>>(res);

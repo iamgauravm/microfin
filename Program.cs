@@ -1,5 +1,4 @@
-using MicroFIN.Core.Contracts;
-using MicroFIN.Core.Services;
+using MicroFIN.Core;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 

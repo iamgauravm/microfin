@@ -75,7 +75,7 @@
             <div class="form row">
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Choose Agent</label>
-                    <select class="form-select form-select-sm" id="ddlagents">
+                    <select class="form-select form-select-sm" id="ddlagents" onchange="onChangeAgent(this)">
                     </select>
                 </div>
                 <div class="form-group">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" id="txtcustomermobile"/>
+                    <input class="form-control form-control-sm Number" maxlength="10" id="txtcustomermobile"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Business name</label>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Remarks</label>
-                    <input class="form-control form-control-sm" id="txtcustomerremarks"/>
+                    <textarea class="form-control form-control-sm" id="txtcustomerremarks"></textarea>
                 </div>
             </div>
             <hr/>
@@ -117,11 +117,11 @@
                
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" type="number" id="txtdairynumber"/>
+                    <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtdairynumber"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" type="number" id="txtdairyloanamount"/>
+                    <input class="form-control form-control-sm Number" type="text" id="txtdairyloanamount"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
@@ -129,7 +129,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" type="number" id="txtdairyinstallment"/>
+                    <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtdairyinstallment"/>
                 </div>
             </div>
             <hr/>
@@ -189,7 +189,6 @@
             // onClickCreateDairy();
             
         });
-        
         initialedCreateDairy = () =>{
             
             _dairiesHadbalance = [];
@@ -218,6 +217,8 @@
             $('#txtdairyinstallment').val(120);   
             $('#tbrefdairies tbody').html('');
             $('#txtcustomeraddress').val('')
+            
+            bindDairyNewNumber();
         }
         
         onClickCreateDairy = ()=>{      
@@ -253,16 +254,16 @@
                 refDairies: _refDairies
             };
             $.ajax({
-                            type: 'POST',
-                            url: "/dairy/create",
-                            data:payload,
-                            success: function (res) {
-                               console.log(res)
-                                                 
-                            }
-                        });
-            console.log(payload);
-            initialedCreateDairy();
+                type: 'POST',
+                url: "/dairy/create",
+                data:payload,
+                success: function (res) {
+                   console.log(res)
+                   createDairyModel.hide();
+                   initialedCreateDairy();
+                }
+            });
+            
         }
         onClickAddRowRefDairy = () => {        
             
@@ -308,7 +309,17 @@
             }else{
                 $('#divnewcustomerdetail').show();
             }
-        }        
+        }   
+        onChangeAgent = (e) => {
+            var _selectedId = $('#ddlagents').val();
+                    
+            if (parseInt(_selectedId)>1){
+                $('#txtdairyinstallment').val(117);
+            }else{
+                $('#txtdairyinstallment').val(120);
+            }
+        }   
+        
         onChangeRefDairies = (e) => {           
            $('#txtrefdairypaidamount').val(0);
             _dairiesHadbalance.map((val) => {                
@@ -463,5 +474,19 @@
             }
             });
         };
+        
+        bindDairyNewNumber = ()=>{
+                $.ajax({
+                type: 'GET',
+                url: "/dairy/getdairynumber",
+                success: function (res) {
+                    if(res.success)
+                    {
+                        $('#txtdairynumber').val( res.data+1);
+                         return res.data;
+                    }
+                }
+                });
+            };      
     </script>
 }
