@@ -7,51 +7,104 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login - MicroFIN</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    @* <link rel="stylesheet" href="~/MicroFIN.styles.css" asp-append-version="true"/> *@
-    <style>
-        html,body {
-          height: 100%!important;
-        }
-    </style>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    
+    <link href="~/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <partial name="_CookieConsentPartial" />
-    <div class="h-100 d-flex align-items-center justify-content-center bg-p">
-         <div class="bg-white bg-opacity-75 p-3 w-75 rounded">
-             <div class="row"><div class="col-12 text-center">
-                 <img style="width: 100px" src="/images/logo.png" class="img-fluid"/>
-             </div></div>
-             <div class="row mt-3">
-                 <div class="col-sm-12 col-md-4 offset-md-4">
-                     <h3 class="text-center"><strong>Login </strong></h3>
-                     <form asp-action="login" method="post">
-                         <div class="form-group mb-2">
-                             <label for="userName" class="form-label">User Name</label>
-                             <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name">
-                         </div>
-                         <div class="form-group mb-2">
-                             <label for="password" class="form-label">Password</label>
-                             <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-                         </div>
-                         <div class="form-group py-2">
-                             <button type="submit" class="btn btn-primary w-25">Submit</button>
-                             <button class="btn btn-secondary w-25" type="reset">Reset</button>
-                         </div>
-                     </form>
-                 </div>
-             </div>
-         </div>
-    </div>
-    <footer class="border-top footer text-muted fixed-bottom p-2 border-secondary">
-        <div class="container text-dark text-center">
-            &copy; 2022 - JAI BHOLE FINANCE | MicroFIN by [ KODONIC ]
+<partial name="_CookieConsentPartial" />
+<main>
+  <div class="container">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+            <div class="d-flex justify-content-center py-4">
+              <a href="/" class="logo d-flex align-items-center w-auto">
+                <img src="/images/logo.png" alt="">
+                <span class="d-lg-block">JAI BHOLE FINANCE</span>
+              </a>
+            </div><!-- End Logo -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                  <p class="text-center small">Enter your username & password to login</p>
+                </div>
+                <form class="row g-3 needs-validation" asp-action="login" method="post" novalidate>
+                  <div class="col-12">
+                    <label for="userName" class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                      @* <span class="input-group-text" id="inputGroupPrepend">@@</span> *@
+                      <input type="text" class="form-control" id="userName" name="userName" required>
+                      <div class="invalid-feedback">Please enter your username.</div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="password"  required>
+                    <div class="invalid-feedback">Please enter your password!</div>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="credits">
+             <small> Designed by <a href="https://kodonic.com/">Kodonic Digitech Private Limited</a></small>
+            </div>
+          </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+      </div>
+    </section>
+  </div>
+</main>
+
+
+    @* <div class="h-100 d-flex align-items-center justify-content-center bg-p"> *@
+    @*      <div class="bg-white bg-opacity-75 p-3 w-75 rounded"> *@
+    @*          <div class="row"><div class="col-12 text-center"> *@
+    @*              <img style="width: 100px" src="/images/logo.png" class="img-fluid"/> *@
+    @*          </div></div> *@
+    @*          <div class="row mt-3"> *@
+    @*              <div class="col-sm-12 col-md-4 offset-md-4"> *@
+    @*                  <h3 class="text-center"><strong>Login </strong></h3> *@
+    @*                  <form asp-action="login" method="post"> *@
+    @*                      <div class="form-group mb-2"> *@
+    @*                          <label for="userName" class="form-label">User Name</label> *@
+    @*                          <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter user name"> *@
+    @*                      </div> *@
+    @*                      <div class="form-group mb-2"> *@
+    @*                          <label for="password" class="form-label">Password</label> *@
+    @*                          <input type="password" class="form-control" name="password" id="password" placeholder="Password"> *@
+    @*                      </div> *@
+    @*                      <div class="form-group py-2"> *@
+    @*                          <button type="submit" class="btn btn-primary w-25">Submit</button> *@
+    @*                          <button class="btn btn-secondary w-25" type="reset">Reset</button> *@
+    @*                      </div> *@
+    @*                  </form> *@
+    @*              </div> *@
+    @*          </div> *@
+    @*      </div> *@
+    @* </div> *@
+    @* <footer class="border-top footer text-muted fixed-bottom p-2 border-secondary"> *@
+    @*     <div class="container text-dark text-center"> *@
+    @*         &copy; 2022 - JAI BHOLE FINANCE | MicroFIN by [ KODONIC ] *@
+    @*     </div> *@
+    @* </footer> *@
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    @* <script src="~/js/site.js" asp-append-version="true"></script> *@
 </body>
 </html>
     
