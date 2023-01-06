@@ -351,7 +351,7 @@
                         _innerBody += '<table class="table table-borderless">';
                         _innerBody += '    <tr>';
                         _innerBody += '        <td style="width: 110px">Name : </td>';
-                        _innerBody += '        <td colspan="3">'+_dairy.customer.name+' S/o '+_dairy.customer.fatherName+' ['+_dairy.customer.mobile+']</td>';
+                        _innerBody += '        <td colspan="3">'+_dairy.customerName+' S/o '+_dairy.customerFatherName+' ['+_dairy.customerMobile+']</td>';
                         _innerBody += '    </tr>';
                         _innerBody += '    <tr>';
                         _innerBody += '        <td>Start : </td>';
@@ -373,34 +373,52 @@
                         _innerBody += '    </tr>';
                         _innerBody += '</table>';                   
                        
-                       if (_dairy.dairyInstallments?.length>0){
+                       if (_dairy.installments?.length>0){
                            _innerBody += '<h5>Installments</h5>';
                            _innerBody += '<table class="table table-bordered border-secondary bg-white">';
+                           _innerBody += '    <thead>';
                            _innerBody += '    <tr>';
                            _innerBody += '        <th class="text-center">#</th>';
                            _innerBody += '        <th class="text-center">Date</th>';
-                           _innerBody += '        <th class="text-center">Amount</th>';
-                           _innerBody += '        <th class="text-center">Balance</th>';
+                           // _innerBody += '        <th class="text-center">Amount</th>';
+                           _innerBody += '        <th class="text-center" style="width: 170px">Balance</th>';
                            _innerBody += '        <th class="text-center">Status</th>';
                            _innerBody += '    </tr>';
+                           _innerBody += '    </thead>';
+                           _innerBody += '    <body>';
                            
-                           
-                           for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
+                           var todayBalance = 0;
+                           for(let j = 0; j< _dairy.installments.length; j++) {
                                var _className ="";
                                
-                               if (moment().add(5, 'days').format('DD-MM-YYYY')==moment(_dairy.dairyInstallments[j].installmentDate).format('DD-MM-YYYY')){
+                               if (moment().format('DD-MM-YYYY')==moment(_dairy.installments[j].installmentDate).format('DD-MM-YYYY')){
                                     _className = 'bg-info';
-                               }else if (moment().add(5, 'days')>moment(_dairy.dairyInstallments[j].installmentDate)){
+                               }else if (moment()>moment(_dairy.installments[j].installmentDate)){
                                     _className = 'bg-past-dt';
                                }
+                               todayBalance += _dairy.installments[j].balanceAmount;
+                               
+                               
                               _innerBody += '    <tr class="'+_className+'">';
-                               _innerBody += '        <td class="text-center">'+_dairy.dairyInstallments[j].installmentNumber+'</td>';
-                               _innerBody += '        <td class="text-center">'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD-MM-YYYY')+'</td>';
-                               _innerBody += '        <td class="text-end">'+_dairy.dairyInstallments[j].installmentAmount+'</td>';
-                               _innerBody += '        <td class="text-end">'+_dairy.dairyInstallments[j].balanceAmount+'</td>';
-                               _innerBody += '        <td class="text-center">'+_dairy.dairyInstallments[j].isClosed+'</td>';
+                               _innerBody += '        <td class="text-center">'+_dairy.installments[j].installmentNumber+'</td>';
+                               _innerBody += '        <td class="text-center">'+moment(_dairy.installments[j].installmentDate).format('DD-MM-YYYY')+'</td>';
+                               // _innerBody += '        <td class="text-end">'+_dairy.installments[j].installmentAmount+'</td>';
+                               
+                               
+                               if (_dairy.installments[j].balanceAmount==0 || moment().format('DD-MM-YYYY')!=moment(_dairy.installments[j].installmentDate).format('DD-MM-YYYY')){
+                                   _innerBody += '        <td class="text-end px-1">'+_dairy.installments[j].balanceAmount+'</td>';                                   
+                               }else{
+                                   _innerBody += '        <td class="text-end px-0"><form class="align-items-center m-0 px-1 row"><div class="col-auto p-0"><input class="form-control form-control-sm" id="txtinstallment_'+_dairy.installments[j].id+'" style="width: 100px"  type="number" value="'+todayBalance+'"></div><div class="col-auto px-1"><input style="width: 50px" class="btn btn-sm btn-primary" type="button" value="Pay" onclick="onclickPayInstallment(this,'+_dairy.installments[j].id+','+numb+')"/></div></form></td>';
+                                   
+                               }
+                               
+                               
+                               //_innerBody += '        <td class="text-end"><form class="row align-items-center "><div class="col-auto p-2"><input class="form-control form-control-sm" style="width: 100px"  type="text" value=""></div><div class="col-auto p-0"><input style="width: 50px" class="btn btn-sm btn-primary" type="button" value="Pay" onclick="onClickSearch(this)"/></div></form></td>';
+                               //'+_dairy.installments[j].balanceAmount+'
+                               _innerBody += '        <td class="text-center">'+(_dairy.installments[j].isClosed==true?'Closed':(_dairy.installments[j].balanceAmount==0?"Paid":'Unpaid'))+'</td>';
                                _innerBody += '    </tr>';
                              }
+                           _innerBody += '    </body>';
                            _innerBody += '</table>';
                        }
                    }else{
@@ -494,5 +512,27 @@
                 }
                 });
             };      
+        onclickPayInstallment =(e,id,dairyNumber)=>{
+            // alert($('#txtinstallment_'+id).val());
+            
+            var paylod = {
+                id: id, 
+                amount: parseInt($('#txtinstallment_'+id).val()),
+                isClosed: false
+            }
+            
+            $.ajax({
+            type: 'POST',
+            url: "/dairy/installment/pay",
+            data:paylod,
+            success: function (res) {                
+                if(res.success)
+                {
+                    swal({title: "Installment paid succesfully.",icon: "success",});
+                    bindDairyByNumber(dairyNumber);                    
+                }
+            }
+            });
+        }
     </script>
 }

@@ -10,4 +10,6 @@ public class Agent
     public bool IsActive { get; set; }
     public int? ModifiedBy { get; set; }
     public DateTime? ModifiedOn { get; set; }
+    
+    public virtual ICollection<Dairy> Dairies { get; set; }
 }
