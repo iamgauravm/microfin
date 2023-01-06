@@ -3,6 +3,7 @@ using MicroFIN.Core;
 using MicroFIN.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MicroFIN.Controllers;
@@ -49,8 +50,32 @@ public class AccountController : Controller
         }
         return View();
     }
-
+    
+    [Authorize]
+    [HttpPost]
+    public async Task<JsonResult> ChangePassword(string currentPassword, string newPassword)
+    {
+        if(!string.IsNullOrEmpty(currentPassword) && string.IsNullOrEmpty(newPassword))
+        {
+            return Json(false);
+        }
+        int userId = 0;
+        var claimsIdentity = User.Identity as ClaimsIdentity;
         
+        if (claimsIdentity != null)
+        {
+            var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == "Userid");
+            if (userIdClaim != null) userId = int.Parse(string.IsNullOrWhiteSpace(userIdClaim.Value) ? "0" : userIdClaim.Value);
+        }
+        var user = _context.Users.FirstOrDefault(s => s.Id == userId && s.Password==currentPassword);
+        if (user == null) return Json(false);
+
+        user.Password = newPassword;
+        await _context.SaveChangesAsync();
+        return Json(true);
+    }
+
+    
     public IActionResult Logout()
     {
         var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

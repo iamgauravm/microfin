@@ -5,14 +5,69 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2><strong>Setting Page </strong></h2><br /><br />
-            Hello @User.Identity.Name !, Role @User.FindFirst(claim=>claim.Type==System.Security.Claims.ClaimTypes.Role)?.Value
-            <a asp-action="logout" asp-controller="account">
-                Logout
-            </a>
-            <br />
-            <br />
-            <h4>Admin role user can only access this page!!</h4>
+            <h4>Settings</h4>
+        </div>
+        <hr />
+        <div class="col-sm-12 col-md-3">
+            <h6>Change Password</h6>
+            <hr />
+            <form>
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input class="form-control form-control-sm" type="password" id="txtCurrentPassword" value="" placeholder="Current Password"/>
+                </div>
+                <div class="form-group mt-2">
+                    <label>New Password</label>
+                    <input class="form-control form-control-sm" type="password" id="txtNewPassword" value="" placeholder="New Password"/>
+                </div>
+                <div class="form-group mt-2">
+                    <input class="btn btn-sm btn-primary" type="button" value="Save" onclick="onClickChangePassword()"/>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+       
+        $( document ).ready(function() {
+            initialChangePassword();
+        });
+        initialChangePassword = () =>{
+            $('#txtCurrentPassword').val('');
+            $('#txtNewPassword').val('');
+        }     
+        onClickChangePassword =() => { 
+            
+            if ($('#txtCurrentPassword').val()=='' || $('#txtNewPassword').val()==''){
+                swal({ title: "Please enter current and new password fields", icon: "warning",});
+                return;          
+            }          
+            
+            var payload = {
+                currentPassword: $('#txtCurrentPassword').val(),
+                newPassword: $('#txtNewPassword').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: "/account/changepassword",
+                data: payload,
+                success: function (res) {
+                    console.log(res);
+                    if (!res){
+                        swal({ title: "Please check current and new password", icon: "warning",});  
+                    }else{
+                        swal({ title: "Password is changed succesfully.", icon: "success",});
+                        initialChangePassword();
+                    }
+                   
+                }
+            });
+            
+        }
+       
+    </script>
+}
