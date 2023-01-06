@@ -352,6 +352,9 @@ public class DairyController : ControllerBase
         {
             var _amount = model.Amount;
             dairyInstallment.PaidAmount = dairyInstallment.PaidAmount+model.Amount;
+            var dairy = await _context.Dairies.FirstOrDefaultAsync(x => x.Id == dairyInstallment.DairyId);
+            dairy.TotalBalanceAmount = dairy.TotalBalanceAmount - _amount;
+            
             var installments = await _context.DairyInstallments.Where(x => x.DairyId==dairyInstallment.DairyId).ToListAsync();
             foreach (var item in installments)
             {
@@ -371,7 +374,8 @@ public class DairyController : ControllerBase
                     }
                 }
             }
-             
+
+            
             await _context.SaveChangesAsync();
             // var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == model.CustomerId && x.IsActive == true);
             // if (customer == null)
