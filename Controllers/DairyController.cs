@@ -26,6 +26,7 @@ public class DairyController : ControllerBase
     public async Task<ResponseObject<IEnumerable<Dairy>>> GetAll()
     {
         var res = await _context.Dairies
+            .Where(x=>x.IsActive==true)
             .Include("Customer")
             // .Include("DairyInstallments")
             .ToListAsync(); 
@@ -311,7 +312,7 @@ public class DairyController : ControllerBase
     [HttpGet("customers")]
     public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetCustomers()
     {
-        var res = await _context.Customers.Select(x=>new DropDownViewModel
+        var res = await _context.Customers.Where(f=>f.IsActive==true).Select(x=>new DropDownViewModel
             {
                 Id = x.Id,
                 Name = $"{x.Name} S/o {x.FatherName}"
@@ -322,7 +323,7 @@ public class DairyController : ControllerBase
     [HttpGet("agents")]
     public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetAgents()
     {
-        var res = await _context.Agents.Select(x=>new DropDownViewModel
+        var res = await _context.Agents.Where(f=>f.IsActive==true).Select(x=>new DropDownViewModel
             {
                 Id = x.Id,
                 Name = $"{x.Name} [{x.Mobile}]"
@@ -334,7 +335,9 @@ public class DairyController : ControllerBase
     [HttpGet("refdairies")]
     public async Task<ResponseObject<IEnumerable<RefDairyViewModel>>> GetReferenceDairies()
     {
-        var res = await _context.Dairies.Select(x=>new RefDairyViewModel
+        var res = await _context.Dairies
+            .Where(f=>f.IsActive==true)
+            .Select(x=>new RefDairyViewModel
             {
                 Id = x.Id,
                 DairyNumber = $"{x.DairyNumber}",
@@ -345,7 +348,7 @@ public class DairyController : ControllerBase
         {
             item.PaidAmount = item.PaidAmount - GetRefDairyBalance(item.Id);
         }
-        return new ResponseObject<IEnumerable<RefDairyViewModel>>(res);
+        return new ResponseObject<IEnumerable<RefDairyViewModel>>(res.Where(f=>f.PaidAmount>0));
     }
 
     private Double GetRefDairyBalance(int dairyId)
@@ -386,5 +389,8 @@ public class DairyController : ControllerBase
         }
         return new ResponseObject<bool>(true);
     }
+    
+    
+
     
 }

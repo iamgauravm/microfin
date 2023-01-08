@@ -2,157 +2,176 @@
     ViewData["Title"] = "Dairy Page";
 }
 
-<div class="container">
+<div class="pagetitle">
     <div class="row">
         <div class="col-6">
-            <h2>Dairies</h2>
+            <h1>Dairies</h1>
         </div>
         <div class="col-6 text-end pt-2">
             <input class="btn btn-sm btn-primary" type="button" value="+ Dairy" onclick="onClickCreateDairy(event)"/>
         </div>
     </div>
-    <hr/>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered table-striped" style="width:100%" id="tblstDairies">
-                <thead>
-                <tr>
-                    <th>Dairy #</th>
-                    <th>Customer</th>
-                    <th>StartDate</th>
-                    <th>EndDate</th>
-                    <th>Installment</th>
-                    <th>Loan</th>
-                    <th>Total</th>
-                    <th>Balance</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody >
-                </tbody>
-            </table>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Dairies</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body pt-4">
+                <table class="table table-bordered table-striped " style="width:100%" id="tblstDairies">
+                    <thead>
+                    <tr>
+                        <th>Dairy #</th>
+                        <th>Customer</th>
+                        <th>StartDate</th>
+                        <th>EndDate</th>
+                        <th>Installment</th>
+                        <th>Loan</th>
+                        <th>Total</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Create Dairy Modal -->
+<div class="modal fade" id="createDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h5 class="modal-title" id="staticBackdropLabel">Create Dairy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form row">
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Choose Agent</label>
+                        <select class="form-select form-select-sm" id="ddlagents" onchange="onChangeAgent(this)">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Choose Customer</label>
+                        <select class="form-select form-select-sm" id="ddlcustomers" onchange="onChangeCustomer(this)">
+                            <option value="0">New Customer</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row" id="divnewcustomerdetail">
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Customer Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" id="txtcustomername"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Father Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" id="txtcustomerfathername"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm Number" maxlength="10" id="txtcustomermobile"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Business name</label>
+                        <input class="form-control form-control-sm" id="txtcustomerbusinessname"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Address</label>
+                        <input class="form-control form-control-sm" id="txtcustomeraddress"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Remarks</label>
+                        <textarea class="form-control form-control-sm" id="txtcustomerremarks"></textarea>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtdairynumber"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm Number" type="text" id="txtdairyloanamount"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" type="date" id="txtdairystartdate"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtdairyinstallment"/>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered" id="tbrefdairies">
+                            <thead>
+                            <tr>
+                                <th class="text-center" style="width: 100px">Dairy#</th>
+                                <th class="text-center" style="width: 100px">Balance</th>
+                                <th class="text-center" style="width: 120px">Loan</th>
+                                <th class="text-center" style="width: 40px"></th>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <select class="form-select form-select-sm" id="ddlrefdairies" onchange="onChangeRefDairies(this)">
+                                        <option value="0">Cash</option>
+                                    </select>
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefdairypaidamount" value="0"/>
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-control form-control-sm text-end" type="number" id="txtrefdairyloanamount" value="0"/>
+                                </td>
+                                <td class="text-center">
+                                    <a onclick="onClickAddRowRefDairy()" href="javascript:void(0);" class="btn btn-sm btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer py-1">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDairySave()">Save</button>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Create Dairy Modal -->
-<div class="modal fade" id="createDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header py-2">
-        <h5 class="modal-title" id="staticBackdropLabel">Create Dairy</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <div class="modal-body">
-            <div class="form row">
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Choose Agent</label>
-                    <select class="form-select form-select-sm" id="ddlagents" onchange="onChangeAgent(this)">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Choose Customer</label>
-                    <select class="form-select form-select-sm" id="ddlcustomers" onchange="onChangeCustomer(this)">
-                        <option value="0">New Customer</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="row" id="divnewcustomerdetail">
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Customer Name&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" id="txtcustomername"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Father Name&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" id="txtcustomerfathername"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm Number" maxlength="10" id="txtcustomermobile"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Business name</label>
-                    <input class="form-control form-control-sm" id="txtcustomerbusinessname"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Address</label>
-                    <input class="form-control form-control-sm" id="txtcustomeraddress"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Remarks</label>
-                    <textarea class="form-control form-control-sm" id="txtcustomerremarks"></textarea>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
-               
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtdairynumber"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm Number" type="text" id="txtdairyloanamount"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" type="date" id="txtdairystartdate"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtdairyinstallment"/>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-bordered" id="tbrefdairies">
-                        <thead>
-                        <tr>
-                            <th class="text-center" style="width: 100px">Dairy#</th>
-                            <th class="text-center" style="width: 100px">Balance</th>
-                            <th class="text-center" style="width: 120px">Loan</th>
-                            <th class="text-center" style="width: 40px"></th>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <select class="form-select form-select-sm" id="ddlrefdairies" onchange="onChangeRefDairies(this)">
-                                    <option value="0">Cash</option>
-                                </select>
-                            </td>
-                            <td class="text-center"><input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefdairypaidamount" value="0"/></td>
-                            <td class="text-center">
-                                <input class="form-control form-control-sm text-end" type="number" id="txtrefdairyloanamount" value="0"/>
-                            </td>
-                            <td class="text-center">
-                                <a onclick="onClickAddRowRefDairy()" href="javascript:void(0);" class="btn btn-sm btn-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
-                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-      <div class="modal-footer py-1">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDairySave()">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 @section Scripts
 {
     <script type="text/javascript">
         var createDairyModel = new bootstrap.Modal(document.getElementById('createDairyModel'), {backdrop: 'static',keyboard: false});
+        
         var _dairiesHadbalance = [];
         var _agents = [];
         var _customers = [];
@@ -163,8 +182,7 @@
         $( document ).ready(function() {
             _currentDairyId = 0;
             getAllDairies();
-            // bindDairy(6);
-            
+            createDairyModel.hide();
         });
         
         getAllDairies = () =>{
@@ -173,7 +191,7 @@
                url: "/dairy/getall",         
                 success: function (res) {
                    console.log(res.data);
-                  if ( $.fn.DataTable.isDataTable('#tblstCustomers') ) {
+                  if ( $.fn.DataTable.isDataTable('#tblstDairies') ) {
                     $('#tblstDairies').DataTable().destroy();
                   }
                    var table = $('#tblstDairies').DataTable(
@@ -181,7 +199,7 @@
                            data: res.data,
                            columnDefs: [
                                {render: function (data, type, row) { return row.dairyNumber;},defaultContent: "-",targets: 0,className: "text-center"},
-                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getCustomerDetail('+row.id+')">'+row.customer.name+' ['+row.customer.mobile+']</a>'},defaultContent: "-",targets: 1},
+                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getDairyDetail('+row.dairyNumber+')">'+row.customer.name+' ['+row.customer.mobile+']</a>'},defaultContent: "-",targets: 1},
                                {render: function (data, type, row) { return moment(row.startDate).format('DD/MM/YYYY');},defaultContent: "-",targets: 2},
                                {render: function (data, type, row) { return moment(row.endDate).format('DD/MM/YYYY');},defaultContent: "-",targets: 3},
                                {render: function (data, type, row) { return row.installment;},defaultContent: "-",targets: 4,className: "text-center"},
@@ -189,6 +207,8 @@
                                {render: function (data, type, row) { return '₹ '+formatCurrency(row.totalAmount);},defaultContent: "-",targets: 6,className: "text-end"},
                                {render: function (data, type, row) { return '₹ '+formatCurrency(row.totalBalanceAmount);},defaultContent: "-",targets: 7,className: "text-end"},
                                {render: function (data, type, row) { return row.isCompleted==true?'Completed':'Not Completed';},defaultContent: "-",targets: 8,className: "text-center"},
+                               {render: function (data, type, row) { return (moment(row.startDate)>moment()?'<a href="javascript:void(0);" class="text-danger" onclick="deleteDairy('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 9},
+                               // {render: function (data, type, row) { return (moment(row.startDate)<moment()?'<a href="javascript:void(0);" class="text-danger" onclick="deleteCustomer('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 6},
                            ],
                            responsive: true,
                            lengthChange: false,
@@ -200,86 +220,60 @@
                 }
             });
         }
-        bindDairy = (id)=>{
-                    $.ajax({
-                        type: 'GET',
-                        url: "/dairy/get/"+id,
-                        success: function (res) {
-                           console.log(res)
-                           if(res.success)
-                           {
-                               _dairy = res.data;                              
-                                   $("#tableOrderDetail tbody").append(
-                                       '<tr><td>'+_dairy.dairyNumber+'</td>' +
-                                       '<td>'+_dairy.customer.name+' - '+_dairy.customer.mobile+'</td>'+
-                                       '<td>'+moment(_dairy.startDate).format('DD/MM/YYYY')+'</td>'+
-                                       '<td>'+moment(_dairy.endDate).format('DD/MM/YYYY')+'</td>'+
-                                       '<td>'+_dairy.installment+'</td>'+
-                                       '<td>'+_dairy.loanAmount+'</td>'+
-                                       '<td>'+_dairy.totalAmount+'</td>'+
-                                       '<td>'+_dairy.totalBalanceAmount+'</td>'+
-                                       '<td>'+_dairy.isCompleted+'</td></tr>');
-                                   if (_dairy.dairyInstallments?.length>0){
-                                       _ints = "";
-                                      
-                                       
-                                       _ints +='<tr><td colspan="9"><div class="row"><div class="col-3">';
-                                       _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
-                                                                                       
-                                       for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
-                                          if (j == 30 || j == 60 || j == 90){
-                                              _ints +='</table>';
-                                              _ints +='</div>';
-                                              _ints +='<div class="col-3">';
-                                              _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
-                                                                                     
-                                          }
-                                         _ints += '<tr><td>'+_dairy.dairyInstallments[j].installmentNumber+'</td>' +
-                                         '<td>'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD/MM/YYYY')+'</td>'+
-                                         
-                                         '<td>'+_dairy.dairyInstallments[j].installmentAmount+'</td>'+
-                                         // '<td>'+_dairy.dairyInstallments[j].paidAmount+'</td>'+
-                                         // '<td>'+_dairy.dairyInstallments[j].balanceAmount+'</td>'+
-                                         '<td>'+_dairy.dairyInstallments[j].isClosed+'</td></tr>';
-                                          
-                                       }
-                                        _ints +='</table>';
-                                        _ints +='</div>';
-                                        _ints +='</div>';
-                                       $("#tableOrderDetail tbody").append(_ints+"</td></tr>");
-                                       
-                                       
-                                       // $("#tableOrderDetail tbody").append('</table>');
-                                       // $("#tableOrderDetail tbody").append('</div>');
-                                       //$("#tableOrderDetail tbody").append('</div>');
-                                       
-                                      //  $("#tableOrderDetail tbody").append(
-                                      //     '<tr><td></td>' +
-                                      //     '<td colspan="5">Installments</td></td></tr>');
-                                      //  var _ints = "<tr><td></td><td colspan='5'><table class='table table-responsive table-bordered'>"+
-                                      //  "<tr><th>#</th><th>Date</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Closed</th></tr>";
-                                      // 
-                                      // 
-                                      // 
-                                      //  for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
-                                      //      // if (j ==0 || j == 29 || j == 59 || j == 89){
-                                      //      //     _ints+="";
-                                      //      //     }
-                                      //     _ints += '<tr><td>'+_dairy.dairyInstallments[j].installmentNumber+'</td>' +
-                                      //     '<td>'+_dairy.dairyInstallments[j].installmentDate+'</td>'+
-                                      //     '<td>'+_dairy.dairyInstallments[j].installmentAmount+'</td>'+
-                                      //     '<td>'+_dairy.dairyInstallments[j].paidAmount+'</td>'+
-                                      //     '<td>'+_dairy.dairyInstallments[j].balanceAmount+'</td>'+
-                                      //     '<td>'+_dairy.dairyInstallments[j].isClosed+'</td></tr>';                                 
-                                      // }
-                                      // $("#tableOrderDetail tbody").append(_ints+"</table></td></td></tr>");
-                                   }
-                           }
-                        }
-                    });
-                };
-        
-        
+        // bindDairy = (id)=>{
+        //             $.ajax({
+        //                 type: 'GET',
+        //                 url: "/dairy/get/"+id,
+        //                 success: function (res) {
+        //                    console.log(res)
+        //                    if(res.success)
+        //                    {
+        //                        _dairy = res.data;                              
+        //                            $("#tableOrderDetail tbody").append(
+        //                                '<tr><td>'+_dairy.dairyNumber+'</td>' +
+        //                                '<td>'+_dairy.customer.name+' - '+_dairy.customer.mobile+'</td>'+
+        //                                '<td>'+moment(_dairy.startDate).format('DD/MM/YYYY')+'</td>'+
+        //                                '<td>'+moment(_dairy.endDate).format('DD/MM/YYYY')+'</td>'+
+        //                                '<td>'+_dairy.installment+'</td>'+
+        //                                '<td>'+_dairy.loanAmount+'</td>'+
+        //                                '<td>'+_dairy.totalAmount+'</td>'+
+        //                                '<td>'+_dairy.totalBalanceAmount+'</td>'+
+        //                                '<td>'+_dairy.isCompleted+'</td></tr>');
+        //                            if (_dairy.dairyInstallments?.length>0){
+        //                                _ints = "";
+        //                              
+        //                               
+        //                                _ints +='<tr><td colspan="9"><div class="row"><div class="col-3">';
+        //                                _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
+        //                                                                               
+        //                                for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
+        //                                   if (j == 30 || j == 60 || j == 90){
+        //                                       _ints +='</table>';
+        //                                       _ints +='</div>';
+        //                                       _ints +='<div class="col-3">';
+        //                                       _ints +="<table class='table table-responsive table-bordered'><tr><th>#</th><th>Date</th><th>INST</th><th></th></tr>";
+        //                                                                             
+        //                                   }
+        //                                  _ints += '<tr><td>'+_dairy.dairyInstallments[j].installmentNumber+'</td>' +
+        //                                  '<td>'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD/MM/YYYY')+'</td>'+
+        //                                 
+        //                                  '<td>'+_dairy.dairyInstallments[j].installmentAmount+'</td>'+
+        //                                  // '<td>'+_dairy.dairyInstallments[j].paidAmount+'</td>'+
+        //                                  // '<td>'+_dairy.dairyInstallments[j].balanceAmount+'</td>'+
+        //                                  '<td>'+_dairy.dairyInstallments[j].isClosed+'</td></tr>';
+        //                                  
+        //                                }
+        //                                 _ints +='</table>';
+        //                                 _ints +='</div>';
+        //                                 _ints +='</div>';
+        //                                $("#tableOrderDetail tbody").append(_ints+"</td></tr>");
+        //                            }
+        //                    }
+        //                 }
+        //             });
+        //         };
+        //
+        //
         
        
         initialedCreateDairy = () =>{
@@ -326,6 +320,19 @@
             if ($('#txtdairynumber').val()=='' || $('#txtdairystartdate').val()=='' || $('#txtdairyloanamount').val()=='' || $('#txtdairyinstallment').val()=='' ){
                swal({ title: "Please enter required fields!", icon: "warning",});
                return;
+            }
+            if (parseFloat($('#txtdairyloanamount').val())==0){
+                 swal({ title: "Please loan amount greater then 0!", icon: "warning",});
+                 return;
+            }
+            
+            var _refAmount = 0;
+            for(let i = 0; i < _refDairies.length; i++) {
+              _refAmount=parseFloat(_refAmount)+parseFloat(_refDairies[i].loanAmount);
+            }
+            if (parseFloat(_refAmount)!=parseFloat($('#txtdairyloanamount').val())){
+                 swal({ title: "Please loan amount and dairies reference amount must be same!", icon: "warning",});
+                 return;
             }
             
             var payload = {
@@ -420,94 +427,6 @@
                 }
             });
         }        
-        onClickSearch =(e)=> {
-            if ($('#txtsearchdairynumber').val()!='')
-                bindDairyByNumber($('#txtsearchdairynumber').val());
-            else
-                swal({
-                  title: "Please enter dairy number!",
-                  icon: "warning",
-                });                
-        }
-        bindDairyByNumber = (numb)=>{
-            $.ajax({
-            type: 'GET',
-            url: "/dairy/getbynumber/"+numb,
-            success: function (res) {
-                $('#divDairyDetail').html('');
-                if(res.success)
-                {
-                    _dairy = res.data;
-                    var _innerBody="";
-                    if (_dairy != null){
-                        _innerBody += '<h4>#'+_dairy.dairyNumber+'</h4>';
-                        _innerBody += '<table class="table table-borderless">';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td style="width: 110px">Name : </td>';
-                        _innerBody += '        <td colspan="3">'+_dairy.customer.name+' S/o '+_dairy.customer.fatherName+' ['+_dairy.customer.mobile+']</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td>Start : </td>';
-                        _innerBody += '        <td>'+moment(_dairy.startDate).format('DD-MM-YYYY')+'</td>';
-                        _innerBody += '        <td>End : </td>';
-                        _innerBody += '        <td>'+moment(_dairy.endDate).format('DD-MM-YYYY')+'</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td>Loan : </td>';
-                        _innerBody += '        <td>'+_dairy.loanAmount+'</td>';
-                        _innerBody += '        <td>Total : </td>';
-                        _innerBody += '        <td>'+_dairy.totalAmount+'</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td>Balance : </td>';
-                        _innerBody += '        <td>'+_dairy.totalBalanceAmount+'</td>';
-                        _innerBody += '        <td>Status : </td>';
-                        _innerBody += '        <td>'+_dairy.isCompleted+'</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '</table>';                   
-                       
-                       if (_dairy.dairyInstallments?.length>0){
-                           _innerBody += '<h5>Installments</h5>';
-                           _innerBody += '<table class="table table-bordered border-secondary bg-white">';
-                           _innerBody += '    <tr>';
-                           _innerBody += '        <th class="text-center">#</th>';
-                           _innerBody += '        <th class="text-center">Date</th>';
-                           _innerBody += '        <th class="text-center">Amount</th>';
-                           _innerBody += '        <th class="text-center">Balance</th>';
-                           _innerBody += '        <th class="text-center">Status</th>';
-                           _innerBody += '    </tr>';
-                           
-                           
-                           for(let j = 0; j< _dairy.dairyInstallments.length; j++) {
-                               var _className ="";
-                               
-                               if (moment().add(5, 'days').format('DD-MM-YYYY')==moment(_dairy.dairyInstallments[j].installmentDate).format('DD-MM-YYYY')){
-                                    _className = 'bg-info';
-                               }else if (moment().add(5, 'days')>moment(_dairy.dairyInstallments[j].installmentDate)){
-                                    _className = 'bg-past-dt';
-                               }
-                              _innerBody += '    <tr class="'+_className+'">';
-                               _innerBody += '        <td class="text-center">'+_dairy.dairyInstallments[j].installmentNumber+'</td>';
-                               _innerBody += '        <td class="text-center">'+moment(_dairy.dairyInstallments[j].installmentDate).format('DD-MM-YYYY')+'</td>';
-                               _innerBody += '        <td class="text-end">'+_dairy.dairyInstallments[j].installmentAmount+'</td>';
-                               _innerBody += '        <td class="text-end">'+_dairy.dairyInstallments[j].balanceAmount+'</td>';
-                               _innerBody += '        <td class="text-center">'+_dairy.dairyInstallments[j].isClosed+'</td>';
-                               _innerBody += '    </tr>';
-                             }
-                           _innerBody += '</table>';
-                       }
-                   }else{
-                        swal({
-                         title: "Dairy not found, Please try another dairy number.",
-                         icon: "info",
-                         });
-                    }
-                    $('#txtsearchdairynumber').val('');
-                    $('#divDairyDetail').html(_innerBody);
-                }
-            }
-            });
-        };        
         bindCustomers = ()=>{
             $.ajax({
             type: 'GET',
@@ -587,7 +506,41 @@
                 }
                 });
             };  
+        
+        getDairyDetail = (dairyNum) => {
+            bindDairyByNumber(dairyNum);        
+        }
+        
+        deleteDairy=(id)=>{
+            swal({
+            title: "Are you sure want to delete dairy?",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+                ],
+            dangerMode: true,
+            }).then(function(isConfirm) {
+              if (isConfirm) {
+                  $.ajax({
+                  type: 'POST',
+                  url: "/dairy/delete/"+id,
+                  success: function (res) {
+                      initialedCreateDairy();
+                      getAllDairies();
+                       swal({
+                            title: 'Deleted!',
+                            text: 'Dairy are successfully deleted!',
+                            icon: 'success'
+                          }).then(function() {
+                            //form.submit(); // <--- submit form programmatically
+                          });
+                  }
+                  });
+               
+              }
+            });
+        }
 
     </script>
 }
-

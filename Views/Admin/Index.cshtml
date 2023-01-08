@@ -1,180 +1,258 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-
-<div class="container-fluid bg-p border-1 border-primary rounded py-2">
-    <form class="row align-items-center ">
-        <div class="col-auto">
-            <label for="inputPassword6" class="form-control-sm col-form-label"><strong>Dairy#</strong></label>
-        </div>
-        <div class="col-auto">
-            <input class="form-control form-control-sm"  type="text" id="txtsearchdairynumber" value="" placeholder="Enter Dairy Number">
-        </div>
-        <div class="col-auto">
-            <input class="btn btn-sm btn-primary" type="button" value="Search" onclick="onClickSearch(this)"/>&nbsp;&nbsp;
-            <input class="btn btn-sm btn-primary" type="button" value="+ Dairy" onclick="onClickCreateDairy(event)"/>
-        </div>
-    </form>
-    <hr class="my-2"/>
-    <div class="row">
-        <div class="col-12" id="divDairyDetail">
-            @* <h4>#1</h4> *@
-            @* <table class="table table-borderless"> *@
-            @*     <tr> *@
-            @*         <td style="width: 110px">Name : </td> *@
-            @*         <td colspan="3">Gaurav Malviya S/o R K Malviya [9876543210]</td> *@
-            @*     </tr> *@
-            @*     <tr> *@
-            @*         <td>Start : </td> *@
-            @*         <td>01-01-2022</td> *@
-            @*         <td>End : </td> *@
-            @*         <td>01-01-2022</td> *@
-            @*     </tr> *@
-            @*     <tr> *@
-            @*         <td>Loan Amt : </td> *@
-            @*         <td>50,000</td> *@
-            @*         <td>Total Amt : </td> *@
-            @*         <td>50,000</td> *@
-            @*     </tr> *@
-            @*     <tr> *@
-            @*         <td>Balance Amt : </td> *@
-            @*         <td>50,000</td> *@
-            @*         <td>Status : </td> *@
-            @*         <td>Due</td> *@
-            @*     </tr> *@
-            @* </table> *@
-            @* <h5>Installments</h5> *@
-            @* <table class="table table-bordered border-secondary bg-white"> *@
-            @*     <tr> *@
-            @*         <th class="text-center">#</th> *@
-            @*         <th class="text-center">Date</th> *@
-            @*         <th class="text-center">Amount</th> *@
-            @*         <th class="text-center">Status</th> *@
-            @*     </tr> *@
-            @*     <tr> *@
-            @*         <td class="text-center">1</td> *@
-            @*         <td class="text-center">01-01-2022</td> *@
-            @*         <td class="text-end">500</td> *@
-            @*         <td class="text-center"></td> *@
-            @*     </tr> *@
-            @* </table> *@
-        </div>
-    </div>
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </nav>
 </div>
+<section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Dairies</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-book"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="dairyCounter">0</h6>
+                                    @* <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> *@
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-3 col-xl-6">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Customers</h5>
+                            @* <h5 class="card-title">Customers <span>| This Year</span></h5> *@
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="customerCounter">0</h6>
+                                    @* <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> *@
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Revenue</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-currency-rupee"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="revenueCounter">0</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-6">
+
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Expenses</h5>
+                            @* <h5 class="card-title">Customers <span>| This Year</span></h5> *@
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="expensesCounter">0</h6>
+                                    @* <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> *@
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">Today</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">This Month</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">This Year</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Reports <span>/Today</span></h5>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 
 <!-- Create Dairy Modal -->
 <div class="modal fade" id="createDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header py-2">
-        <h5 class="modal-title" id="staticBackdropLabel">Create Dairy</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <div class="modal-body">
-            <div class="form row">
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Choose Agent</label>
-                    <select class="form-select form-select-sm" id="ddlagents" onchange="onChangeAgent(this)">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Choose Customer</label>
-                    <select class="form-select form-select-sm" id="ddlcustomers" onchange="onChangeCustomer(this)">
-                        <option value="0">New Customer</option>
-                    </select>
-                </div>
-                
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h5 class="modal-title" id="staticBackdropLabel">Create Dairy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="row" id="divnewcustomerdetail">
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Customer Name&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" id="txtcustomername"/>
+            <div class="modal-body">
+                <div class="form row">
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Choose Agent</label>
+                        <select class="form-select form-select-sm" id="ddlagents" onchange="onChangeAgent(this)">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Choose Customer</label>
+                        <select class="form-select form-select-sm" id="ddlcustomers" onchange="onChangeCustomer(this)">
+                            <option value="0">New Customer</option>
+                        </select>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Father Name&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" id="txtcustomerfathername"/>
+                <div class="row" id="divnewcustomerdetail">
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Customer Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" id="txtcustomername"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Father Name&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" id="txtcustomerfathername"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm Number" maxlength="10" id="txtcustomermobile"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Business name</label>
+                        <input class="form-control form-control-sm" id="txtcustomerbusinessname"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Address</label>
+                        <input class="form-control form-control-sm" id="txtcustomeraddress"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Remarks</label>
+                        <textarea class="form-control form-control-sm" id="txtcustomerremarks"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm Number" maxlength="10" id="txtcustomermobile"/>
+                <hr/>
+                <div class="row">
+
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtdairynumber"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm Number" type="text" id="txtdairyloanamount"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" type="date" id="txtdairystartdate"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtdairyinstallment"/>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Business name</label>
-                    <input class="form-control form-control-sm" id="txtcustomerbusinessname"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Address</label>
-                    <input class="form-control form-control-sm" id="txtcustomeraddress"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Remarks</label>
-                    <textarea class="form-control form-control-sm" id="txtcustomerremarks"></textarea>
+                <hr/>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered" id="tbrefdairies">
+                            <thead>
+                            <tr>
+                                <th class="text-center" style="width: 100px">Dairy#</th>
+                                <th class="text-center" style="width: 100px">Balance</th>
+                                <th class="text-center" style="width: 120px">Loan</th>
+                                <th class="text-center" style="width: 40px"></th>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <select class="form-select form-select-sm" id="ddlrefdairies" onchange="onChangeRefDairies(this)">
+                                        <option value="0">Cash</option>
+                                    </select>
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefdairypaidamount" value="0"/>
+                                </td>
+                                <td class="text-center">
+                                    <input class="form-control form-control-sm text-end" type="number" id="txtrefdairyloanamount" value="0"/>
+                                </td>
+                                <td class="text-center">
+                                    <a onclick="onClickAddRowRefDairy()" href="javascript:void(0);" class="btn btn-sm btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <hr/>
-            <div class="row">
-               
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtdairynumber"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm Number" type="text" id="txtdairyloanamount"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm" type="date" id="txtdairystartdate"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
-                    <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtdairyinstallment"/>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-bordered" id="tbrefdairies">
-                        <thead>
-                        <tr>
-                            <th class="text-center" style="width: 100px">Dairy#</th>
-                            <th class="text-center" style="width: 100px">Balance</th>
-                            <th class="text-center" style="width: 120px">Loan</th>
-                            <th class="text-center" style="width: 40px"></th>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                <select class="form-select form-select-sm" id="ddlrefdairies" onchange="onChangeRefDairies(this)">
-                                    <option value="0">Cash</option>
-                                </select>
-                            </td>
-                            <td class="text-center"><input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefdairypaidamount" value="0"/></td>
-                            <td class="text-center">
-                                <input class="form-control form-control-sm text-end" type="number" id="txtrefdairyloanamount" value="0"/>
-                            </td>
-                            <td class="text-center">
-                                <a onclick="onClickAddRowRefDairy()" href="javascript:void(0);" class="btn btn-sm btn-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
-                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="modal-footer py-1">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDairySave()">Save</button>
             </div>
         </div>
-      <div class="modal-footer py-1">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDairySave()">Save</button>
-      </div>
     </div>
-  </div>
 </div>
 
 @section Scripts
@@ -185,10 +263,30 @@
         var _agents = [];
         var _customers = [];
         var _refDairies = [];
-        $( document ).ready(function() {
-            // onClickCreateDairy();
-            
+        $(document).ready(function() {
+            bindDashboardCounter();
+            // onClickCreateDairy();            
         });
+        bindDashboardCounter = ()=>{
+            $.ajax({
+            type: 'GET',
+            url: "/admin/dashboard/counter",
+            success: function (res) {
+                if(res.success)
+                {
+                    console.log(res)   ;   
+                    $('#dairyCounter').text(res.data.dairies)
+                    $('#customerCounter').text(res.data.customers)
+                    $('#revenueCounter').text(res.data.revenueTotal)
+                    $('#expensesCounter').text(res.data.expensesTotal)
+                }
+            }
+            });
+        };
+        
+        
+        
+        
         initialedCreateDairy = () =>{
             
             _dairiesHadbalance = [];
@@ -219,8 +317,7 @@
             $('#txtcustomeraddress').val('')
             $('#divnewcustomerdetail').show();
             bindDairyNewNumber();
-        }
-        
+        }        
         onClickCreateDairy = ()=>{      
             initialedCreateDairy();            
             createDairyModel.show();
@@ -327,112 +424,6 @@
                 }
             });
         }        
-        onClickSearch =(e)=> {
-            if ($('#txtsearchdairynumber').val()!='')
-                bindDairyByNumber($('#txtsearchdairynumber').val());
-            else
-                swal({
-                  title: "Please enter dairy number!",
-                  icon: "warning",
-                });                
-        }
-        bindDairyByNumber = (numb)=>{
-            $.ajax({
-            type: 'GET',
-            url: "/dairy/getbynumber/"+numb,
-            success: function (res) {
-                $('#divDairyDetail').html('');
-                if(res.success)
-                {
-                    _dairy = res.data;
-                    var _innerBody="";
-                    if (_dairy != null){
-                        _innerBody += '<h4>#'+_dairy.dairyNumber+'</h4>';
-                        _innerBody += '<table class="table table-borderless">';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td style="width: 110px">Name : </td>';
-                        _innerBody += '        <td colspan="3">'+_dairy.customerName+' S/o '+_dairy.customerFatherName+' ['+_dairy.customerMobile+']</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td>Start : </td>';
-                        _innerBody += '        <td>'+moment(_dairy.startDate).format('DD-MM-YYYY')+'</td>';
-                        _innerBody += '        <td>End : </td>';
-                        _innerBody += '        <td>'+moment(_dairy.endDate).format('DD-MM-YYYY')+'</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td>Loan : </td>';
-                        _innerBody += '        <td>'+_dairy.loanAmount+'</td>';
-                        _innerBody += '        <td>Total : </td>';
-                        _innerBody += '        <td>'+_dairy.totalAmount+'</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '    <tr>';
-                        _innerBody += '        <td>Balance : </td>';
-                        _innerBody += '        <td>'+_dairy.totalBalanceAmount+'</td>';
-                        _innerBody += '        <td>Status : </td>';
-                        _innerBody += '        <td>'+_dairy.isCompleted+'</td>';
-                        _innerBody += '    </tr>';
-                        _innerBody += '</table>';                   
-                       
-                       if (_dairy.installments?.length>0){
-                           _innerBody += '<h5>Installments</h5>';
-                           _innerBody += '<table class="table table-bordered border-secondary bg-white">';
-                           _innerBody += '    <thead>';
-                           _innerBody += '    <tr>';
-                           _innerBody += '        <th class="text-center">#</th>';
-                           _innerBody += '        <th class="text-center">Date</th>';
-                           // _innerBody += '        <th class="text-center">Amount</th>';
-                           _innerBody += '        <th class="text-center" style="width: 170px">Balance</th>';
-                           _innerBody += '        <th class="text-center">Status</th>';
-                           _innerBody += '    </tr>';
-                           _innerBody += '    </thead>';
-                           _innerBody += '    <body>';
-                           
-                           var todayBalance = 0;
-                           for(let j = 0; j< _dairy.installments.length; j++) {
-                               var _className ="";
-                               
-                               if (moment().format('DD-MM-YYYY')==moment(_dairy.installments[j].installmentDate).format('DD-MM-YYYY')){
-                                    _className = 'bg-info';
-                               }else if (moment()>moment(_dairy.installments[j].installmentDate)){
-                                    _className = 'bg-past-dt';
-                               }
-                               todayBalance += _dairy.installments[j].balanceAmount;
-                               
-                               
-                              _innerBody += '    <tr class="'+_className+'">';
-                               _innerBody += '        <td class="text-center">'+_dairy.installments[j].installmentNumber+'</td>';
-                               _innerBody += '        <td class="text-center">'+moment(_dairy.installments[j].installmentDate).format('DD-MM-YYYY')+'</td>';
-                               // _innerBody += '        <td class="text-end">'+_dairy.installments[j].installmentAmount+'</td>';
-                               
-                               
-                               if (_dairy.installments[j].balanceAmount==0 || moment().format('DD-MM-YYYY')!=moment(_dairy.installments[j].installmentDate).format('DD-MM-YYYY')){
-                                   _innerBody += '        <td class="text-end px-1">'+_dairy.installments[j].balanceAmount+'</td>';                                   
-                               }else{
-                                   _innerBody += '        <td class="text-end px-0"><form class="align-items-center m-0 px-1 row"><div class="col-auto p-0"><input class="form-control form-control-sm" id="txtinstallment_'+_dairy.installments[j].id+'" style="width: 100px"  type="number" value="'+todayBalance+'"></div><div class="col-auto px-1"><input style="width: 50px" class="btn btn-sm btn-primary" type="button" value="Pay" onclick="onclickPayInstallment(this,'+_dairy.installments[j].id+','+numb+')"/></div></form></td>';
-                                   
-                               }
-                               
-                               
-                               //_innerBody += '        <td class="text-end"><form class="row align-items-center "><div class="col-auto p-2"><input class="form-control form-control-sm" style="width: 100px"  type="text" value=""></div><div class="col-auto p-0"><input style="width: 50px" class="btn btn-sm btn-primary" type="button" value="Pay" onclick="onClickSearch(this)"/></div></form></td>';
-                               //'+_dairy.installments[j].balanceAmount+'
-                               _innerBody += '        <td class="text-center">'+(_dairy.installments[j].isClosed==true?'Closed':(_dairy.installments[j].balanceAmount==0?"Paid":'Unpaid'))+'</td>';
-                               _innerBody += '    </tr>';
-                             }
-                           _innerBody += '    </body>';
-                           _innerBody += '</table>';
-                       }
-                   }else{
-                        swal({
-                         title: "Dairy not found, Please try another dairy number.",
-                         icon: "info",
-                         });
-                    }
-                    $('#txtsearchdairynumber').val('');
-                    $('#divDairyDetail').html(_innerBody);
-                }
-            }
-            });
-        };        
         bindCustomers = ()=>{
             $.ajax({
             type: 'GET',
@@ -502,27 +493,27 @@
                 }
                 });
             };      
-        onclickPayInstallment =(e,id,dairyNumber)=>{
-            // alert($('#txtinstallment_'+id).val());
-            
-            var paylod = {
-                id: id, 
-                amount: parseInt($('#txtinstallment_'+id).val()),
-                isClosed: false
-            }
-            
-            $.ajax({
-            type: 'POST',
-            url: "/dairy/installment/pay",
-            data:paylod,
-            success: function (res) {                
-                if(res.success)
-                {
-                    swal({title: "Installment paid succesfully.",icon: "success",});
-                    bindDairyByNumber(dairyNumber);                    
-                }
-            }
-            });
-        }
+        // onclickPayInstallment =(e,id,dairyNumber)=>{
+        //     // alert($('#txtinstallment_'+id).val());
+        //    
+        //     var paylod = {
+        //         id: id, 
+        //         amount: parseInt($('#txtinstallment_'+id).val()),
+        //         isClosed: false
+        //     }
+        //    
+        //     $.ajax({
+        //     type: 'POST',
+        //     url: "/dairy/installment/pay",
+        //     data:paylod,
+        //     success: function (res) {                
+        //         if(res.success)
+        //         {
+        //             swal({title: "Installment paid succesfully.",icon: "success",});
+        //             bindDairyByNumber(dairyNumber);                    
+        //         }
+        //     }
+        //     });
+        // }
     </script>
 }

@@ -2,60 +2,68 @@
     ViewData["Title"] = "Report Page";
 }
 
-
+<div class="pagetitle">
+    <div class="row">
+        <div class="col-6">
+            <h1>Reports</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Reports</li>
+            </ol>
+        </div>
+        <div class="col-6 text-end pt-2">
+            <button class='btn btn-sm btn-secondary' id="btnBackButton" onclick='showReportMenu();'><i class="bi bi-arrow-left"></i>&nbsp;Back</button>
+            <button class='btn btn-sm btn-primary' id="btnPrintButton" onclick='printDiv();'><i class="bi bi-printer"></i>&nbsp;Print</button>
+        </div>
+    </div>
+    <nav>
+        
+    </nav>
+</div>
 <div class="container-fluid bg-p border-1 border-primary rounded py-2" id="divReportMenu">
-    <h3>Reports</h3>
-    <ul>
-        <li><a href="javascript:void(0);" onclick="showReport('IncomeExpenses')">Income/Expenses</a></li>
-        <li><a href="javascript:void(0);" onclick="showReport('BalanceSheet')">Balance Sheet</a></li>
-        <li><a href="javascript:void(0);" onclick="showReport('Expenses')">Expenses</a></li>
-        <li><a href="javascript:void(0);" onclick="showReport('DairiesDue')">Due Dairies</a></li>
-        <li><a href="javascript:void(0);" onclick="showReport('DairiesClosed')">Closed Dairies</a></li>
+    <ul class="list-unstyled list">
+        <li><a href="javascript:void(0);" onclick="showReport('IncomeExpenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Income/Expenses</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('BalanceSheet')"><i class="bi bi-file-earmark-text"></i>&nbsp;Balance Sheet</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('Expenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Expenses</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('DairiesDue')"><i class="bi bi-file-earmark-text"></i>&nbsp;Due Dairies</a></li>
+        <li><a href="javascript:void(0);" onclick="showReport('DairiesClosed')"><i class="bi bi-file-earmark-text"></i>&nbsp;Closed Dairies</a></li>
     </ul>
 </div>
 
 <div id="divReportDetail" style="display: none;">
-    <input type='button' id='btn mb-4' value='Back' onclick='showReportMenu();'>
-    <input type='button' id='btn mb-4' value='Print' onclick='printDiv();'>
+   
     <div id='DivIdToPrint' class="w-100">
-        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divIncomeExpenses">
-            <h6>Income/Expenses</h6>
-        </div>
-        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divBalanceSheet">
-            <h6>Balance Sheet</h6>
-        </div>
-        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divExpenses">
-            <div class="row">
-                <div class="col-6">
-                    <h6>Expenses</h6>
-                </div>
-                <div class="col-6 text-end pt-2">
-
-                </div>
-            </div>
-            <hr class="m-1"/>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered table-striped" style="width:100%" id="tblstExpenses">
-                        <thead>
-                        <tr>
-                            <th style="width: 150px">Date</th>
-                            <th>Description</th>
-                            <th style="width: 150px">Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody >
-                        </tbody>
-                    </table>
-                </div>
+        <div class="card divReportDetail" id="divIncomeExpenses" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title">Income/Expenses</h5>
+                <div class="row"></div>
             </div>
         </div>
-
-        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divDairiesDue">
-            <h6>Dairies Due</h6>
+        <div class="card divReportDetail" id="divBalanceSheet" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title">Balance Sheet</h5> 
+                <div class="row"></div>
+            </div>
         </div>
-        <div class="container-fluid bg-p border-1 border-primary rounded py-2 div-reports" style="display: none;" id="divDairiesClosed">
-            <h6>Dairies Closed</h6>
+        <div class="card divReportDetail" id="divExpenses" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title">Expenses</h5> 
+                <div class="row"></div>
+            </div>
+        </div>
+        <div class="card divReportDetail" id="divDairiesDue" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title">Dairies Due</h5> 
+                <div class="row"></div>
+            </div>
+        </div>
+        <div class="card divReportDetail" id="divDairiesClosed" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title">Dairies Closed</h5> 
+                <div class="row"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -66,15 +74,23 @@
         
         $( document ).ready(function() {
             $('.div-reports').hide();
+            $('#btnBackButton').hide();
+            $('#btnPrintButton').hide();
         });
         showReportMenu=()=>{
             $('#divReportDetail').hide();
             $('#divReportMenu').show();
+            $('#btnBackButton').hide();
+            $('#btnPrintButton').hide();
         }
         showReport = (type) => {
             $('.div-reports').hide();
             $('#divReportDetail').show();
             $('#divReportMenu').hide();
+            $('#btnBackButton').show();
+            $('#btnPrintButton').show();
+            
+            $('.divReportDetail').hide();
             $('#div'+type).show();
             
             

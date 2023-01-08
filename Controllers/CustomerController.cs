@@ -25,7 +25,7 @@ public class CustomerController : ControllerBase
     [HttpGet("getall")]
     public async Task<ResponseObject<IEnumerable<CustomerViewRequest>>> GetAll()
     {
-        return new ResponseObject<IEnumerable<CustomerViewRequest>>(await _context.Customers.Select(x=>new CustomerViewRequest
+        return new ResponseObject<IEnumerable<CustomerViewRequest>>(await _context.Customers.Where(f=>f.IsActive==true).Select(x=>new CustomerViewRequest
         {
             Address = x.Address,
             Business = x.BusinessName,

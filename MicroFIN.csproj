@@ -67,6 +67,9 @@
       <_ContentIncludedByDefault Remove="wwwroot\vendor\bootstrap-icons\bootstrap-icons.json" />
       <_ContentIncludedByDefault Remove="wwwroot\vendor\bootstrap-icons\fonts\bootstrap-icons.woff" />
       <_ContentIncludedByDefault Remove="wwwroot\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\vendor\php-email-form\validate.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\vendor\simple-datatables\simple-datatables.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\vendor\simple-datatables\style.css" />
     </ItemGroup>
 
     <ItemGroup>

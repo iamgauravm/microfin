@@ -13,7 +13,7 @@
 
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/lib/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-   
+    <link href="~/lib/simple-datatables/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css"/>
@@ -40,8 +40,8 @@
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        <input type="number" id="txtsearchdairynumber" value="" placeholder="Enter Dairy Number"  title="Enter Dairy Number">
+        <button type="button" title="Search" onclick="onClickSearch(this)"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
 
@@ -119,27 +119,39 @@
 <div class="loaderbody" id="loaderbody">
     <div class="loader"></div>
 </div>
-<div class="modal" tabindex="-1" role="dialog" id="form-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-        </div>
-    </div>
-</div>
-@* <footer class="border-top footer text-muted fixed-bottom p-2  bg-white"> *@
-@*     <div class="container text-dark text-center"> *@
-@*         &copy; 2022 - JAI BHOLE FINANCE | MicroFIN by [ KODONIC ] *@
+@* <div class="modal" tabindex="-1" role="dialog" id="form-modal"> *@
+@*     <div class="modal-dialog" role="document"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header"> *@
+@*                 <h5 class="modal-title"></h5> *@
+@*                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> *@
+@*                     <span aria-hidden="true">×</span> *@
+@*                 </button> *@
+@*             </div> *@
+@*             <div class="modal-body"> *@
+@*             </div> *@
+@*         </div> *@
 @*     </div> *@
-@* </footer> *@
+@* </div> *@
+
+<!-- Dairy Detail Modal -->
+<div class="modal fade" id="detailDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h5 class="modal-title" id="staticBackdropLabel">Dairy Detail</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="divDairyDetail"></div>
+    </div>
+  </div>
+</div>
+
+
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/simple-datatables/simple-datatables.js" rel="stylesheet"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
