@@ -391,6 +391,28 @@ public class DairyController : ControllerBase
     }
     
     
+    [HttpGet("getDueDairies")]
+    public async Task<ResponseObject<IEnumerable<Dairy>>> GetDueDairies()
+    {
+        var res = await _context.Dairies
+            .Where(x=>x.IsActive==true && x.TotalBalanceAmount>0)
+            .Include("Customer")
+            // .Include("DairyInstallments")
+            .ToListAsync(); 
+        return new ResponseObject<IEnumerable<Dairy>>(res);
+    }
+    
+    [HttpGet("getClosedDairies")]
+    public async Task<ResponseObject<IEnumerable<Dairy>>> GetClosedDairies()
+    {
+        var res = await _context.Dairies
+            .Where(x=>x.IsActive==true && x.TotalBalanceAmount==0)
+            .Include("Customer")
+            // .Include("DairyInstallments")
+            .ToListAsync(); 
+        return new ResponseObject<IEnumerable<Dairy>>(res);
+    }
+    
 
     
 }

@@ -25,7 +25,7 @@
 <div class="container-fluid bg-p border-1 border-primary rounded py-2" id="divReportMenu">
     <ul class="list-unstyled list">
         <li><a href="javascript:void(0);" onclick="showReport('IncomeExpenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Income/Expenses</a></li>
-        <li><a href="javascript:void(0);" onclick="showReport('BalanceSheet')"><i class="bi bi-file-earmark-text"></i>&nbsp;Balance Sheet</a></li>
+        @* <li><a href="javascript:void(0);" onclick="showReport('BalanceSheet')"><i class="bi bi-file-earmark-text"></i>&nbsp;Balance Sheet</a></li> *@
         <li><a href="javascript:void(0);" onclick="showReport('Expenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Expenses</a></li>
         <li><a href="javascript:void(0);" onclick="showReport('DairiesDue')"><i class="bi bi-file-earmark-text"></i>&nbsp;Due Dairies</a></li>
         <li><a href="javascript:void(0);" onclick="showReport('DairiesClosed')"><i class="bi bi-file-earmark-text"></i>&nbsp;Closed Dairies</a></li>
@@ -37,32 +37,100 @@
     <div id='DivIdToPrint' class="w-100">
         <div class="card divReportDetail" id="divIncomeExpenses" style="display: none;">
             <div class="card-body">
-                <h5 class="card-title">Income/Expenses</h5>
-                <div class="row"></div>
+                <h5 class="card-title">Income & Expenditure Statement</h5>
+                <div class="row" >
+                    <div class="col-12" id="divIncomeExpensesReport">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td colspan="2"><strong>Income</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Dairy Collection</td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Income</strong></td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Expenses</strong></td>
+                            </tr>
+                             <tr>
+                                 <td>Expenses</td>
+                                 <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Expenses</strong></td>
+                                <td>0.00</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Total Balance</strong>
+                                </td>
+                                <td>0.00</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card divReportDetail" id="divBalanceSheet" style="display: none;">
             <div class="card-body">
                 <h5 class="card-title">Balance Sheet</h5> 
-                <div class="row"></div>
+                <div class="row">
+                    <div class="col-12" id="divBalanceSheetReport"></div>
+                </div>
             </div>
         </div>
         <div class="card divReportDetail" id="divExpenses" style="display: none;">
             <div class="card-body">
                 <h5 class="card-title">Expenses</h5> 
-                <div class="row"></div>
+                <div class="row">
+                    <div class="col-12" id="divExpensesReport">
+                        <table class="table table-bordered table-striped" style="width:100%" id="tblExpenses">
+                            <thead><tr><th style="width: 150px">Date</th><th>Description</th><th style="width: 150px">Amount</th></tr></thead>
+                            <tbody ></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card divReportDetail" id="divDairiesDue" style="display: none;">
             <div class="card-body">
                 <h5 class="card-title">Dairies Due</h5> 
-                <div class="row"></div>
+                <div class="row">
+                    <div class="col-12" id="divDairiesDueReport">
+                        <table class="table table-bordered table-striped " style="width:100%" id="tblDueDairies">
+                            <thead><tr><th>Dairy #</th><th>Customer</th><th>Date</th><th>Inst.</th><th>Loan</th><th>Paid</th><th>Balance</th><th>Status</th></tr></thead>
+                            <tbody ></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card divReportDetail" id="divDairiesClosed" style="display: none;">
             <div class="card-body">
                 <h5 class="card-title">Dairies Closed</h5> 
-                <div class="row"></div>
+                <div class="row">
+                    <div class="col-12" id="divDairiesClosedReport">
+                        <table class="table table-bordered table-striped " style="width:100%" id="tblClosedDairies">
+                            <thead><tr><th>Dairy #</th><th>Customer</th><th>Date</th><th>Inst.</th><th>Loan</th><th>Paid</th><th>Balance</th></tr></thead>
+                            <tbody ></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -96,18 +164,23 @@
             
             switch (type) {
                 case 'IncomeExpenses':
+                    loadReportIncomeExpenses();
                     // alert('IncomeExpenses');
                     break;
                 case 'BalanceSheet':
+                    loadReportBalanceSheet();
                     // alert('BalanceSheet');
                     break;
                 case 'Expenses':
+                    loadReportExpenses();
                     // alert('Expenses');
                     break;
                 case 'DairiesDue':
+                    loadReportDairiesDue();
                     // alert('DairiesDue');
                     break;
                 case 'DairiesClosed':
+                    loadReportDairiesClosed();
                     // alert('DairiesClosed');
                     break;
             }
@@ -116,6 +189,187 @@
         function printDiv() 
         {    
             $('#DivIdToPrint').printThis();    
+        }
+        
+        
+        loadReportIncomeExpenses = () =>{
+             $.ajax({
+                   type: 'GET',
+                   url: "/report/getIncomeExpensesReport",         
+                    success: function (res) {
+                       console.log(res.data);
+                       var _inHtml = '';
+                       _inHtml +='<table class="table table-bordered">'
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td colspan="2"><strong>Income</strong></td>'
+                       _inHtml +='    </tr>'
+                       var _incomeAmount = 0;
+                       for(let i = 0; i < res.data.length ; i++) {
+                           if(res.data[i].isIncome==true)
+                           {
+                              _inHtml +='    <tr>'
+                              _inHtml +='        <td>'+res.data[i].category+'</td>'
+                              _inHtml +='        <td class="text-end">'+'₹'+formatCurrencyN(res.data[i].amount)+'</td>'
+                              _inHtml +='    </tr>'
+                              
+                              _incomeAmount += res.data[i].amount;
+                           }                         
+                       }
+                      
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td><strong>Total Income</strong></td>'
+                       _inHtml +='        <td class="text-end">'+'₹'+formatCurrencyN(_incomeAmount)+'</td>'
+                       _inHtml +='    </tr>'
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td>&nbsp;</td>'
+                       _inHtml +='        <td></td>'
+                       _inHtml +='    </tr>'
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td colspan="2"><strong>Expenses</strong></td>'
+                       _inHtml +='    </tr>'
+                       
+                        var _expenseAmount = 0;
+                       for(let i = 0; i < res.data.length ; i++) {
+                          if(res.data[i].isIncome==false)
+                          {
+                             _inHtml +='    <tr>'
+                             _inHtml +='        <td>'+res.data[i].category+'</td>'
+                             _inHtml +='        <td class="text-end">'+'₹'+formatCurrencyN(res.data[i].amount)+'</td>'
+                             _inHtml +='    </tr>'
+                             _expenseAmount += res.data[i].amount;
+                          }                         
+                       }                     
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td><strong>Total Expenses</strong></td>'
+                       _inHtml +='        <td class="text-end">'+'₹'+formatCurrencyN(_expenseAmount)+'</td>'
+                       _inHtml +='    </tr>'
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td>&nbsp;</td>'
+                       _inHtml +='        <td></td>'
+                       _inHtml +='    </tr>'
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td>&nbsp;</td>'
+                       _inHtml +='        <td></td>'
+                       _inHtml +='    </tr>'
+                       _inHtml +='    <tr>'
+                       _inHtml +='        <td>'
+                       _inHtml +='            <strong>Total Balance</strong>'
+                       _inHtml +='        </td>'
+                       _inHtml +='        <td class="text-end">'+'₹'+formatCurrencyN(_incomeAmount - _expenseAmount)+'</td>'
+                       _inHtml +='    </tr>'
+                       _inHtml +='</table>'
+                       
+                     $('#divIncomeExpensesReport').html(_inHtml);
+                    }
+                });
+            //
+            
+        }
+        loadReportBalanceSheet = () =>{
+            $('#divBalanceSheetReport').html('BalanceSheet report')
+        }
+        loadReportExpenses = () =>{
+            $.ajax({
+               type: 'GET',
+               url: "/Expense/getall",         
+                success: function (res) {
+                   console.log(res.data);
+                  if ( $.fn.DataTable.isDataTable('#tblExpenses') ) {
+                    $('#tblExpenses').DataTable().destroy();
+                  }
+                   var table = $('#tblExpenses').DataTable(
+                       {
+                           data: res.data,
+                           columnDefs: [
+                              {render: function (data, type, row) { return ''+moment(row.expenseDate).format('DD-MM-YYYY')+''},defaultContent: "-",targets: 0},
+                              {render: function (data, type, row) { return ''+row.description+''},defaultContent: "-",targets: 1},
+                              {render: function (data, type, row) { return row.amount;},defaultContent: "-",targets: 2},                              
+                           ],
+                           responsive: true,
+                           lengthChange: false,                          
+                           searching: false,  
+                           paging: false,
+                           ordering: false,
+                           info: false,                         
+                           // buttons: [ { extend: 'pdf',split: ['excel'],}]
+                       });
+                   // table.buttons().container().appendTo('#tblClosedDairies_wrapper .col-md-6:eq(0)' );
+                   
+                }
+            }); 
+            // $('#divExpensesReport').html('Expenses report')
+        }
+        loadReportDairiesDue = () =>{
+            $.ajax({
+               type: 'GET',
+               url: "/dairy/getduedairies",         
+                success: function (res) {
+                   console.log(res.data);
+                  if ( $.fn.DataTable.isDataTable('#tblDueDairies') ) {
+                    $('#tblDueDairies').DataTable().destroy();
+                  }
+                   var table = $('#tblDueDairies').DataTable(
+                       {
+                           data: res.data,
+                           columnDefs: [
+                               {render: function (data, type, row) { return row.dairyNumber;},defaultContent: "-",targets: 0,className: "text-center"},
+                               {render: function (data, type, row) { return row.customer.name+' ['+row.customer.mobile+']'},defaultContent: "-",targets: 1},
+                               {render: function (data, type, row) { return moment(row.startDate).format('DD/MM/YYYY') + '-'+moment(row.endDate).format('DD/MM/YYYY');},defaultContent: "-",targets: 2},
+                               {render: function (data, type, row) { return row.installment;},defaultContent: "-",targets: 3,className: "text-center"},
+                               {render: function (data, type, row) { return '₹'+formatCurrencyN(row.loanAmount);},defaultContent: "-",targets: 4,className: "text-end"},
+                               {render: function (data, type, row) { return '₹'+formatCurrencyN(row.totalAmount);},defaultContent: "-",targets: 5,className: "text-end"},
+                               {render: function (data, type, row) { return '₹'+formatCurrencyN(row.totalBalanceAmount);},defaultContent: "-",targets: 6,className: "text-end"},
+                               {render: function (data, type, row) { return row.isCompleted==true?'Completed':'Not Completed';},defaultContent: "-",targets: 7,className: "text-center"},                              
+                               
+                           ],
+                           responsive: true,
+                           lengthChange: false,
+                           searching: false, 
+                           paging: false,
+                           ordering: false,
+                           info: false,   
+                       });
+                   //table.buttons().container().appendTo('#tblDueDairies_wrapper .col-md-6:eq(0)' );
+                   
+                }
+            });                    
+            //$('#divDairiesDueReport').html('Dairies Due report')
+        }
+        loadReportDairiesClosed = () =>{
+            $.ajax({
+               type: 'GET',
+               url: "/dairy/getcloseddairies",         
+                success: function (res) {
+                   console.log(res.data);
+                  if ( $.fn.DataTable.isDataTable('#tblClosedDairies') ) {
+                    $('#tblClosedDairies').DataTable().destroy();
+                  }
+                   var table = $('#tblClosedDairies').DataTable(
+                       {
+                           data: res.data,
+                           columnDefs: [
+                               {render: function (data, type, row) { return row.dairyNumber;},defaultContent: "-",targets: 0,className: "text-center"},
+                               {render: function (data, type, row) { return row.customer.name+' ['+row.customer.mobile+']'},defaultContent: "-",targets: 1},
+                               {render: function (data, type, row) { return moment(row.startDate).format('DD/MM/YYYY') + '-'+moment(row.endDate).format('DD/MM/YYYY');},defaultContent: "-",targets: 2},
+                               {render: function (data, type, row) { return row.installment;},defaultContent: "-",targets: 3,className: "text-center"},
+                               {render: function (data, type, row) { return '₹'+formatCurrencyN(row.loanAmount);},defaultContent: "-",targets: 4,className: "text-end"},
+                               {render: function (data, type, row) { return '₹'+formatCurrencyN(row.totalAmount);},defaultContent: "-",targets: 5,className: "text-end"},
+                               {render: function (data, type, row) { return '₹'+formatCurrencyN(row.totalBalanceAmount);},defaultContent: "-",targets: 6,className: "text-end"},                                                             
+                               
+                           ],
+                           responsive: true,
+                           lengthChange: false,                          
+                           searching: false,  
+                           paging: false,
+                           ordering: false,
+                           info: false,                         
+                           // buttons: [ { extend: 'pdf',split: ['excel'],}]
+                       });
+                   // table.buttons().container().appendTo('#tblClosedDairies_wrapper .col-md-6:eq(0)' );
+                   
+                }
+            }); 
+            //$('#divDairiesClosedReport').html('Dairies Closed report')
         }
             
     </script>

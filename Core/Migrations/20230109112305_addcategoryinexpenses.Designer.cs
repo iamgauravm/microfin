@@ -4,6 +4,7 @@ using MicroFIN.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroFIN.Core.Migrations
 {
     [DbContext(typeof(MicroFinDbContext))]
-    partial class MicroFinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230109112305_addcategoryinexpenses")]
+    partial class addcategoryinexpenses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

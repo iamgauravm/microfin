@@ -31,6 +31,7 @@
                     <thead>
                     <tr>
                         <th style="width: 150px">Date</th>
+                        <th style="width: 100px">Category</th>
                         <th>Description</th>
                         <th style="width: 150px">Amount</th>
                         <th style="width: 50px"></th>
@@ -58,6 +59,14 @@
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Date&nbsp;<span class="badge bg-danger">Required</span></label>
                         <input class="form-control form-control-sm" type="date" id="txtExpenseDate"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Category&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <select class="form-select form-select-sm" id="ddlExpenseCategory">
+                            <option value="Other">Other</option>
+                            <option value="Salary">Salary</option>
+                            <option value="Purchase">Purchase</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Description&nbsp;<span class="badge bg-danger">Required</span></label>
@@ -111,9 +120,10 @@
                            data: res.data,
                            columnDefs: [
                                {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getExpenseDetail('+row.id+')">'+moment(row.expenseDate).format('DD-MM-YYYY')+'</a>'},defaultContent: "-",targets: 0},
-                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getExpenseDetail('+row.id+')">'+row.description+'</a>'},defaultContent: "-",targets: 1},
-                               {render: function (data, type, row) { return row.amount;},defaultContent: "-",targets: 2},
-                               {render: function (data, type, row) { return '<a href="javascript:void(0);" class="text-danger" onclick="deleteExpense('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>'},defaultContent: "-",targets: 3},
+                               {render: function (data, type, row) { return row.category;},defaultContent: "-",targets: 1},
+                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getExpenseDetail('+row.id+')">'+row.description+'</a>'},defaultContent: "-",targets: 2},
+                               {render: function (data, type, row) { return row.amount;},defaultContent: "-",targets: 3},
+                               {render: function (data, type, row) { return '<a href="javascript:void(0);" class="text-danger" onclick="deleteExpense('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>'},defaultContent: "-",targets: 4},
                            ],
                            responsive: true,
                            lengthChange: false,
@@ -126,11 +136,12 @@
             });
         }
         initialedExpense = () =>{
-            _Expense = { id: 0,description: '',expenseDate: new Date(),amount:0 };
+            _Expense = { id: 0,category:'',description: '',expenseDate: new Date(),amount:0 };
             // initialied  values
             $('#txtExpenseDate').val(moment(_Expense.expenseDate).format("YYYY-MM-DD"));            
             $('#txtExpenseDescription').val(_Expense.description);            
             $('#txtExpenseAmount').val(_Expense.amount);
+            $('#ddlExpenseCategory').val(_Expense.category);
         }
         
         
@@ -154,7 +165,8 @@
                     // initialied  values
                    $('#txtExpenseDate').val(moment(_Expense.expenseDate).format("YYYY-MM-DD"));
                    $('#txtExpenseDescription').val(_Expense.description);
-                   $('#txtExpenseAmount').val(_Expense.amount);                   
+                   $('#txtExpenseAmount').val(_Expense.amount);   
+                   $('#ddlExpenseCategory').val(_Expense.category);
                    
                     createExpenseModel.show();
                 }
@@ -178,6 +190,7 @@
             var payload = {
                 id: _Expense.id,
                 expenseDate: $('#txtExpenseDate').val(),
+                category:$('#ddlExpenseCategory').val(),
                 description: $('#txtExpenseDescription').val(),
                 amount:$('#txtExpenseAmount').val()
             };

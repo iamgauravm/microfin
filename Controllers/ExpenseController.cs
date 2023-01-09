@@ -27,7 +27,8 @@ public class ExpenseController : ControllerBase
                     Amount = x.Amount,
                     Description = x.Description,
                     Id = x.Id,
-                    ExpenseDate = x.ExpenseDate
+                    ExpenseDate = x.ExpenseDate,
+                    Category = x.Category
                 }).ToListAsync());
     }
     [HttpGet("get/{id}")]
@@ -38,7 +39,8 @@ public class ExpenseController : ControllerBase
             Amount = x.Amount,
             Description = x.Description,
             Id = x.Id,
-            ExpenseDate = x.ExpenseDate
+            ExpenseDate = x.ExpenseDate,
+            Category = x.Category
         }).FirstOrDefaultAsync(x=>x.Id==id));
     }
     [HttpPost("createOrUpdate")]
@@ -57,6 +59,7 @@ public class ExpenseController : ControllerBase
                     CreatedBy = 2,
                     CreatedOn = DateTime.Now,
                     ExpenseDate = model.ExpenseDate,
+                    Category = model.Category,
                     IsActive = true,
                     ModifiedBy = 2,
                     ModifiedOn = DateTime.Now
@@ -69,6 +72,7 @@ public class ExpenseController : ControllerBase
                 expense.Description = model.Description;
                 expense.ExpenseDate = model.ExpenseDate;
                 expense.ModifiedBy = 2;
+                expense.Category = model.Category;
                 expense.ModifiedOn = DateTime.Now;
                 await _context.SaveChangesAsync();
             }
