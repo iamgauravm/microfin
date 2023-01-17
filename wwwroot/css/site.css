@@ -86,3 +86,14 @@ body {
   background:none;
   border-color: transparent;
 }
+
+
+.text-status-completed{
+  color: #56a526;
+}
+.text-status-pending{
+  color: #ff7907;
+}
+.text-status-notstart{
+  color: #dc3545;
+}

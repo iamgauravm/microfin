@@ -26,7 +26,7 @@
                                     <i class="bi bi-book"></i>
                                 </div>
                                 <div class="ps-1 text-center w-100">
-                                    <h6 id="dairyCounter">0</h6>
+                                    <h6 id="DiaryCounter">0</h6>
                                     @* <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> *@
                                 </div>
                             </div>
@@ -139,12 +139,12 @@
 </section>
 
 
-<!-- Create Dairy Modal -->
-<div class="modal fade" id="createDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Create Diary Modal -->
+<div class="modal fade" id="createDiaryModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header py-2">
-                <h5 class="modal-title" id="staticBackdropLabel">Create Dairy</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Create Diary</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -192,47 +192,47 @@
                 <div class="row">
 
                     <div class="form-group">
-                        <label class="form-control-label form-control-sm">Dairy #&nbsp;<span class="badge bg-danger">Required</span></label>
-                        <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtdairynumber"/>
+                        <label class="form-control-label form-control-sm">Diary #&nbsp;<span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" readonly="readonly" type="number" id="txtDiarynumber"/>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Loan Amount&nbsp;<span class="badge bg-danger">Required</span></label>
-                        <input class="form-control form-control-sm Number" type="text" id="txtdairyloanamount"/>
+                        <input class="form-control form-control-sm Number" type="text" id="txtDiaryloanamount"/>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Start Date&nbsp;<span class="badge bg-danger">Required</span></label>
-                        <input class="form-control form-control-sm" type="date" id="txtdairystartdate"/>
+                        <input class="form-control form-control-sm" type="date" id="txtDiarystartdate"/>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Installment&nbsp;<span class="badge bg-danger">Required</span></label>
-                        <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtdairyinstallment"/>
+                        <input class="form-control form-control-sm Number" readonly="readonly" type="text" id="txtDiaryinstallment"/>
                     </div>
                 </div>
                 <hr/>
                 <div class="row">
                     <div class="col-12">
-                        <table class="table table-bordered" id="tbrefdairies">
+                        <table class="table table-bordered" id="tbrefdiaries">
                             <thead>
                             <tr>
-                                <th class="text-center" style="width: 100px">Dairy#</th>
+                                <th class="text-center" style="width: 100px">Diary#</th>
                                 <th class="text-center" style="width: 100px">Balance</th>
                                 <th class="text-center" style="width: 120px">Loan</th>
                                 <th class="text-center" style="width: 40px"></th>
                             </tr>
                             <tr>
                                 <td class="text-center">
-                                    <select class="form-select form-select-sm" id="ddlrefdairies" onchange="onChangeRefDairies(this)">
+                                    <select class="form-select form-select-sm" id="ddlrefdiaries" onchange="onChangeRefDairies(this)">
                                         <option value="0">Cash</option>
                                     </select>
                                 </td>
                                 <td class="text-center">
-                                    <input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefdairypaidamount" value="0"/>
+                                    <input class="form-control form-control-sm text-end" readonly="readonly" type="number" id="txtrefDiarypaidamount" value="0"/>
                                 </td>
                                 <td class="text-center">
-                                    <input class="form-control form-control-sm text-end" type="number" id="txtrefdairyloanamount" value="0"/>
+                                    <input class="form-control form-control-sm text-end" type="number" id="txtrefDiaryloanamount" value="0"/>
                                 </td>
                                 <td class="text-center">
-                                    <a onclick="onClickAddRowRefDairy()" href="javascript:void(0);" class="btn btn-sm btn-primary">
+                                    <a onclick="onClickAddRowRefDiary()" href="javascript:void(0);" class="btn btn-sm btn-primary">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
                                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
                                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
@@ -249,7 +249,7 @@
             </div>
             <div class="modal-footer py-1">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDairySave()">Save</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="onClickCreateDiarySave()">Save</button>
             </div>
         </div>
     </div>
@@ -258,14 +258,14 @@
 @section Scripts
 {
     <script type="text/javascript">
-        var createDairyModel = new bootstrap.Modal(document.getElementById('createDairyModel'), {backdrop: 'static',keyboard: false});
-        var _dairiesHadbalance = [];
+        var createDiaryModel = new bootstrap.Modal(document.getElementById('createDiaryModel'), {backdrop: 'static',keyboard: false});
+        var _diariesHadbalance = [];
         var _agents = [];
         var _customers = [];
         var _refDairies = [];
         $(document).ready(function() {
             bindDashboardCounter();
-            // onClickCreateDairy();            
+            // onClickCreateDiary();            
         });
         bindDashboardCounter = ()=>{
             $.ajax({
@@ -275,7 +275,7 @@
                 if(res.success)
                 {
                     console.log(res)   ;   
-                    $('#dairyCounter').text(res.data.dairies)
+                    $('#DiaryCounter').text(res.data.diaries)
                     $('#customerCounter').text(res.data.customers)
                     $('#revenueCounter').text(res.data.revenueTotal)
                     $('#expensesCounter').text(res.data.expensesTotal)
@@ -287,9 +287,9 @@
         
         
         
-        initialedCreateDairy = () =>{
+        initialedCreateDiary = () =>{
             
-            _dairiesHadbalance = [];
+            _diariesHadbalance = [];
             _agents = [];
             _customers = [];
             _refDairies = [];
@@ -297,8 +297,8 @@
                     
             // get customers
             bindCustomers();
-            // get ref dairies
-            bindHasDairyPaidAmount();
+            // get ref diaries
+            bindHasDiaryPaidAmount();
             // get agents
             bindAgents();
             
@@ -309,26 +309,26 @@
             $('#txtcustomermobile').val('');
             $('#txtcustomerbusinessname').val('');
             $('#txtcustomerremarks').val('');
-            $('#txtdairynumber').val('');
-            $('#txtdairystartdate').val('')
-            $('#txtdairyloanamount').val(0)
-            $('#txtdairyinstallment').val(120);   
-            $('#tbrefdairies tbody').html('');
+            $('#txtDiarynumber').val('');
+            $('#txtDiarystartdate').val('')
+            $('#txtDiaryloanamount').val(0)
+            $('#txtDiaryinstallment').val(120);   
+            $('#tbrefdiaries tbody').html('');
             $('#txtcustomeraddress').val('')
             $('#divnewcustomerdetail').show();
-            bindDairyNewNumber();
+            bindDiaryNewNumber();
         }        
-        onClickCreateDairy = ()=>{      
-            initialedCreateDairy();            
-            createDairyModel.show();
+        onClickCreateDiary = ()=>{      
+            initialedCreateDiary();            
+            createDiaryModel.show();
         }        
-        onClickCreateDairySave =() => { 
+        onClickCreateDiarySave =() => { 
             
             if (parseInt($('#ddlcustomers').val())==0 && ($('#txtcustomername').val()=='' || $('#txtcustomermobile').val()=='' || $('#txtcustomerfathername').val()=='')){
                 swal({ title: "Please enter required fields", icon: "warning",});
                 return;          
             }
-            if ($('#txtdairynumber').val()=='' || $('#txtdairystartdate').val()=='' || $('#txtdairyloanamount').val()=='' || $('#txtdairyinstallment').val()=='' ){
+            if ($('#txtDiarynumber').val()=='' || $('#txtDiarystartdate').val()=='' || $('#txtDiaryloanamount').val()=='' || $('#txtDiaryinstallment').val()=='' ){
                swal({ title: "Please enter required fields!", icon: "warning",});
                return;
             }
@@ -343,59 +343,59 @@
                 customerRemarks: $('#txtcustomerremarks').val(),
                 customerAddress: $('#txtcustomeraddress').val(),
                 
-                dairyNumber: $('#txtdairynumber').val(),
-                dairyStartDate: $('#txtdairystartdate').val(),
-                loanAmount: $('#txtdairyloanamount').val(),
-                installment: $('#txtdairyinstallment').val(),
+                DiaryNumber: $('#txtDiarynumber').val(),
+                DiaryStartDate: $('#txtDiarystartdate').val(),
+                loanAmount: $('#txtDiaryloanamount').val(),
+                installment: $('#txtDiaryinstallment').val(),
                 
                 refDairies: _refDairies
             };
             $.ajax({
                 type: 'POST',
-                url: "/dairy/create",
+                url: "/Diary/create",
                 data:payload,
                 success: function (res) {
                    console.log(res)
-                   createDairyModel.hide();
-                   initialedCreateDairy();
+                   createDiaryModel.hide();
+                   initialedCreateDiary();
                 }
             });
             
         }
-        onClickAddRowRefDairy = () => {        
+        onClickAddRowRefDiary = () => {        
             
-            var dairyNumber = $('#ddlrefdairies').val();
-            var loanAmt = $('#txtrefdairyloanamount').val();
-            var paidAmt = $('#txtrefdairypaidamount').val();
+            var DiaryNumber = $('#ddlrefdiaries').val();
+            var loanAmt = $('#txtrefDiaryloanamount').val();
+            var paidAmt = $('#txtrefDiarypaidamount').val();
             
             
             if (parseInt(loanAmt)>0){
-                if (parseInt(paidAmt)<parseInt(loanAmt) && dairyNumber>0){
+                if (parseInt(paidAmt)<parseInt(loanAmt) && DiaryNumber>0){
                     swal({ title: "Please enter less or equel available amount !", icon: "warning",});
                     return;
                 }
                 
                 var _strRow = '';
-                _strRow += '<tr><td class="text-center">'+(dairyNumber>0?'#'+dairyNumber:'Cash')+'</td>'
+                _strRow += '<tr><td class="text-center">'+(DiaryNumber>0?'#'+DiaryNumber:'Cash')+'</td>'
                 _strRow += '<td class="text-center" style="width: 100px">'+paidAmt+'</td>'
                 _strRow += '<td class="text-center" style="width: 120px">'+loanAmt+'</td>'
                 _strRow += '<td class="text-center" style="width: 40px">'
-                _strRow += '<a onclick="onClickremoveRowRefDairy('+dairyNumber+',this)" href="javascript:void(0);" class="text-danger">'
+                _strRow += '<a onclick="onClickremoveRowRefDiary('+DiaryNumber+',this)" href="javascript:void(0);" class="text-danger">'
                 _strRow += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">'
                 _strRow += '<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>'
                 _strRow += '</svg></a></td></tr>'
                 
-                $('#tbrefdairies tbody').append(_strRow);
+                $('#tbrefdiaries tbody').append(_strRow);
                 
-                _refDairies.push({dairyNumber: dairyNumber, loanAmount: loanAmt, paidAmount:paidAmt});
+                _refDairies.push({DiaryNumber: DiaryNumber, loanAmount: loanAmt, paidAmount:paidAmt});
                 
-                $('#ddlrefdairies').val(0);
-                $('#txtrefdairyloanamount').val('');
-                $('#txtrefdairypaidamount').val('');
+                $('#ddlrefdiaries').val(0);
+                $('#txtrefDiaryloanamount').val('');
+                $('#txtrefDiarypaidamount').val('');
             }
         }        
-        onClickremoveRowRefDairy = (id,e) => {
-            _refDairies = _refDairies.filter(function( obj ) {return parseInt(obj.dairyNumber) !== id;});            
+        onClickremoveRowRefDiary = (id,e) => {
+            _refDairies = _refDairies.filter(function( obj ) {return parseInt(obj.DiaryNumber) !== id;});            
             $(e).closest('tr').remove();            
         }        
         onChangeCustomer = (e) => {
@@ -411,25 +411,25 @@
             var _selectedId = $('#ddlagents').val();
                     
             if (parseInt(_selectedId)>1){
-                $('#txtdairyinstallment').val(117);
+                $('#txtDiaryinstallment').val(117);
             }else{
-                $('#txtdairyinstallment').val(120);
+                $('#txtDiaryinstallment').val(120);
             }
         }
         onChangeRefDairies = (e) => {           
-           $('#txtrefdairypaidamount').val(0);
-            _dairiesHadbalance.map((val) => {                
-                if (val.dairyNumber==parseInt($('#ddlrefdairies').val())){
-                    $('#txtrefdairypaidamount').val(val.paidAmount);
+           $('#txtrefDiarypaidamount').val(0);
+            _diariesHadbalance.map((val) => {                
+                if (val.DiaryNumber==parseInt($('#ddlrefdiaries').val())){
+                    $('#txtrefDiarypaidamount').val(val.paidAmount);
                 }
             });
         }        
         bindCustomers = ()=>{
             $.ajax({
             type: 'GET',
-            url: "/dairy/customers",
+            url: "/Diary/customers",
             success: function (res) {
-                $('#divDairyDetail').html('');
+                $('#divDiaryDetail').html('');
                 if(res.success)
                 {
                     _customers = [];
@@ -446,9 +446,9 @@
         bindAgents = ()=>{
             $.ajax({
             type: 'GET',
-            url: "/dairy/agents",
+            url: "/Diary/agents",
             success: function (res) {
-                $('#divDairyDetail').html('');
+                $('#divDiaryDetail').html('');
                 if(res.success)
                 {
                     _agents = [];
@@ -461,39 +461,39 @@
             }
             });
         };
-        bindHasDairyPaidAmount = ()=>{
+        bindHasDiaryPaidAmount = ()=>{
             $.ajax({
             type: 'GET',
-            url: "/dairy/refdairies",
+            url: "/Diary/refdiaries",
             success: function (res) {
-                $('#divDairyDetail').html('');
+                $('#divDiaryDetail').html('');
                 if(res.success)
                 {
-                    _dairiesHadbalance = [];
-                    $('#ddlrefdairies').html('');
-                    $('#ddlrefdairies').append("<option value='0'>Cash</option>")
+                    _diariesHadbalance = [];
+                    $('#ddlrefdiaries').html('');
+                    $('#ddlrefdiaries').append("<option value='0'>Cash</option>")
                     for(let i = 0; i < res.data.length; i++) {
-                      _dairiesHadbalance.push({dairyNumber:res.data[i].id,dairyNumber:res.data[i].dairyNumber, paidAmount: res.data[i].paidAmount});
-                      $('#ddlrefdairies').append("<option value='"+res.data[i].dairyNumber+"'>"+res.data[i].dairyNumber+"</option>")
+                      _diariesHadbalance.push({DiaryNumber:res.data[i].id,DiaryNumber:res.data[i].DiaryNumber, paidAmount: res.data[i].paidAmount});
+                      $('#ddlrefdiaries').append("<option value='"+res.data[i].DiaryNumber+"'>"+res.data[i].DiaryNumber+"</option>")
                     }                     
                 }
             }
             });
         };        
-        bindDairyNewNumber = ()=>{
+        bindDiaryNewNumber = ()=>{
                 $.ajax({
                 type: 'GET',
-                url: "/dairy/getdairynumber",
+                url: "/Diary/getDiarynumber",
                 success: function (res) {
                     if(res.success)
                     {
-                        $('#txtdairynumber').val( res.data+1);
+                        $('#txtDiarynumber').val( res.data+1);
                          return res.data;
                     }
                 }
                 });
             };      
-        // onclickPayInstallment =(e,id,dairyNumber)=>{
+        // onclickPayInstallment =(e,id,DiaryNumber)=>{
         //     // alert($('#txtinstallment_'+id).val());
         //    
         //     var paylod = {
@@ -504,13 +504,13 @@
         //    
         //     $.ajax({
         //     type: 'POST',
-        //     url: "/dairy/installment/pay",
+        //     url: "/Diary/installment/pay",
         //     data:paylod,
         //     success: function (res) {                
         //         if(res.success)
         //         {
         //             swal({title: "Installment paid succesfully.",icon: "success",});
-        //             bindDairyByNumber(dairyNumber);                    
+        //             bindDiaryByNumber(DiaryNumber);                    
         //         }
         //     }
         //     });

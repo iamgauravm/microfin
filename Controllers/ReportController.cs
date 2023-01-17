@@ -32,8 +32,8 @@ public class ReportController  : Controller
     {
         List<IncomeExpensesReportModel> _lstrepData = new List<IncomeExpensesReportModel>();
 
-        var _dairyColl = await _context.DairyInstallments.Select(x => x.PaidAmount).SumAsync();
-        _lstrepData.Add(new IncomeExpensesReportModel{IsIncome= true,Category = "Dairy Collection",Amount = decimal.Parse(_dairyColl.ToString())});
+        var _DiaryColl = await _context.DiaryInstallments.Select(x => x.PaidAmount).SumAsync();
+        _lstrepData.Add(new IncomeExpensesReportModel{IsIncome= true,Category = "Diary Collection",Amount = decimal.Parse(_DiaryColl.ToString())});
 
         var _aList  = (from d in _context.Expenses
             select new { d.Category, d.Amount } into x

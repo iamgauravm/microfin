@@ -11,5 +11,5 @@ public class Agent
     public int? ModifiedBy { get; set; }
     public DateTime? ModifiedOn { get; set; }
     
-    public virtual ICollection<Dairy> Dairies { get; set; }
+    public virtual ICollection<Diary> Dairies { get; set; }
 }

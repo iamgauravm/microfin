@@ -8,7 +8,7 @@
             <h1>Agents</h1>
         </div>
         <div class="col-6 text-end pt-2">
-            <input class="btn btn-sm btn-primary" type="button" value="+ Agent" onclick="onClickCreateAgent(event)"/>
+            <input class="btn btn-sm btn-primary" type="button" value="+ Investor" onclick="onClickCreateAccount(event)"/>
         </div>
     </div>
     <nav>
@@ -25,15 +25,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body pt-4">
-                <table class="table table-bordered table-striped" style="width:100%" id="tblstAgents">
+                <table class="table table-bordered table-striped" style="width:100%" id="tblstAccounts">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
                         <th>Mobile</th>
                         <th>Address</th>
-                        <th>Dairies</th>
-                        <th></th>
+                        <th>Remarks</th>
+                        @* <th></th> *@
                     </tr>
                     </thead>
                     <tbody >
@@ -45,8 +45,8 @@
 </div>
 
 
-<!-- Create Dairy Modal -->
-<div class="modal fade" id="manageAgentModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Create Diary Modal -->
+<div class="modal fade" id="manageAccountModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header py-2">
@@ -57,15 +57,19 @@
                 <div class="row">
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Agent Name&nbsp;<span class="badge bg-danger">Required</span></label>
-                        <input class="form-control form-control-sm" id="txtAgentname"/>
+                        <input class="form-control form-control-sm" id="txtAccountname"/>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label>
-                        <input class="form-control form-control-sm Number" type="text" id="txtAgentmobile"/>
+                        <input class="form-control form-control-sm Number" type="text" id="txtAccountmobile"/>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label form-control-sm">Address</label>
-                        <input class="form-control form-control-sm" id="txtAgentaddress"/>
+                        <label class="form-control-label form-control-sm">Address <span class="badge bg-danger">Required</span></label>
+                        <input class="form-control form-control-sm" id="txtAccountaddress"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label form-control-sm">Remarks</label>
+                        <textarea class="form-control form-control-sm" id="txtAccountremarks"></textarea>
                     </div>
                 </div>
                 <hr/>
@@ -73,7 +77,7 @@
             </div>
             <div class="modal-footer py-1">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-sm btn-primary" onclick="onClickAgentSave()">Save</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="onClickAccountSave()">Save</button>
             </div>
         </div>
     </div>
@@ -83,106 +87,109 @@
 @section Scripts
 {
     <script type="text/javascript">
-        var createAgentModel  = new bootstrap.Modal(document.getElementById('manageAgentModel'), {backdrop: 'static',keyboard: false});
-        var _Agent = {
+        var createAccountModel  = new bootstrap.Modal(document.getElementById('manageAccountModel'), {backdrop: 'static',keyboard: false});
+        var _Account = {
             id: 0,
             name: '',
             address: '',
             mobile:'',
-            dairies:''            
+            diaries:''            
         };
         $( document ).ready(function() {
-            initialedAgent();
-            getAllAgents();
+            initialedAccount();
+            getAllAccounts();
         });
         
         
         
-        getAllAgents = () =>{
+        getAllAccounts = () =>{
             $.ajax({
                 type: 'GET',
-                url: "/Agent/getall",                
+                url: "/accounts/getall/"+accountType.Agents,                
                 success: function (res) {
                    console.log(res.data);
-                  if ( $.fn.DataTable.isDataTable('#tblstAgents') ) {
-                    $('#tblstAgents').DataTable().destroy();
+                  if ( $.fn.DataTable.isDataTable('#tblstAccounts') ) {
+                    $('#tblstAccounts').DataTable().destroy();
                   }
-                   var table = $('#tblstAgents').DataTable(
+                   var table = $('#tblstAccounts').DataTable(
                        {
                            data: res.data,
                            columnDefs: [
                                {render: function (data, type, row) { return row.id;},defaultContent: "-",targets: 0},
-                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getAgentDetail('+row.id+')">'+row.name+'</a>'},defaultContent: "-",targets: 1},
+                               {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getAccountDetail('+row.id+')">'+row.name+'</a>'},defaultContent: "-",targets: 1},
                                {render: function (data, type, row) { return row.mobile;},defaultContent: "-",targets: 2},
                                {render: function (data, type, row) { return row.address;},defaultContent: "-",targets: 3},
-                               {render: function (data, type, row) { return row.dairies;},defaultContent: "-",targets: 4},
-                               {render: function (data, type, row) { return (row.dairies==''?'<a href="javascript:void(0);" class="text-danger" onclick="deleteAgent('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 5},
+                               {render: function (data, type, row) { return row.remarks;},defaultContent: "-",targets: 4},
+                               // {render: function (data, type, row) { return (row.diaries==''?'<a href="javascript:void(0);" class="text-danger" onclick="deleteAgent('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 5},
                            ],
                            responsive: true,
                            lengthChange: false,
                            pageLength: 25,
                            buttons: [ { extend: 'pdf',split: ['excel'],}]
                        });
-                   table.buttons().container().appendTo('#tblstAgents_wrapper .col-md-6:eq(0)' );
+                   table.buttons().container().appendTo('#tblstAccounts_wrapper .col-md-6:eq(0)' );
                    
                 }
             });
         }
-        initialedAgent = () =>{
-            _Agent = {id: 0,name: '',address: '',mobile:''};
+        initialedAccount = () =>{
+            _Account = {id: 0,name: '',address: '',mobile:''};
             // initialied  values
-            $('#txtAgentname').val(_Agent.name);            
-            $('#txtAgentmobile').val(_Agent.mobile);            
-            $('#txtAgentaddress').val(_Agent.address);
+            $('#txtAccountname').val(_Account.name);            
+            $('#txtAccountmobile').val(_Account.mobile);            
+            $('#txtAccountaddress').val(_Account.address);
+            $('#txtAccountremarks').val(_Account.remarks);
         }
-        getAgentDetail = (id) =>{
-            _Agent = {id: 0,name: '',address: '',mobile:''};
+        getAccountDetail = (id) =>{
+            _Account = {id: 0,name: '',address: '',mobile:'',remarks:''};
             $.ajax({
                 type: 'GET',
-                url: "/Agent/get/"+id,
+                url: "/accounts/get/"+accountType.Agents+'/'+id,
                 success: function (res) {
-                    _Agent = res.data;
+                    _Account = res.data;
                     // initialied  values
-                    $('#txtAgentname').val(_Agent.name);
-                    $('#txtAgentmobile').val(_Agent.mobile);
-                    $('#txtAgentaddress').val(_Agent.address);                    
+                    $('#txtAccountname').val(_Account.name);
+                    $('#txtAccountmobile').val(_Account.mobile);
+                    $('#txtAccountaddress').val(_Account.address);
+                    $('#txtAccountremarks').val(_Account.remarks);
                    
-                    createAgentModel.show();
+                    createAccountModel.show();
                 }
             });
         }
-        onClickCreateAgent = ()=>{  
-            initialedAgent();
-            createAgentModel.show();
+        onClickCreateAccount = ()=>{  
+            initialedAccount();
+            createAccountModel.show();
         }           
-        onClickAgentSave =() => { 
-            if ($('#txtAgentname').val()=='' || $('#txtAgentmobile').val()=='' || $('#txtAgentaddress').val()==''){
+        onClickAccountSave =() => { 
+            if ($('#txtAccountname').val()=='' || $('#txtAccountmobile').val()=='' || $('#txtAccountaddress').val()==''){
                 swal({ title: "Please enter required fields", icon: "warning",});
                 return;
             }
             
             var payload = {
-                id: _Agent.id,
-                name: $('#txtAgentname').val(),
-                address: $('#txtAgentaddress').val(),
-                mobile:$('#txtAgentmobile').val()
+                id: _Account.id,
+                name: $('#txtAccountname').val(),
+                address: $('#txtAccountaddress').val(),
+                mobile:$('#txtAccountmobile').val(),
+                remarks:$('#txtAccountremarks').val()
             };
             $.ajax({
             type: 'POST',
-            url: "/Agent/createOrUpdate",
+            url: "/accounts/createOrUpdate/"+accountType.Agents,
             data:payload,
             success: function (res) {
                 console.log(res);
-                initialedAgent();
-                getAllAgents();
-                createAgentModel.hide();
+                initialedAccount();
+                getAllAccounts();
+                createAccountModel.hide();
             }
             });
         }      
         
-        deleteAgent = (id) =>{
+        deleteAccount = (id) =>{
             swal({
-            title: "Are you sure want to delete agent?",
+            title: "Are you sure want to delete investor?",
             icon: "warning",
             buttons: [
                 'No, cancel it!',
@@ -193,13 +200,13 @@
               if (isConfirm) {
                   $.ajax({
                   type: 'POST',
-                  url: "/Agent/delete/"+id,
+                  url: "/accounts/delete/"+accountType.Agents+'/'+id,
                   success: function (res) {
-                      initialedAgent();
-                      getAllAgents();
+                      initialedAccount();
+                      getAllAccounts();
                        swal({
                             title: 'Deleted!',
-                            text: 'Agent are successfully deleted!',
+                            text: 'Investor are successfully deleted!',
                             icon: 'success'
                           }).then(function() {
                             //form.submit(); // <--- submit form programmatically
@@ -213,3 +220,218 @@
       
     </script>
 }
+@* @{ *@
+@*     ViewData["Title"] = "Agents Page"; *@
+@* } *@
+@* *@
+@* <div class="pagetitle"> *@
+@*     <div class="row"> *@
+@*         <div class="col-6"> *@
+@*             <h1>Agents</h1> *@
+@*         </div> *@
+@*         <div class="col-6 text-end pt-2"> *@
+@*             <input class="btn btn-sm btn-primary" type="button" value="+ Agent" onclick="onClickCreateAgent(event)"/> *@
+@*         </div> *@
+@*     </div> *@
+@*     <nav> *@
+@*         <ol class="breadcrumb"> *@
+@*             <li class="breadcrumb-item"> *@
+@*                 <a href="/">Home</a> *@
+@*             </li> *@
+@*             <li class="breadcrumb-item active">Agents</li> *@
+@*         </ol> *@
+@*     </nav> *@
+@* </div> *@
+@* *@
+@* <div class="row"> *@
+@*     <div class="col-md-12"> *@
+@*         <div class="card"> *@
+@*             <div class="card-body pt-4"> *@
+@*                 <table class="table table-bordered table-striped" style="width:100%" id="tblstAgents"> *@
+@*                     <thead> *@
+@*                     <tr> *@
+@*                         <th>#</th> *@
+@*                         <th>Name</th> *@
+@*                         <th>Mobile</th> *@
+@*                         <th>Address</th> *@
+@*                         <th>Dairies</th> *@
+@*                         <th></th> *@
+@*                     </tr> *@
+@*                     </thead> *@
+@*                     <tbody > *@
+@*                     </tbody> *@
+@*                 </table> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+@* *@
+@* *@
+@* <!-- Create Diary Modal --> *@
+@* <div class="modal fade" id="manageAgentModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"> *@
+@*     <div class="modal-dialog modal-md"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header py-2"> *@
+@*                 <h5 class="modal-title" id="staticBackdropLabel">Manage Agent</h5> *@
+@*                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+@*             </div> *@
+@*             <div class="modal-body"> *@
+@*                 <div class="row"> *@
+@*                     <div class="form-group"> *@
+@*                         <label class="form-control-label form-control-sm">Agent Name&nbsp;<span class="badge bg-danger">Required</span></label> *@
+@*                         <input class="form-control form-control-sm" id="txtAgentname"/> *@
+@*                     </div> *@
+@*                     <div class="form-group"> *@
+@*                         <label class="form-control-label form-control-sm">Mobile&nbsp;<span class="badge bg-danger">Required</span></label> *@
+@*                         <input class="form-control form-control-sm Number" type="text" id="txtAgentmobile"/> *@
+@*                     </div> *@
+@*                     <div class="form-group"> *@
+@*                         <label class="form-control-label form-control-sm">Address</label> *@
+@*                         <input class="form-control form-control-sm" id="txtAgentaddress"/> *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <hr/> *@
+@* *@
+@*             </div> *@
+@*             <div class="modal-footer py-1"> *@
+@*                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button> *@
+@*                 <button type="button" class="btn btn-sm btn-primary" onclick="onClickAgentSave()">Save</button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+@* *@
+@* *@
+@* @section Scripts *@
+@* { *@
+@*     <script type="text/javascript"> *@
+@*         var createAgentModel  = new bootstrap.Modal(document.getElementById('manageAgentModel'), {backdrop: 'static',keyboard: false}); *@
+@*         var _Agent = { *@
+@*             id: 0, *@
+@*             name: '', *@
+@*             address: '', *@
+@*             mobile:'', *@
+@*             diaries:''             *@
+@*         }; *@
+@*         $( document ).ready(function() { *@
+@*             initialedAgent(); *@
+@*             getAllAgents(); *@
+@*         }); *@
+@*          *@
+@*          *@
+@*          *@
+@*         getAllAgents = () =>{ *@
+@*             $.ajax({ *@
+@*                 type: 'GET', *@
+@*                 url: "/Agent/getall",                 *@
+@*                 success: function (res) { *@
+@*                    console.log(res.data); *@
+@*                   if ( $.fn.DataTable.isDataTable('#tblstAgents') ) { *@
+@*                     $('#tblstAgents').DataTable().destroy(); *@
+@*                   } *@
+@*                    var table = $('#tblstAgents').DataTable( *@
+@*                        { *@
+@*                            data: res.data, *@
+@*                            columnDefs: [ *@
+@*                                {render: function (data, type, row) { return row.id;},defaultContent: "-",targets: 0}, *@
+@*                                {render: function (data, type, row) { return '<a href="javascript:void(0);" onclick="getAgentDetail('+row.id+')">'+row.name+'</a>'},defaultContent: "-",targets: 1}, *@
+@*                                {render: function (data, type, row) { return row.mobile;},defaultContent: "-",targets: 2}, *@
+@*                                {render: function (data, type, row) { return row.address;},defaultContent: "-",targets: 3}, *@
+@*                                {render: function (data, type, row) { return row.diaries;},defaultContent: "-",targets: 4}, *@
+@*                                {render: function (data, type, row) { return (row.diaries==''?'<a href="javascript:void(0);" class="text-danger" onclick="deleteAgent('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 5}, *@
+@*                            ], *@
+@*                            responsive: true, *@
+@*                            lengthChange: false, *@
+@*                            pageLength: 25, *@
+@*                            buttons: [ { extend: 'pdf',split: ['excel'],}] *@
+@*                        }); *@
+@*                    table.buttons().container().appendTo('#tblstAgents_wrapper .col-md-6:eq(0)' ); *@
+@*                     *@
+@*                 } *@
+@*             }); *@
+@*         } *@
+@*         initialedAgent = () =>{ *@
+@*             _Agent = {id: 0,name: '',address: '',mobile:''}; *@
+@*             // initialied  values *@
+@*             $('#txtAgentname').val(_Agent.name);             *@
+@*             $('#txtAgentmobile').val(_Agent.mobile);             *@
+@*             $('#txtAgentaddress').val(_Agent.address); *@
+@*         } *@
+@*         getAgentDetail = (id) =>{ *@
+@*             _Agent = {id: 0,name: '',address: '',mobile:''}; *@
+@*             $.ajax({ *@
+@*                 type: 'GET', *@
+@*                 url: "/Agent/get/"+id, *@
+@*                 success: function (res) { *@
+@*                     _Agent = res.data; *@
+@*                     // initialied  values *@
+@*                     $('#txtAgentname').val(_Agent.name); *@
+@*                     $('#txtAgentmobile').val(_Agent.mobile); *@
+@*                     $('#txtAgentaddress').val(_Agent.address);                     *@
+@*                     *@
+@*                     createAgentModel.show(); *@
+@*                 } *@
+@*             }); *@
+@*         } *@
+@*         onClickCreateAgent = ()=>{   *@
+@*             initialedAgent(); *@
+@*             createAgentModel.show(); *@
+@*         }            *@
+@*         onClickAgentSave =() => {  *@
+@*             if ($('#txtAgentname').val()=='' || $('#txtAgentmobile').val()=='' || $('#txtAgentaddress').val()==''){ *@
+@*                 swal({ title: "Please enter required fields", icon: "warning",}); *@
+@*                 return; *@
+@*             } *@
+@*              *@
+@*             var payload = { *@
+@*                 id: _Agent.id, *@
+@*                 name: $('#txtAgentname').val(), *@
+@*                 address: $('#txtAgentaddress').val(), *@
+@*                 mobile:$('#txtAgentmobile').val() *@
+@*             }; *@
+@*             $.ajax({ *@
+@*             type: 'POST', *@
+@*             url: "/Agent/createOrUpdate", *@
+@*             data:payload, *@
+@*             success: function (res) { *@
+@*                 console.log(res); *@
+@*                 initialedAgent(); *@
+@*                 getAllAgents(); *@
+@*                 createAgentModel.hide(); *@
+@*             } *@
+@*             }); *@
+@*         }       *@
+@*          *@
+@*         deleteAgent = (id) =>{ *@
+@*             swal({ *@
+@*             title: "Are you sure want to delete agent?", *@
+@*             icon: "warning", *@
+@*             buttons: [ *@
+@*                 'No, cancel it!', *@
+@*                 'Yes, I am sure!' *@
+@*                 ], *@
+@*             dangerMode: true, *@
+@*             }).then(function(isConfirm) { *@
+@*               if (isConfirm) { *@
+@*                   $.ajax({ *@
+@*                   type: 'POST', *@
+@*                   url: "/Agent/delete/"+id, *@
+@*                   success: function (res) { *@
+@*                       initialedAgent(); *@
+@*                       getAllAgents(); *@
+@*                        swal({ *@
+@*                             title: 'Deleted!', *@
+@*                             text: 'Agent are successfully deleted!', *@
+@*                             icon: 'success' *@
+@*                           }).then(function() { *@
+@*                             //form.submit(); // <--- submit form programmatically *@
+@*                           }); *@
+@*                   } *@
+@*                   }); *@
+@*                 *@
+@*               } *@
+@*             }); *@
+@*         } *@
+@*        *@
+@*     </script> *@
+@* } *@

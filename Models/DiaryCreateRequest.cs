@@ -1,6 +1,6 @@
 ﻿namespace MicroFIN.Models;
 
-public class DairyCreateRequest
+public class DiaryCreateRequest
 {
     public int AgentId { get; set; }
     public int CustomerId { get; set; }
@@ -10,17 +10,18 @@ public class DairyCreateRequest
     public string CustomerBusinessName { get; set; }
     public string CustomerAddress { get; set; }
     public string CustomerRemarks { get; set; }
-    public int DairyNumber { get; set; }
-    public DateTime DairyStartDate { get; set; }
+    public int DiaryNumber { get; set; }
+    public DateTime DiaryStartDate { get; set; }
     public double LoanAmount { get; set; }
     public int Installment { get; set; }
-    public ICollection<ReferenceDairyViewModel> RefDairies { get; set; }
+    public int SchemeId { get; set; }
+    public ICollection<ReferenceDiaryViewModel> RefDiaries { get; set; }
 }
 
-public record ReferenceDairyViewModel 
+public record ReferenceDiaryViewModel 
 {
     // public int Id { get; set; }
-    public int DairyNumber { get; set; }
-    public double PaidAmount { get; set; }
+    public int AccountId { get; set; }
+    public double AvailableFunds { get; set; }
     public double LoanAmount { get; set; }
 }

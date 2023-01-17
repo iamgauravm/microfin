@@ -34,7 +34,7 @@ public class CustomerController : ControllerBase
             Name = x.Name,
             Remarks = x.Remarks,
             FatherName = x.FatherName,
-            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DairyNumber.ToString()).ToList<string>())
+            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DiaryNumber.ToString()).ToList<string>())
         }).ToListAsync<CustomerViewRequest>());
     }
     [HttpGet("get/{id}")]
@@ -49,7 +49,7 @@ public class CustomerController : ControllerBase
             Name = x.Name,
             Remarks = x.Remarks,
             FatherName = x.FatherName,
-            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DairyNumber.ToString()).ToList<string>())
+            Dairies = string.Join(",", _context.Dairies.Where(d => d.CustomerId==x.Id).Select(f=>f.DiaryNumber.ToString()).ToList<string>())
         }).FirstOrDefaultAsync(x=>x.Id==id));
     }
     [HttpPost("createOrUpdate")]

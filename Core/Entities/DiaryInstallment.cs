@@ -2,7 +2,7 @@
 
 namespace MicroFIN.Core.Entities;
 
-public class DairyInstallment
+public class DiaryInstallment
 {
     public int Id { get; set; }
     public int InstallmentNumber { get; set; }
@@ -10,12 +10,7 @@ public class DairyInstallment
     public double InstallmentAmount { get; set; }
     public double PaidAmount { get; set; }
     public double BalanceAmount { get; set; }
-    public bool IsClosed{ get; set; }
-    
     public int? ModifiedBy { get; set; }
     public DateTime? ModifiedOn { get; set; }
-    
-    public int DairyId { get; set; }
-    // [ForeignKey("DairyId")]
-    // public Dairy Dairy { get; set; }
+    public int DiaryId { get; set; }
 }

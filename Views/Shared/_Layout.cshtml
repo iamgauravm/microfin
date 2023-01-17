@@ -40,7 +40,7 @@
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="number" id="txtsearchdairynumber" value="" placeholder="Enter Dairy Number"  title="Enter Dairy Number">
+        <input type="number" id="txtsearchDiarynumber" value="" placeholder="Enter Diary Number"  title="Enter Diary Number">
         <button type="button" title="Search" onclick="onClickSearch(this)"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -79,14 +79,18 @@
           <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index"><i class="bi bi-grid"></i><span>Dashboard</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Dairy"><i class="bi bi-book"></i><span>Dairies</span></a>
+          <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Investors"><i class="bi bi-person-badge-fill"></i><span>Investors</span></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Agents"><i class="bi bi-person-badge-fill"></i><span>Agents</span></a>
       </li>
       <li class="nav-item">
           <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Customers"><i class="bi bi-people"></i><span>Customers</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Agents"><i class="bi bi-person-badge-fill"></i><span>Agents</span></a>
+          <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Diary"><i class="bi bi-book"></i><span>Dairies</span></a>
       </li>
+     
       <li class="nav-item">
           <a class="nav-link collapsed" asp-area="" asp-controller="Admin" asp-action="Expences"><i class="bi bi-currency-rupee"></i><span>Expences</span></a>
       </li>
@@ -134,18 +138,20 @@
 @*     </div> *@
 @* </div> *@
 
-<!-- Dairy Detail Modal -->
-<div class="modal fade" id="detailDairyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Diary Detail Modal -->
+<div class="modal fade" id="detailDiaryModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header py-2">
-        <h5 class="modal-title" id="staticBackdropLabel">Dairy Detail</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Diary Detail</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" id="divDairyDetail"></div>
+      <div class="modal-body" id="divDiaryDetail"></div>
     </div>
   </div>
 </div>
+
+
 
 
 

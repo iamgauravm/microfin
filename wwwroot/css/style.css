@@ -1035,12 +1035,16 @@ h6 {
 }
 
 .profile .profile-overview .row {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    /*margin-bottom: 20px;*/
     font-size: 15px;
 }
 
 .profile .profile-overview .card-title {
     color: #012970;
+    padding: 10px 0 3px 0;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 5px;
 }
 
 .profile .profile-overview .label {
