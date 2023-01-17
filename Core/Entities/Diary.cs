@@ -44,7 +44,6 @@ public class Diary
     [ForeignKey("InstallmentSchemeId")]
     public InstallmentScheme? InstallmentScheme { get; set; }
     public virtual ICollection<DiaryInstallment> DiaryInstallments { get; set; }
-    public virtual ICollection<DiaryPayment> DiaryPayments { get; set; }
     
     
     

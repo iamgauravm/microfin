@@ -97,13 +97,13 @@ public class DiaryController : ControllerBase
          
         var fromDairies = 
             await _context.DiaryReferences
-                .Include("FromDiary")
+                .Include("Diary")
                 .Where(x=>x.DiaryId==Diary.Id)
                 .ToListAsync();
         
         var toDairies = 
             await _context.DiaryReferences
-                .Include("Diary")
+                .Include("FromDiary")
                 .Where(x=>x.FromDiaryId==Diary.Id)
                 .ToListAsync();
         
@@ -112,7 +112,7 @@ public class DiaryController : ControllerBase
             _res.FromDairies.Add(new DiaryReffViewModel()
             {
                 Invester = "",
-                DiaryNumber = item.FromDiary.DiaryNumber,
+                AccountName = item.FromDiary.DiaryNumber.ToString(),
                 TransferAmount = item.Amount,
                 TransferDate = item.CreatedOn??DateTime.Now
             });
@@ -122,7 +122,7 @@ public class DiaryController : ControllerBase
             _res.FromDairies.Add(new DiaryReffViewModel()
             {
                 Invester = "",
-                DiaryNumber = item.Diary.DiaryNumber,
+                AccountName = item.Diary.DiaryNumber.ToString(),
                 TransferAmount = item.Amount,
                 TransferDate = item.CreatedOn??DateTime.Now
             });
@@ -218,115 +218,7 @@ public class DiaryController : ControllerBase
     
     
     
-    // [HttpPost("create")]
-    // public async Task<ResponseObject<bool>> Create(DiaryCreateRequest model)
-    // {
-    //     var Diary = await _context.Dairies.FirstOrDefaultAsync(x => x.DiaryNumber == model.DiaryNumber && x.IsActive == true);
-    //     if (Diary == null)
-    //     {
-    //         var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == model.CustomerId && x.IsActive == true);
-    //         if (customer == null)
-    //         {
-    //             customer = new Customer
-    //             {
-    //                 Address = model.CustomerAddress ?? "",
-    //                 Mobile = model.CustomerMobile,
-    //                 Name = model.CustomerName,
-    //                 BusinessName = model.CustomerBusinessName,
-    //                 FatherName = model.CustomerFatherName,
-    //                 CreatedBy = 2,
-    //                 CreatedOn = DateTime.Now,
-    //                 ModifiedBy = 2,
-    //                 ModifiedOn = DateTime.Now,
-    //                 IsActive = true,
-    //                 Phone = model.CustomerMobile
-    //             };
-    //             _context.Customers.Add(customer);
-    //             _context.SaveChangesAsync();
-    //         }
-    //         
-    //         Diary = new Diary();
-    //
-    //         Diary.Installment = model.Installment;
-    //         Diary.AgentId = model.AgentId;
-    //         Diary.DiaryNumber = model.DiaryNumber;
-    //         Diary.LoanAmount = model.LoanAmount;
-    //         Diary.CustomerId = customer.Id;
-    //         
-    //         if (Diary.AgentId > 1)
-    //         {
-    //             Diary.HasAgent = true;
-    //             Diary.Installment = 117;
-    //             Diary.RecoveryAmount = Diary.LoanAmount + (Diary.LoanAmount * 17 / 100);
-    //         }
-    //         else
-    //         {
-    //             Diary.HasAgent = true;
-    //             Diary.Installment = 120;
-    //             Diary.RecoveryAmount = Diary.LoanAmount + (Diary.LoanAmount * 20 / 100);
-    //         }
-    //
-    //         Diary.TotalBalanceAmount = Diary.RecoveryAmount;
-    //         Diary.IsActive = true;
-    //         Diary.IsCompleted = false;
-    //         Diary.CreatedBy = 2;
-    //         Diary.CreatedOn = DateTime.Now;
-    //         Diary.ModifiedBy = 2;
-    //         Diary.ModifiedOn = DateTime.Now;
-    //         var lastDiary = await _context.Dairies.OrderByDescending(x=>x.Id).FirstOrDefaultAsync();
-    //         Diary.DiaryNumber = (lastDiary==null?1:(lastDiary.DiaryNumber+1));
-    //         Diary.StartDate = model.DiaryStartDate.AddDays(1);
-    //         Diary.EndDate = model.DiaryStartDate.AddDays(model.Installment);
-    //         
-    //         _context.Dairies.Add(Diary);
-    //         await _context.SaveChangesAsync();
-    //
-    //         var _InstallmentAmount = Diary.LoanAmount / 100;
-    //         
-    //         for (int i = 0; i < model.Installment;i++ )
-    //         {
-    //             _context.DiaryInstallments.Add(new DiaryInstallment 
-    //                 {
-    //                     DiaryId = Diary.Id, 
-    //                     InstallmentAmount = _InstallmentAmount,
-    //                     BalanceAmount = _InstallmentAmount,
-    //                     InstallmentDate = Diary.StartDate.AddDays(i),
-    //                     InstallmentNumber = i+1,
-    //                     PaidAmount = 0,
-    //                     ModifiedBy = 2,
-    //                     ModifiedOn = DateTime.Now,
-    //                     Id = 0
-    //                 });
-    //         }
-    //         await _context.SaveChangesAsync();
-    //
-    //         if (model.RefDiaries != null)
-    //         {
-    //             foreach (var item in model.RefDiaries)
-    //             {
-    //                 var dr = await _context.Accounts.FirstOrDefaultAsync(p => p.Id == item.AccountId);
-    //                 
-    //                 // var dr = await _context.Dairies.FirstOrDefaultAsync(p => p.DiaryNumber == item.DiaryNumber);
-    //                 // if(dr!=null){
-    //                 //     _context.DiaryReferences.Add(new DiaryReference
-    //                 //     {
-    //                 //         Amount = item.LoanAmount,
-    //                 //         DiaryId = Diary.Id,
-    //                 //         FromDiaryId = dr.Id,
-    //                 //         CreatedBy = 2,
-    //                 //         CreatedOn = DateTime.Now,
-    //                 //         ModifiedBy = 2,
-    //                 //         ModifiedOn = DateTime.Now,
-    //                 //
-    //                 //     });
-    //                 //     await _context.SaveChangesAsync();
-    //                 // }
-    //             }
-    //         }
-    //     }
-    //     return new ResponseObject<bool>(true);
-    // }
-    //
+ 
     [HttpGet("get")]
     public async Task<ResponseObject<IEnumerable<Diary>>> GetAllDropDwon()
     {
@@ -339,28 +231,28 @@ public class DiaryController : ControllerBase
  
  
     
-    [HttpGet("customers")]
-    public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetCustomers()
-    {
-        var res = await _context.Customers.Where(f=>f.IsActive==true).Select(x=>new DropDownViewModel
-            {
-                Id = x.Id,
-                Name = $"{x.Name} S/o {x.FatherName}"
-            })
-            .ToListAsync<DropDownViewModel>(); 
-        return new ResponseObject<IEnumerable<DropDownViewModel>>(res);
-    }
-    [HttpGet("agents")]
-    public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetAgents()
-    {
-        var res = await _context.Agents.Where(f=>f.IsActive==true).Select(x=>new DropDownViewModel
-            {
-                Id = x.Id,
-                Name = $"{x.Name} [{x.Mobile}]"
-            })
-            .ToListAsync<DropDownViewModel>(); 
-        return new ResponseObject<IEnumerable<DropDownViewModel>>(res);
-    }
+    // [HttpGet("customers")]
+    // public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetCustomers()
+    // {
+    //     var res = await _context.Customers.Where(f=>f.IsActive==true).Select(x=>new DropDownViewModel
+    //         {
+    //             Id = x.Id,
+    //             Name = $"{x.Name} S/o {x.FatherName}"
+    //         })
+    //         .ToListAsync<DropDownViewModel>(); 
+    //     return new ResponseObject<IEnumerable<DropDownViewModel>>(res);
+    // }
+    // [HttpGet("agents")]
+    // public async Task<ResponseObject<IEnumerable<DropDownViewModel>>> GetAgents()
+    // {
+    //     var res = await _context.Agents.Where(f=>f.IsActive==true).Select(x=>new DropDownViewModel
+    //         {
+    //             Id = x.Id,
+    //             Name = $"{x.Name} [{x.Mobile}]"
+    //         })
+    //         .ToListAsync<DropDownViewModel>(); 
+    //     return new ResponseObject<IEnumerable<DropDownViewModel>>(res);
+    // }
     
     [HttpGet("refdiaries")]
     public async Task<ResponseObject<IEnumerable<RefDiaryViewModel>>> GetReferenceDairies()

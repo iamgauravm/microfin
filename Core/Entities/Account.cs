@@ -51,4 +51,5 @@ public class Account
     
     [ForeignKey("ModifiedBy")]
     public User? ModifyByUser { get; set; }
+    
 }

@@ -41,7 +41,7 @@ public class DiaryReffViewModel
 {
     public DateTime TransferDate { get; set; }
     public double TransferAmount { get; set; }
-    public int DiaryNumber { get; set; }
+    public string AccountName { get; set; }
     public string Invester { get; set; }
 }
 

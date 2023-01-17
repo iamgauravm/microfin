@@ -15,5 +15,5 @@ public class Contact
     public DateTime? ModifiedOn { get; set; }
     
     [ForeignKey("CustomerId")]
-    public Customer Customer { get; set; }
+    public Account Customer { get; set; }
 }

@@ -26,9 +26,6 @@ public class MicroFinDbContext: DbContext, IMicroFinDbContext
             new User {Id = 3,Name = "User",Username = "user",Password = "user",Role = "user",IsActice = true,ModifiedBy = 1, ModifiedOn = DateTime.Now}
         );
         
-        modelBuilder.Entity<Agent>().HasData(
-            new Agent {Id = 1,Name = "Manoj Vishwakarma",Address = "",Mobile = "7974165346",DefaultInstallments = 120,IsActive = true,ModifiedBy = 1, ModifiedOn = DateTime.Now}
-        );
         
         modelBuilder.Entity<InstallmentScheme>().HasData(
             new InstallmentScheme {Id = 1,Name = "Scheme-120",InstallmentCount = 120,RateInterest = 20M,IsActive = true,ModifiedBy = 1, ModifiedOn = DateTime.Now},
@@ -69,13 +66,5 @@ public class MicroFinDbContext: DbContext, IMicroFinDbContext
     public virtual DbSet<Expense> Expenses { get; set; }
    
     public virtual DbSet<InstallmentScheme> InstallmentSchemes { get; set; }
-    public virtual DbSet<DiaryPayment> DiaryPayments { get; set; }
-    public virtual DbSet<InvestorTransaction> InvestorTransactions { get; set; }
-    public virtual DbSet<FundTransaction> FundTransactions { get; set; }
-    
-    
-    
-    public virtual DbSet<Agent> Agents { get; set; }
-    public virtual DbSet<Investor> Investors { get; set; }
-    public virtual DbSet<Customer> Customers { get; set; }
+   
 }

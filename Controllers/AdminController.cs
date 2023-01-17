@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
 using MicroFIN.Core;
+using MicroFIN.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -108,34 +109,44 @@ public class AdminController : Controller
         
         
         var fromDairies = 
-            await _context.DiaryReferences
-                .Include("FromDiary")
-                .Where(x=>x.DiaryId==diary.Id)
+            await _context.Transactions
+                .Include("Investor")
+                .Where(x=>x.DiaryId==diary.AccountId && x.TransactionType==TransactionType.Transfer)
                 .ToListAsync();
         
         var toDairies = 
-            await _context.DiaryReferences
-                .Include("Diary")
-                .Where(x=>x.FromDiaryId==diary.Id)
+            await _context.Transactions
+                .Where(x=>x.FromDiaryId==diary.AccountId)
                 .ToListAsync();
-        
+        _res.FromDairies = new();
+        var accountName = "";
         foreach (var item in fromDairies)
         {
+            if (item.FromDiaryId > 0)
+            {
+                accountName = _context.Accounts.FirstOrDefault(x => x.Id == item.FromDiaryId)?.AccountName;
+            }
             _res.FromDairies.Add(new DiaryReffViewModel()
             {
                 Invester = "",
-                DiaryNumber = item.FromDiary.DiaryNumber,
-                TransferAmount = item.Amount,
+                AccountName = (item.InvestorId>0?item.Investor.AccountName:accountName),
+                TransferAmount = Math.Abs(item.Amount),
                 TransferDate = item.CreatedOn??DateTime.Now
             });
         }
-        foreach (var item in fromDairies)
+
+        _res.ToDairies = new();
+        foreach (var item in toDairies)
         {
-            _res.FromDairies.Add(new DiaryReffViewModel()
+            if (item.FromDiaryId > 0)
+            {
+                accountName = _context.Accounts.FirstOrDefault(x => x.Id == item.DiaryId)?.AccountName;
+            }
+            _res.ToDairies.Add(new DiaryReffViewModel()
             {
                 Invester = "",
-                DiaryNumber = item.Diary.DiaryNumber,
-                TransferAmount = item.Amount,
+                AccountName = accountName,
+                TransferAmount =Math.Abs(item.Amount),
                 TransferDate = item.CreatedOn??DateTime.Now
             });
         }        
@@ -155,7 +166,7 @@ public class AdminController : Controller
     {
 
         var _diariesCount = await _context.Dairies.CountAsync(x => x.IsActive == true);
-        var _customersCount = await _context.Customers.CountAsync(x => x.IsActive == true);
+        var _customersCount = await _context.Accounts.CountAsync(x => x.IsActive == true && x.AccountType==AccountType.Customer && x.IsDefault==false);
         var _totalRevenue = await _context.Dairies.Where(x => x.IsActive == true).SumAsync(f=>f.RecoveryAmount-f.TotalBalanceAmount);
         var _totalExpenses = await _context.Expenses.Where(x => x.IsActive == true).SumAsync(f=>f.Amount);
 
@@ -164,7 +175,7 @@ public class AdminController : Controller
         return new ResponseObject<DashboardCounterViewModel>(new DashboardCounterViewModel
         {
             Customers = _customersCount,
-            Dairies = _diariesCount,
+            Diaries = _diariesCount,
             RevenueTotal = Convert.ToInt32(_totalRevenue),
             ExpensesTotal = Convert.ToInt32(_totalExpenses)
         });
