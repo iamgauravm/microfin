@@ -19,6 +19,7 @@ public class DiaryResponseViewModel
     public int Installment { get; set; }
     public double TotalAmount { get; set; }
     public double TotalBalanceAmount { get; set; }
+    public double TodayBalance { get; set; }
     public bool IsCompleted { get; set; }
     public bool IsActive { get; set; }
     public List<DiaryInstallmentResponseViewModel> Installments { get; set; }

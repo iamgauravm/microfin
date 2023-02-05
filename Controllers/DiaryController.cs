@@ -81,8 +81,17 @@ public class DiaryController : ControllerBase
         _res.Installments = new List<DiaryInstallmentResponseViewModel>();
 
         double _lastDue = 0;
+        double _todayBalance = 0;
+        _res.TodayBalance = 0;
         foreach (var item in Diary.DiaryInstallments)
         {
+            _todayBalance = _todayBalance + item.BalanceAmount;
+
+            if (item.InstallmentDate.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
+            {
+                _res.TodayBalance = _todayBalance;
+            }
+
             _res.Installments.Add(new DiaryInstallmentResponseViewModel
             {
                 Id = item.Id,

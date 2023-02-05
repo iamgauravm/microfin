@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFIN", "MicroFIN.csproj", "{BAF62E07-AE83-46C5-8F16-8C038EEEE599}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFIN", "MicroFIN.csproj", "{BAF62E07-AE83-46C5-8F16-8C038EEEE599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicoFIN.DataExtractor", "..\MicoFIN.DataExtractor\MicoFIN.DataExtractor.csproj", "{D5603700-0D0D-42B2-90EA-3395C667DCFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,15 @@ Global
 		{BAF62E07-AE83-46C5-8F16-8C038EEEE599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAF62E07-AE83-46C5-8F16-8C038EEEE599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAF62E07-AE83-46C5-8F16-8C038EEEE599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5603700-0D0D-42B2-90EA-3395C667DCFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5603700-0D0D-42B2-90EA-3395C667DCFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5603700-0D0D-42B2-90EA-3395C667DCFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5603700-0D0D-42B2-90EA-3395C667DCFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99F94BE8-C04B-42A2-8800-64E53654C6F4}
 	EndGlobalSection
 EndGlobal

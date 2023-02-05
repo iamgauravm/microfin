@@ -91,8 +91,17 @@ public class AdminController : Controller
         _res.Installments = new List<DiaryInstallmentResponseViewModel>();
 
         double _lastDue = 0;
+        double _todayBalance = 0;
+        _res.TodayBalance = 0;
         foreach (var item in diary.DiaryInstallments)
         {
+            _todayBalance = _todayBalance + item.BalanceAmount;
+
+            if (DateTime.Parse(item.InstallmentDate.ToString("yyyy-MM-dd")) <= DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
+            {
+                _res.TodayBalance = _todayBalance;
+            }
+            
             _res.Installments.Add(new DiaryInstallmentResponseViewModel
             {
                 Id = item.Id,
