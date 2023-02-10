@@ -315,7 +315,7 @@ public class AccountsController : ControllerBase
                 diary = new Diary();
                 diary.Id = 0;
                 diary.Installment = scheme.InstallmentCount;
-                diary.AccountId = 0; // new diary account id
+                // diary.AccountId = 0; // new diary account id
                 diary.AgentId = model.AgentId;
                 diary.CustomerId = customer.Id;
                 diary.DiaryNumber = model.DiaryNumber;

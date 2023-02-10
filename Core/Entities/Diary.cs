@@ -26,7 +26,7 @@ public class Diary
     public bool IsCompleted { get; set; }
     public bool IsActive { get; set; }
 
-    public int AccountId { get; set; }
+    public int? AccountId { get; set; }
     
     public int? CreatedBy { get; set; }
     public DateTime? CreatedOn { get; set; }
@@ -43,7 +43,7 @@ public class Diary
     
     [ForeignKey("InstallmentSchemeId")]
     public InstallmentScheme? InstallmentScheme { get; set; }
-    public virtual ICollection<DiaryInstallment> DiaryInstallments { get; set; }
+    public virtual ICollection<DiaryInstallment>? DiaryInstallments { get; set; }
     
     
     

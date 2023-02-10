@@ -316,7 +316,7 @@ onClickShowDiaryPayment =(num)=>{
     });
     detailDiaryPaymentModel.show();
 }
-onClickDiaryPaymentSave = () =>{
+onClickDiaryPaymentSave = (DiaryNumber) =>{
     
     var paylod = {
         diaryId: parseInt($('#txtDiaryPayment_DiaryId').val()),
@@ -337,7 +337,7 @@ onClickDiaryPaymentSave = () =>{
             if(res.success)
             {
                 swal({title: "Installment paid succesfully.",icon: "success",});
-                bindDiaryByNumber(DiaryNumber);
+                bindDiaryDetail(DiaryNumber);
             }
         }
     });

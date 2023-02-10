@@ -43,13 +43,4 @@ public class Account
     public DateTime? CreatedOn { get; set; }
     public int? ModifiedBy { get; set; }
     public DateTime? ModifiedOn { get; set; }
-    
-    
-    
-    [ForeignKey("CreatedBy")]
-    public User? CreateByUser { get; set; }
-    
-    [ForeignKey("ModifiedBy")]
-    public User? ModifyByUser { get; set; }
-    
 }

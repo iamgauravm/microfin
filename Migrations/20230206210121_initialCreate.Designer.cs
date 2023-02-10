@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroFIN.Migrations
 {
     [DbContext(typeof(MicroFinDbContext))]
-    [Migration("20230117150321_initialCreate")]
+    [Migration("20230206210121_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -100,10 +100,6 @@ namespace MicroFIN.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
                     b.ToTable("Accounts");
 
                     b.HasData(
@@ -117,7 +113,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3840),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2747),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -125,7 +121,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3841),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2749),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -142,7 +138,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3844),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2752),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -150,7 +146,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3845),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2753),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -167,7 +163,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3847),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2755),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -175,7 +171,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3847),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2755),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -192,7 +188,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3850),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2758),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -200,7 +196,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3851),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2758),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -217,7 +213,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3852),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2761),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -225,7 +221,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3853),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2762),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -242,7 +238,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3854),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2766),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -250,7 +246,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3855),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2767),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -267,7 +263,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3857),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2768),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -275,7 +271,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "7974165346",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3858),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2769),
                             ParentAccountId = 2,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -292,7 +288,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3859),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2772),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -300,7 +296,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "7974165346",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3860),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2772),
                             ParentAccountId = 4,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -317,7 +313,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3897),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2774),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -325,7 +321,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3897),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2775),
                             ParentAccountId = 5,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -342,7 +338,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3899),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2776),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -350,7 +346,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3900),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2777),
                             ParentAccountId = 5,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -367,7 +363,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3902),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2779),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -375,61 +371,12 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3902),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2779),
                             ParentAccountId = 5,
                             Remarks = "",
                             TotalFunding = 0.0,
                             TotalRecovery = 0.0,
                             TotalWithdrawal = 0.0
-                        });
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.Agent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DefaultInstallments")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Agents");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "",
-                            DefaultInstallments = 120,
-                            IsActive = true,
-                            Mobile = "7974165346",
-                            ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3795),
-                            Name = "Manoj Vishwakarma"
                         });
                 });
 
@@ -475,64 +422,6 @@ namespace MicroFIN.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("MicroFIN.Core.Entities.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BusinessName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CreditScore")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FatherName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("MicroFIN.Core.Entities.Diary", b =>
                 {
                     b.Property<int>("Id")
@@ -541,13 +430,10 @@ namespace MicroFIN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<int?>("AgentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AgentId1")
                         .HasColumnType("int");
 
                     b.Property<int?>("CreatedBy")
@@ -572,9 +458,6 @@ namespace MicroFIN.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("InstallmentSchemeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InvestorId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -606,15 +489,13 @@ namespace MicroFIN.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgentId");
+                    b.HasIndex("AccountId");
 
-                    b.HasIndex("AgentId1");
+                    b.HasIndex("AgentId");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("InstallmentSchemeId");
-
-                    b.HasIndex("InvestorId");
 
                     b.ToTable("Dairies");
                 });
@@ -656,52 +537,6 @@ namespace MicroFIN.Migrations
                     b.HasIndex("DiaryId");
 
                     b.ToTable("DiaryInstallments");
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.DiaryPayment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DiaryId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("LateFee")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentMode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DiaryId");
-
-                    b.ToTable("DiaryPayments");
                 });
 
             modelBuilder.Entity("MicroFIN.Core.Entities.DiaryReference", b =>
@@ -784,67 +619,6 @@ namespace MicroFIN.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("MicroFIN.Core.Entities.FundTransaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DiaryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FromDiaryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InvestorId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("LateFee")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentMode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("TransDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("TransType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DiaryId");
-
-                    b.HasIndex("FromDiaryId");
-
-                    b.HasIndex("InvestorId");
-
-                    b.ToTable("FundTransactions");
-                });
-
             modelBuilder.Entity("MicroFIN.Core.Entities.InstallmentScheme", b =>
                 {
                     b.Property<int>("Id")
@@ -883,7 +657,7 @@ namespace MicroFIN.Migrations
                             InstallmentCount = 120,
                             IsActive = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3817),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2721),
                             Name = "Scheme-120",
                             RateInterest = 20m
                         },
@@ -893,7 +667,7 @@ namespace MicroFIN.Migrations
                             InstallmentCount = 117,
                             IsActive = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3819),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2723),
                             Name = "Scheme-117",
                             RateInterest = 20m
                         },
@@ -903,94 +677,10 @@ namespace MicroFIN.Migrations
                             InstallmentCount = 100,
                             IsActive = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3822),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2728),
                             Name = "Scheme-100",
                             RateInterest = 11.1111m
                         });
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.Investor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("AvailableFunds")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("TotalFunding")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalRecovery")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalWithdrawal")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Investors");
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.InvestorTransaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("DairyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InvestorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("TransDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("TransType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InvestorTransactions");
                 });
 
             modelBuilder.Entity("MicroFIN.Core.Entities.Transaction", b =>
@@ -1106,7 +796,7 @@ namespace MicroFIN.Migrations
                             Id = 1,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3645),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2571),
                             Name = "System Admin",
                             Password = "sysadmin",
                             Role = "sysadmin",
@@ -1117,7 +807,7 @@ namespace MicroFIN.Migrations
                             Id = 2,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3659),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2585),
                             Name = "Admin",
                             Password = "admin",
                             Role = "admin",
@@ -1128,7 +818,7 @@ namespace MicroFIN.Migrations
                             Id = 3,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 17, 20, 33, 21, 611, DateTimeKind.Local).AddTicks(3662),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2586),
                             Name = "User",
                             Password = "user",
                             Role = "user",
@@ -1136,25 +826,10 @@ namespace MicroFIN.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MicroFIN.Core.Entities.Account", b =>
-                {
-                    b.HasOne("MicroFIN.Core.Entities.User", "CreateByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("MicroFIN.Core.Entities.User", "ModifyByUser")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-
-                    b.Navigation("CreateByUser");
-
-                    b.Navigation("ModifyByUser");
-                });
-
             modelBuilder.Entity("MicroFIN.Core.Entities.Contact", b =>
                 {
-                    b.HasOne("MicroFIN.Core.Entities.Customer", "Customer")
-                        .WithMany("Contacts")
+                    b.HasOne("MicroFIN.Core.Entities.Account", "Customer")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1162,30 +837,15 @@ namespace MicroFIN.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("MicroFIN.Core.Entities.Customer", b =>
-                {
-                    b.HasOne("MicroFIN.Core.Entities.User", "CreateByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("MicroFIN.Core.Entities.User", "ModifyByUser")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-
-                    b.Navigation("CreateByUser");
-
-                    b.Navigation("ModifyByUser");
-                });
-
             modelBuilder.Entity("MicroFIN.Core.Entities.Diary", b =>
                 {
+                    b.HasOne("MicroFIN.Core.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("MicroFIN.Core.Entities.Account", "Agent")
                         .WithMany()
                         .HasForeignKey("AgentId");
-
-                    b.HasOne("MicroFIN.Core.Entities.Agent", null)
-                        .WithMany("Dairies")
-                        .HasForeignKey("AgentId1");
 
                     b.HasOne("MicroFIN.Core.Entities.Account", "Customer")
                         .WithMany()
@@ -1199,9 +859,7 @@ namespace MicroFIN.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MicroFIN.Core.Entities.Investor", null)
-                        .WithMany("Dairies")
-                        .HasForeignKey("InvestorId");
+                    b.Navigation("Account");
 
                     b.Navigation("Agent");
 
@@ -1217,17 +875,6 @@ namespace MicroFIN.Migrations
                         .HasForeignKey("DiaryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.DiaryPayment", b =>
-                {
-                    b.HasOne("MicroFIN.Core.Entities.Diary", "Diary")
-                        .WithMany("DiaryPayments")
-                        .HasForeignKey("DiaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Diary");
                 });
 
             modelBuilder.Entity("MicroFIN.Core.Entities.DiaryReference", b =>
@@ -1247,29 +894,6 @@ namespace MicroFIN.Migrations
                     b.Navigation("Diary");
 
                     b.Navigation("FromDiary");
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.FundTransaction", b =>
-                {
-                    b.HasOne("MicroFIN.Core.Entities.Diary", "Diary")
-                        .WithMany()
-                        .HasForeignKey("DiaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MicroFIN.Core.Entities.Diary", "FromDiary")
-                        .WithMany()
-                        .HasForeignKey("FromDiaryId");
-
-                    b.HasOne("MicroFIN.Core.Entities.Investor", "Investor")
-                        .WithMany()
-                        .HasForeignKey("InvestorId");
-
-                    b.Navigation("Diary");
-
-                    b.Navigation("FromDiary");
-
-                    b.Navigation("Investor");
                 });
 
             modelBuilder.Entity("MicroFIN.Core.Entities.Transaction", b =>
@@ -1293,26 +917,9 @@ namespace MicroFIN.Migrations
                     b.Navigation("Investor");
                 });
 
-            modelBuilder.Entity("MicroFIN.Core.Entities.Agent", b =>
-                {
-                    b.Navigation("Dairies");
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.Customer", b =>
-                {
-                    b.Navigation("Contacts");
-                });
-
             modelBuilder.Entity("MicroFIN.Core.Entities.Diary", b =>
                 {
                     b.Navigation("DiaryInstallments");
-
-                    b.Navigation("DiaryPayments");
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.Investor", b =>
-                {
-                    b.Navigation("Dairies");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ReportCustomerViewModel>
+@{
+    ViewData["Title"] = "Customers";
+    int i = 1;
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body pt-4">
+                <table class="table table-bordered table-striped " style="width:100%" id="tblstCustomers">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer</th>
+                            <th>Diary#</th>
+                            <th>Loan Amount</th>
+                            <th>Recovery Amount</th>
+                            <th>Paid</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>@(i++)</th>
+                                <th>@($"{item.CustomerName} S/o {item.FatherName}")</th>
+                                <th>@item.DiaryNumber</th>
+                                <th>@item.LoanAmount</th>
+                                <th>@item.RecoveryAmount</th>
+                                <th>@item.PaidAmount</th>
+                                <th>@item.BalanceAmount</th>
+                            </tr>                            
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

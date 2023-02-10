@@ -97,10 +97,6 @@ namespace MicroFIN.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
                     b.ToTable("Accounts");
 
                     b.HasData(
@@ -114,7 +110,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7560),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2747),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -122,7 +118,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7563),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2749),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -139,7 +135,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7566),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2752),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -147,7 +143,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7567),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2753),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -164,7 +160,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7569),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2755),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -172,7 +168,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7570),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2755),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -189,7 +185,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7572),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2758),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -197,7 +193,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7572),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2758),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -214,7 +210,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7574),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2761),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -222,7 +218,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7575),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2762),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -239,7 +235,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7576),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2766),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -247,7 +243,7 @@ namespace MicroFIN.Migrations
                             IsDefault = true,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7577),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2767),
                             ParentAccountId = 0,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -264,7 +260,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7615),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2768),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -272,7 +268,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "7974165346",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7616),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2769),
                             ParentAccountId = 2,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -289,7 +285,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7618),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2772),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -297,7 +293,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "7974165346",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7619),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2772),
                             ParentAccountId = 4,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -314,7 +310,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7621),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2774),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -322,7 +318,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7621),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2775),
                             ParentAccountId = 5,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -339,7 +335,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7623),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2776),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -347,7 +343,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7624),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2777),
                             ParentAccountId = 5,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -364,7 +360,7 @@ namespace MicroFIN.Migrations
                             AvailableFunds = 0.0,
                             BusinessName = "",
                             CreatedBy = 1,
-                            CreatedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7625),
+                            CreatedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2779),
                             CreditScore = 0,
                             FatherName = "",
                             IsActive = true,
@@ -372,7 +368,7 @@ namespace MicroFIN.Migrations
                             IsDefault = false,
                             Mobile = "",
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7626),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2779),
                             ParentAccountId = 5,
                             Remarks = "",
                             TotalFunding = 0.0,
@@ -431,7 +427,7 @@ namespace MicroFIN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<int?>("AgentId")
@@ -658,7 +654,7 @@ namespace MicroFIN.Migrations
                             InstallmentCount = 120,
                             IsActive = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7536),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2721),
                             Name = "Scheme-120",
                             RateInterest = 20m
                         },
@@ -668,7 +664,7 @@ namespace MicroFIN.Migrations
                             InstallmentCount = 117,
                             IsActive = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7539),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2723),
                             Name = "Scheme-117",
                             RateInterest = 20m
                         },
@@ -678,7 +674,7 @@ namespace MicroFIN.Migrations
                             InstallmentCount = 100,
                             IsActive = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7542),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2728),
                             Name = "Scheme-100",
                             RateInterest = 11.1111m
                         });
@@ -797,7 +793,7 @@ namespace MicroFIN.Migrations
                             Id = 1,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7349),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2571),
                             Name = "System Admin",
                             Password = "sysadmin",
                             Role = "sysadmin",
@@ -808,7 +804,7 @@ namespace MicroFIN.Migrations
                             Id = 2,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7362),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2585),
                             Name = "Admin",
                             Password = "admin",
                             Role = "admin",
@@ -819,27 +815,12 @@ namespace MicroFIN.Migrations
                             Id = 3,
                             IsActice = true,
                             ModifiedBy = 1,
-                            ModifiedOn = new DateTime(2023, 1, 18, 1, 53, 14, 67, DateTimeKind.Local).AddTicks(7364),
+                            ModifiedOn = new DateTime(2023, 2, 7, 2, 31, 21, 178, DateTimeKind.Local).AddTicks(2586),
                             Name = "User",
                             Password = "user",
                             Role = "user",
                             Username = "user"
                         });
-                });
-
-            modelBuilder.Entity("MicroFIN.Core.Entities.Account", b =>
-                {
-                    b.HasOne("MicroFIN.Core.Entities.User", "CreateByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("MicroFIN.Core.Entities.User", "ModifyByUser")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-
-                    b.Navigation("CreateByUser");
-
-                    b.Navigation("ModifyByUser");
                 });
 
             modelBuilder.Entity("MicroFIN.Core.Entities.Contact", b =>
@@ -857,9 +838,7 @@ namespace MicroFIN.Migrations
                 {
                     b.HasOne("MicroFIN.Core.Entities.Account", "Account")
                         .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AccountId");
 
                     b.HasOne("MicroFIN.Core.Entities.Account", "Agent")
                         .WithMany()
