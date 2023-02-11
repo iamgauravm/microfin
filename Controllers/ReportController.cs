@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
 using MicroFIN.Core;
+using MicroFIN.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -14,11 +15,13 @@ public class ReportController : Controller
 {
     private readonly ILogger<ReportController> _logger;
     private readonly IMicroFinDbContext _context;
+    private readonly IReportRepo reportRepo;
 
-    public ReportController(ILogger<ReportController> logger, IMicroFinDbContext context)
+    public ReportController(ILogger<ReportController> logger, IMicroFinDbContext context, IReportRepo reportRepo)
     {
         _logger = logger;
         _context = context;
+        this.reportRepo = reportRepo;
     }
 
     [Authorize(Roles = "sysadmin,admin, user")]
@@ -76,6 +79,13 @@ public class ReportController : Controller
 
 
         return PartialView("_CustomersPartial", _lstrepData);
+    }
+    
+    [HttpGet("/report/ledgers")]
+    public async Task<IActionResult> GetLedgersWithFilter()
+    {
+        var _lst = await reportRepo.GetAllLedgers();
+        return PartialView("_LedgerReportPartial",_lst);
     }
 
 }

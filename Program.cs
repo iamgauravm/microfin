@@ -1,4 +1,5 @@
 using MicroFIN.Core;
+using MicroFIN.Core.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,10 @@ builder.Services.AddDbContext<MicroFinDbContext>(options =>
         b => b.MigrationsAssembly(typeof(MicroFinDbContext).Assembly.FullName)));
 builder.Services.AddScoped<IMicroFinDbContext>(provider => provider.GetRequiredService<MicroFinDbContext>());
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+builder.Services.AddScoped<IReportRepo, ReportRepo>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

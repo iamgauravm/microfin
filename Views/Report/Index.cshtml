@@ -25,7 +25,8 @@
 <div class="container-fluid bg-p border-1 border-primary rounded py-2" id="divReportMenu">
     <ul class="list-unstyled list">
         <li><a href="javascript:void(0);" onclick="showReport('Customer')"><i class="bi bi-file-earmark-text"></i>&nbsp;Customers</a></li>
-        <li><a href="javascript:void(0);" onclick="showReport('IncomeExpenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Income/Expenses</a></li>
+         <li><a href="javascript:void(0);" onclick="showReport('Ledgers')"><i class="bi bi-file-earmark-text"></i>&nbsp;Ledgers</a></li>
+        @* <li><a href="javascript:void(0);" onclick="showReport('IncomeExpenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Income/Expenses</a></li> *@
         @* <li><a href="javascript:void(0);" onclick="showReport('BalanceSheet')"><i class="bi bi-file-earmark-text"></i>&nbsp;Balance Sheet</a></li> *@
         <li><a href="javascript:void(0);" onclick="showReport('Expenses')"><i class="bi bi-file-earmark-text"></i>&nbsp;Expenses</a></li>
         <li><a href="javascript:void(0);" onclick="showReport('DairiesDue')"><i class="bi bi-file-earmark-text"></i>&nbsp;Due Dairies</a></li>
@@ -183,6 +184,11 @@
                     $('#itmMenuTitle').html('Reports / Customers');
                     // alert('IncomeExpenses');
                     break;
+                case 'Ledgers':
+                    loadReportLedgers();
+                    $('#itmMenuTitle').html('Reports / Ledgers');
+                    // alert('IncomeExpenses');
+                    break;
                 case 'IncomeExpenses':
                     loadReportIncomeExpenses();
                     // alert('IncomeExpenses');
@@ -210,6 +216,33 @@
         {    
             $('#DivIdToPrint').printThis();    
         }
+        
+        loadReportLedgers = () => {
+             $.ajax({
+                 type: 'GET',
+                 url: "/report/ledgers",
+                 success: function (res) {
+                     //console.log(res);
+                     $('#divReportData').html(res);
+                     $('#tblstCustomers').dataTable({
+                         "columns": [
+                             { searchable: false, render: function (data, type, row) { return data; }, defaultContent: "-", targets: 0 },
+                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 1 },
+                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 2 },
+                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 3 },
+                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 4 },
+                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 5 },
+                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 6 },
+                         ],
+                         lengthChange: false,
+                         responsive: true,
+                         info: false,
+                         paging: false,
+                         buttons: [{ extend: 'pdf', split: ['excel'], }]
+                     });                   
+                 }
+             });
+         }
 
         loadReportCustomers = () => {
             $.ajax({
@@ -218,15 +251,13 @@
                 success: function (res) {
                     //console.log(res);
                     $('#divReportData').html(res);
-                    $('#tblstCustomers').dataTable({
+                    $('#tblstLedgers').dataTable({
                         "columns": [
-                            { searchable: false, render: function (data, type, row) { return data; }, defaultContent: "-", targets: 0 },
+                            { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 0 },
                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 1 },
                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 2 },
                             { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 3 },
-                            { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 4 },
-                            { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 5 },
-                            { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 6 },
+                            { render: function (data, type, row) { return data; }, defaultContent: "-", targets: 4 }
                         ],
                         lengthChange: false,
                         responsive: true,

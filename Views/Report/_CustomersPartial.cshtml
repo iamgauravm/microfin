@@ -15,23 +15,23 @@
                             <th>#</th>
                             <th>Customer</th>
                             <th>Diary#</th>
-                            <th>Loan Amount</th>
-                            <th>Recovery Amount</th>
-                            <th>Paid</th>
-                            <th>Balance</th>
+                            <th class="text-end">Loan Amount</th>
+                            <th class="text-end">Recovery Amount</th>
+                            <th class="text-end">Paid</th>
+                            <th class="text-end">Balance</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <th>@(i++)</th>
-                                <th>@($"{item.CustomerName} S/o {item.FatherName}")</th>
-                                <th>@item.DiaryNumber</th>
-                                <th>@item.LoanAmount</th>
-                                <th>@item.RecoveryAmount</th>
-                                <th>@item.PaidAmount</th>
-                                <th>@item.BalanceAmount</th>
+                                <td>@(i++)</td>
+                                <td>@($"{item.CustomerName} S/o {item.FatherName}")</td>
+                                <td>@item.DiaryNumber</td>
+                                <td class="text-end">@item.LoanAmount</td>
+                                <td class="text-end">@item.RecoveryAmount</td>
+                                <td class="text-end">@item.PaidAmount</td>
+                                <td class="text-end">@item.BalanceAmount</td>
                             </tr>                            
                         }
                     </tbody>

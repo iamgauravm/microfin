@@ -7,6 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Views\Report\_CustomersPartial.cshtml~RF1d8e121.TMP" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.123" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
         <PrivateAssets>all</PrivateAssets>
@@ -70,10 +75,6 @@
       <_ContentIncludedByDefault Remove="wwwroot\vendor\php-email-form\validate.js" />
       <_ContentIncludedByDefault Remove="wwwroot\vendor\simple-datatables\simple-datatables.js" />
       <_ContentIncludedByDefault Remove="wwwroot\vendor\simple-datatables\style.css" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Core\Services" />
     </ItemGroup>
 
 </Project>
