@@ -215,13 +215,14 @@
                                {render: function (data, type, row) { return '₹ '+formatCurrencyN(row.loanAmount);},defaultContent: "-",targets: 5,className: "text-end"},
                                {render: function (data, type, row) { return '₹ '+formatCurrencyN(row.recoveryAmount);},defaultContent: "-",targets: 6,className: "text-end"},
                                {render: function (data, type, row) { return '₹ '+formatCurrencyN(row.totalBalanceAmount);},defaultContent: "-",targets: 7,className: "text-end"},
-                               {render: function (data, type, row) { return row.isCompleted==true?'Completed':'Not Completed';},defaultContent: "-",targets: 8,className: "text-center"},
+                               {render: function (data, type, row) {return '<span class="badge '+(row.isCompleted==true?'bg-success':'bg-warning text-dark')+'">'+(row.isCompleted==true?'Completed':'Not Completed')+'</span>';},defaultContent: "-",targets: 8,className: "text-center"},
                                {render: function (data, type, row) { return (moment(row.startDate)>moment()?'<a href="javascript:void(0);" class="text-danger" onclick="deleteDiary('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 9},
                                // {render: function (data, type, row) { return (moment(row.startDate)<moment()?'<a href="javascript:void(0);" class="text-danger" onclick="deleteCustomer('+row.id+')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>':'')},defaultContent: "-",targets: 6},
                            ],
                            responsive: true,
                            lengthChange: false,
                            pageLength: 25,
+                           order: [[0, 'desc']],
                            buttons: [ { extend: 'pdf',split: ['excel'],}]
                        });
                    table.buttons().container().appendTo('#tblstDairies_wrapper .col-md-6:eq(0)' );

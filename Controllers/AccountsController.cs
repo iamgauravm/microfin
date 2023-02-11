@@ -564,6 +564,16 @@ public class AccountsController : ControllerBase
         {
             
             var account = await _context.Accounts.FirstOrDefaultAsync(x => x.Id == diary.AccountId && x.IsActive == true);
+
+            var _closedDiary = false;
+            if (model.ClosedDiary)
+            {
+                if ((diary.LoanAmount - diary.TotalPaidAmount)<=model.PaymentAmount)
+                {
+                    _closedDiary = true;
+                }
+            }
+            
             var trans = new Transaction
             {
                 Amount = model.PaymentAmount,
@@ -581,14 +591,26 @@ public class AccountsController : ControllerBase
                 CreatedOn = DateTime.Now,
                 ModifiedBy = 2,
                 ModifiedOn = DateTime.Now,
-                IsCompleted = false
+                IsCompleted = _closedDiary
             };
             _context.Transactions.Add(trans);
 
             account.AvailableFunds = account.AvailableFunds + model.PaymentAmount;
-
             diary.TotalPaidAmount = diary.TotalPaidAmount + model.PaymentAmount;
             diary.TotalBalanceAmount = diary.TotalBalanceAmount - model.PaymentAmount;
+
+
+            if (_closedDiary)
+            {
+                var _rAmount = diary.RecoveryAmount;
+                account.TotalRecovery = account.TotalRecovery - _rAmount;
+                diary.RecoveryAmount = diary.TotalPaidAmount;
+                diary.TotalBalanceAmount = 0;
+                account.TotalRecovery = account.TotalRecovery + diary.RecoveryAmount;
+                diary.IsCompleted = true;
+            }
+            
+            
             await _context.SaveChangesAsync();
             
             var _amount = model.PaymentAmount;
@@ -609,6 +631,9 @@ public class AccountsController : ControllerBase
                         item.BalanceAmount = Double.Abs(_amount);
                         _amount = 0;
                     }
+
+                    if (_closedDiary)
+                        item.BalanceAmount = 0;
                 }
             }
             await _context.SaveChangesAsync();
@@ -663,7 +688,43 @@ public class AccountsController : ControllerBase
         
         return new ResponseObject<bool>(true);
     }
-    
+    [HttpPost("/investor/withdrawalfund")]
+    public async Task<ResponseObject<bool>> WithdrawalFundByInvestor(InvestorAddFundRequest request)
+    {
+        var investor = await _context.Accounts
+            .FirstOrDefaultAsync(x=>
+                x.AccountType== AccountType.Investor
+                && x.Id==request.AccountId);
+
+        if (investor != null)
+        {
+            var trans = new Transaction
+            {
+                Amount = request.Amount,
+                Description = "Withdrawal Fund by Investor",
+                Id = 0,
+                Total =  -request.Amount,
+                InvestorId = request.AccountId,
+                LateFee = 0,
+                TransactionType = TransactionType.WithdrawalFund,
+                TransDate = request.TransDate,
+                PaymentMode = request.Mode,
+                TransactionTypeText = TransactionType.WithdrawalFund.ToString(),
+                CreatedBy = 2,
+                CreatedOn = DateTime.Now,
+                ModifiedBy = 2,
+                ModifiedOn = DateTime.Now,
+                IsCompleted = false
+            };
+            _context.Transactions.Add(trans);
+
+            investor.TotalWithdrawal = investor.TotalWithdrawal + request.Amount;
+            await _context.SaveChangesAsync();
+        }
+        
+        return new ResponseObject<bool>(true);
+    }
+
 
     #endregion
     

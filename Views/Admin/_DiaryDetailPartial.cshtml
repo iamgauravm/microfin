@@ -9,7 +9,7 @@
             <div class="col-6">
                 <h1># @Model.DiaryNumber</h1>
             </div>
-            <div class="col-6 text-end">
+            <div class="col-6 text-end" style="display: @(!Model.IsCompleted?"block":"none")" >
                  Today's Balance: <strong> ₹ @Model.TodayBalance.ToString("#,##0")</strong>
                 <input class="btn btn-sm btn-primary" type="button" value="Payment" onclick="onClickShowDiaryPayment(@Model.DiaryNumber)"/>
             </div>

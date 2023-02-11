@@ -22,4 +22,6 @@ public enum TransactionType
     Transfer = 3,
     [Display(Description = "Dairy Payment")]
     DairyPayment = 4,
+    [Display(Description = "Withdrawal Fund")]
+    WithdrawalFund = 5,
 }

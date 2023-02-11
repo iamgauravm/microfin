@@ -30,6 +30,7 @@ public class DiaryController : ControllerBase
             .Where(x=>x.IsActive==true)
             .Include("Customer")
             // .Include("DiaryInstallments")
+            
             .ToListAsync(); 
         return new ResponseObject<IEnumerable<Diary>>(res);
     }
