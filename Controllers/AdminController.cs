@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using MicroFIN.Core;
 using MicroFIN.Core.Contracts;
+using MicroFIN.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using MicroFIN.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -16,11 +17,14 @@ public class AdminController : Controller
 {
     private readonly ILogger<AdminController> _logger;
     private readonly IMicroFinDbContext _context;
+    private readonly IReportRepo _repoReport;
+    
 
-    public AdminController(ILogger<AdminController> logger,IMicroFinDbContext context)
+    public AdminController(ILogger<AdminController> logger,IMicroFinDbContext context, IReportRepo repoReport)
     {
         _logger = logger;
         _context = context;
+        _repoReport = repoReport;
     }
 
    
@@ -179,14 +183,17 @@ public class AdminController : Controller
         var _totalRevenue = await _context.Dairies.Where(x => x.IsActive == true).SumAsync(f=>f.RecoveryAmount-f.TotalBalanceAmount);
         var _totalExpenses = await _context.Expenses.Where(x => x.IsActive == true).SumAsync(f=>f.Amount);
 
-
+        var ct = await _repoReport.GetAllLedgerCounter();
 
         return new ResponseObject<DashboardCounterViewModel>(new DashboardCounterViewModel
         {
             Customers = _customersCount,
             Diaries = _diariesCount,
             RevenueTotal = Convert.ToInt32(_totalRevenue),
-            ExpensesTotal = Convert.ToInt32(_totalExpenses)
+            ExpensesTotal = Convert.ToInt32(_totalExpenses),
+            TotalCredit = ct.TotalCredit,
+            TotalDebit = ct.TotalDebit,
+            TotalBalance = ct.TotalBalance
         });
     }
     

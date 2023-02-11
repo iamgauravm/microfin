@@ -34,8 +34,6 @@
 
                     </div>
                 </div>
-
-
                 <div class="col-xxl-3 col-xl-6">
                     <div class="card info-card customers-card">
                         <div class="card-body">
@@ -57,7 +55,6 @@
                     </div>
 
                 </div>
-
                 <div class="col-xxl-3 col-md-6">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
@@ -96,6 +93,81 @@
                     </div>
 
                 </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Current Credit</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-book"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="CounterCurrentCredit">0</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-6">
+                    <div class="card info-card customers-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Current Debit</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="CounterCurrentDebit">0</h6>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xxl-3 col-md-6">
+                    <div class="card info-card revenue-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Balance</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-currency-rupee"></i>
+                                </div>
+                                <div class="ps-1 text-center w-100">
+                                    <h6 id="CounterCurrentBalance">0</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @* <div class="col-xxl-3 col-xl-6"> *@
+                @* *@
+                @*     <div class="card info-card customers-card"> *@
+                @*         <div class="card-body"> *@
+                @*             <h5 class="card-title">Expenses</h5> *@
+                @*             $1$ <h5 class="card-title">Customers <span>| This Year</span></h5> #1# *@
+                @* *@
+                @*             <div class="d-flex align-items-center"> *@
+                @*                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> *@
+                @*                     <i class="bi bi-people"></i> *@
+                @*                 </div> *@
+                @*                 <div class="ps-1 text-center w-100"> *@
+                @*                     <h6 id="expensesCounter">0</h6> *@
+                @*                     $1$ <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> #1# *@
+                @* *@
+                @*                 </div> *@
+                @*             </div> *@
+                @* *@
+                @*         </div> *@
+                @*     </div> *@
+                @* *@
+                @* </div> *@
             </div>
         </div>
 
@@ -279,6 +351,12 @@
                     $('#customerCounter').text(res.data.customers)
                     $('#revenueCounter').text(res.data.revenueTotal)
                     $('#expensesCounter').text(res.data.expensesTotal)
+                    
+                    $('#CounterCurrentCredit').text('₹ '+formatCurrencyN(res.data.totalCredit))
+                    $('#CounterCurrentDebit').text('₹ '+formatCurrencyN(res.data.totalDebit))
+                    $('#CounterCurrentBalance').text('₹ '+formatCurrencyN(res.data.totalBalance))
+                    
+                    
                 }
             }
             });
